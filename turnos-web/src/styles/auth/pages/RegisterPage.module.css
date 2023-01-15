@@ -92,6 +92,7 @@
     font-size: 3em;
     color: rgb(244, 233, 233);
     text-shadow: 0 0 1rem rgba(0,0,0,0.321);
+    text-align: center;
 }
 
 .rightText {

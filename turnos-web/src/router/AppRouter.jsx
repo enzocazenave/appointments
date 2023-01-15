@@ -3,7 +3,7 @@ import { AuthRoutes } from '../auth/routes/AuthRoutes';
 import { AppointmentsRoutes } from '../appointments/routes/AppointmentsRoutes';
 
 export const AppRouter = () => {
-    const status = 'not-authenticated';
+    const status = 'authenticated';
 
     return (
         <Routes>

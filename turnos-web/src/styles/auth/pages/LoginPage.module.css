@@ -37,6 +37,7 @@
 .leftCenterTitle {
     font-size: 4em;
     font-weight: 600;
+    text-align: center
 }
 
 .leftCenterForm {
@@ -93,6 +94,7 @@
     font-size: 3em;
     color: rgb(244, 233, 233);
     text-shadow: 0 0 1rem rgba(0,0,0,0.321);
+    text-align: center
 }
 
 .rightText {

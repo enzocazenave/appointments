@@ -3,6 +3,7 @@ import styles from '../../styles/auth/pages/RegisterPage.module.css';
 import { Calendar } from '../svg/Calendar';
 import { motion } from 'framer-motion';
 import { ErrorBox, Loader } from '../components/';
+import { useForm } from '../../hooks';
 
 const animations = {
     initial: { opacity: 0 },
@@ -10,9 +11,20 @@ const animations = {
     exit: { opacity: 0 },
 }
 
+const initialForm = {
+    name: '',
+    surname: '',
+    dni: '',
+    email: '',
+    password: ''
+}
+
 export const RegisterPage = () => {
+
+    const { name, surname, dni, email, password, onInputChange } = useForm(initialForm);
+
     const error = ''; // al rellenar esta variable se muestra el error en pantalla
-    const isLoading = false;
+    const isLoading = false; // al estar en true se muestra el spinner
 
     const handleSubmit = () => {
 
@@ -51,30 +63,40 @@ export const RegisterPage = () => {
                             type="text"
                             name="name"
                             placeholder="Nombre"
+                            value={ name }
+                            onChange={ onInputChange }
                         />
                         <input
                             className={ styles.leftCenterFormInput }
                             type="text"
                             name="surname"
                             placeholder="Apellido"
+                            value={ surname }
+                            onChange={ onInputChange }
                         />
                          <input
                             className={ styles.leftCenterFormInput }
                             type="number"
                             name="dni"
                             placeholder="Documento nacional de identidad (DNI)"
+                            value={ dni }
+                            onChange={ onInputChange }
                         />
                         <input
                             className={ styles.leftCenterFormInput }
                             type="email"
                             name="email"
                             placeholder="Correo electrónico"
+                            value={ email }
+                            onChange={ onInputChange }
                         />
                         <input 
                             className={ styles.leftCenterFormInput }
                             type="password"
                             name="password"
                             placeholder="Contraseña"
+                            value={ password }
+                            onChange={ onInputChange }
                         />
 
                         <button
