@@ -1,0 +1,53 @@
+.container {
+    padding: 1rem;
+    background-color: #00b982;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    flex: 10;
+}
+
+.brandText {
+    font-size: 1.9em;
+    color: rgb(244, 233, 233);
+    text-shadow: 0 0 1rem rgba(0, 0, 0, 0.312);
+}
+
+.searchBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: .0625rem solid rgb(104, 104, 104);
+    padding: .5rem;
+    border-radius: .5rem;
+    background-color: rgb(244, 233, 233);
+    flex: 6;
+}
+
+.searchBarInput {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 1.1em;
+    flex: 1;
+}
+
+.user {
+    flex: 10;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: .5rem
+}
+
+.username {
+    color: rgb(244, 233, 233);
+    font-size: 1.3em;
+}

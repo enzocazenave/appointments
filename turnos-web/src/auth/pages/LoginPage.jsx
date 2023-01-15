@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styles from '../../styles/auth/pages/LoginPage.module.css';
-import { Calendar } from '../svg/Calendar';
+import { Calendar } from '../../svgs/Calendar';
 import { motion } from 'framer-motion';
 import { ErrorBox, Loader } from '../components';
 import { useForm } from '../../hooks';

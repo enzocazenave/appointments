@@ -1,4 +1,4 @@
-import { Error } from "../svg/Error";
+import { Error } from "../../svgs/Error";
 import styles from '../../styles/auth/components/ErrorBox.module.css';
 
 export const ErrorBox = ({ error }) => {
