@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styles from '../../styles/auth/pages/LoginPage.module.css';
 import { Calendar } from '../svg/Calendar';
 import { motion } from 'framer-motion';
-import { Error } from '../svg/Error';
+import { ErrorBox, Loader } from '../components';
 
 const animations = {
     initial: { opacity: 0 },
@@ -12,6 +12,7 @@ const animations = {
 
 export const LoginPage = () => {
     const error = ''; // al rellenar esta variable se muestra el error en pantalla
+    const isLoading = false;
 
     const handleSubmit = () => {
 
@@ -61,14 +62,11 @@ export const LoginPage = () => {
 
                         {
                             (error)
-                            ? (
-                                <div className={ styles.leftCenterFormError }>
-                                    <Error width={ 20 } height={ 20 } />
-                                    <span>{ error }</span>
-                                </div>              
-                            )
+                            ? <ErrorBox error={ error } />                        
                             : <div className={ styles.leftCenterFormErrorSimulate }></div>
                         }
+
+                        { isLoading && <Loader /> }
                     </form>
                 </div>
 

@@ -1,0 +1,17 @@
+.container {
+    width: 3rem;
+    height: 3rem;
+    border: .125rem solid #00CC8E;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    animation: 2s spin linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

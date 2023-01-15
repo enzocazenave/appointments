@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styles from '../../styles/auth/pages/RegisterPage.module.css';
 import { Calendar } from '../svg/Calendar';
 import { motion } from 'framer-motion';
-import { Error } from '../svg/Error';
+import { ErrorBox, Loader } from '../components/';
 
 const animations = {
     initial: { opacity: 0 },
@@ -12,6 +12,7 @@ const animations = {
 
 export const RegisterPage = () => {
     const error = ''; // al rellenar esta variable se muestra el error en pantalla
+    const isLoading = false;
 
     const handleSubmit = () => {
 
@@ -28,7 +29,7 @@ export const RegisterPage = () => {
         >
             <div className={ styles.right }>
                 <h1 className={ styles.rightTitle }>Si ya tienes una cuenta</h1>
-                <p className={ styles.rightText }>Iniciá sesión y reserva tu turno en tu comercio favorito!</p>
+                <p className={ styles.rightText }>Iniciá sesión y reservá tu turno en tu comercio favorito!</p>
                 <Link to="/auth/login" className={ styles.rightAnchor }>Iniciá sesión</Link>
             </div>
 
@@ -57,6 +58,12 @@ export const RegisterPage = () => {
                             name="surname"
                             placeholder="Apellido"
                         />
+                         <input
+                            className={ styles.leftCenterFormInput }
+                            type="number"
+                            name="dni"
+                            placeholder="Documento nacional de identidad (DNI)"
+                        />
                         <input
                             className={ styles.leftCenterFormInput }
                             type="email"
@@ -79,14 +86,11 @@ export const RegisterPage = () => {
 
                         {
                             (error)
-                            ? (
-                                <div className={ styles.leftCenterFormError }>
-                                    <Error width={ 20 } height={ 20 } />
-                                    <span>{ error }</span>
-                                </div>              
-                            )
+                            ? <ErrorBox error={ error } />                        
                             : <div className={ styles.leftCenterFormErrorSimulate }></div>
                         }
+                    
+                        { isLoading && <Loader /> }
                     </form>
                 </div>
 
