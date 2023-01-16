@@ -52,7 +52,10 @@ export const Navbar = () => {
                 <MagnifyingGlass width={ 20 } height={ 20 } />
             </div>
 
-            <div className={ styles.user }>
+            <div 
+                className={ styles.user }
+                ref={ menuRef }
+            >
                 <div 
                     className={ styles.userTrigger } 
                     onClick={ () => setIsUserDropdownOpen(!isUserDropdownOpen) }
@@ -63,7 +66,6 @@ export const Navbar = () => {
                 
                 <div 
                     className={ `${ styles.dropdownMenu } ${ isUserDropdownOpen ? styles.active : styles.inactive }` }
-                    ref={ menuRef }
                 >
                     <button className={ styles.dropdownItem }>
                         <Profile width={ 30 } height={ 30 } />
