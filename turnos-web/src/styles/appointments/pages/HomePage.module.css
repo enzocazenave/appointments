@@ -22,3 +22,8 @@
     font-size: 1.3em;
     max-width: 75ch;
 }
+
+.dataContainer {
+    display: flex;
+    gap: 2rem;
+}

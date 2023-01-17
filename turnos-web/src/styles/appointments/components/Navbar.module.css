@@ -61,7 +61,8 @@
 
 .dropdownSearch {
     position: absolute;
-    background-color: rgb(244, 240, 240);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.377);
     top: 4.425rem;
     padding: .3rem;
     border-radius: .625rem;
@@ -74,8 +75,9 @@
     left: 20px;
     height: 1.25rem;
     width: 1.25rem;
-    background: rgb(244, 240, 240);
+    background-color: rgb(255, 255, 255);
     transform: rotate(45deg);
+    z-index: 0;
 }
 
 .dropdownSearchItem {
@@ -135,8 +137,9 @@
 .dropdownMenu {
     position: absolute;
     top: 4.125rem;
-    background-color: rgb(244, 240, 240);
-    border-radius: .2rem;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.377);
+    border-radius: .5rem;
     opacity: 0;
     width: 200px;
 }
@@ -148,7 +151,7 @@
     right: 20px;
     height: 1.25rem;
     width: 1.25rem;
-    background: rgb(244, 240, 240);
+    background-color: rgb(255, 255, 255);    
     transform: rotate(45deg);
   }
 
@@ -183,6 +186,11 @@
 
 .dropdownItem:first-child {
     border: none;
+}
+
+.dropdownItem:last-child {
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
 }
 
 .dropdownItem:hover {
