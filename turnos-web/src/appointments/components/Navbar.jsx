@@ -10,10 +10,6 @@ import { DropdownSearchItem } from './';
 import { shops } from '../data/shops';
 import { Link } from 'react-router-dom';
 
-const initialForm = {
-    shop: ''
-}
-
 export const Navbar = () => {
 
     const [searchInput, setSearchInput] = useState('');
@@ -49,8 +45,7 @@ export const Navbar = () => {
                 <span className={ styles.brandText }>Turnate</span>
             </Link>
 
-            <div 
-                className={ styles.searchBar }>
+            <div className={ styles.searchBar }>
                 <input 
                     className={ styles.searchBarInput } 
                     type="text" 
@@ -70,10 +65,10 @@ export const Navbar = () => {
                                     ? searchedShops.map((shop) => (
                                         <DropdownSearchItem 
                                             key={ shop.id } 
+                                            id={ shop.id } 
                                             image={ shop.image } 
                                             name={ shop.name } 
                                             location={ shop.location } 
-                                            id={ shop.id } 
                                             resetForm={ setSearchInput }
                                         />
                                     ))
@@ -118,4 +113,3 @@ export const Navbar = () => {
         </div>
     )
 }
-
