@@ -12,6 +12,7 @@
     justify-content: flex-start;
     gap: 1rem;
     flex: 10;
+    text-decoration: none;
 }
 
 .brandText {
@@ -84,6 +85,8 @@
     padding: 1rem;
     cursor: pointer;
     border-radius: .3rem;
+    text-decoration: none;
+    color: #000
 }
 
 .dropdownSearchItem:hover {

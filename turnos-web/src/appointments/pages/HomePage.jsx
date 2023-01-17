@@ -1,5 +1,9 @@
+import styles from '../../styles/appointments/pages/HomePage.module.css';
+
 export const HomePage = () => {
     return (
-        <div>HomePage</div>
+        <div className={ styles.container }>
+            
+        </div>
     )
 }
