@@ -3,24 +3,7 @@
     padding-block: 3rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-}
-
-.separator {
-    border: 1px solid #000;
-}
-
-.welcomeText {
-    font-size: 2em;
-}
-
-.whoAreWeQuestionText {
-    font-size: 1.7em;
-}
-
-.whoAreWeAnswerText {
-    font-size: 1.3em;
-    max-width: 75ch;
+    gap: 3rem;
 }
 
 .dataContainer {
