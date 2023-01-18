@@ -10,6 +10,8 @@ import { DropdownSearchItem } from './';
 import { shops } from '../data/shops';
 import { Link } from 'react-router-dom';
 
+const defaultUserImage = 'https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg';
+
 export const Navbar = () => {
 
     const [searchInput, setSearchInput] = useState('');
@@ -40,10 +42,12 @@ export const Navbar = () => {
 
     return (
         <div className={ styles.container }>
-            <Link className={ styles.brand } to="/">
-                <Calendar width={ 35 } fill="rgb(244, 233, 233)" height={ 35 } />
-                <span className={ styles.brandText }>Turnate</span>
-            </Link>
+            <div className={  styles.brand }>
+                <Link to="/">
+                    <Calendar width={ 35 } fill="#03b881" height={ 35 } />
+                </Link>
+            </div>
+            
 
             <div className={ styles.searchBar }>
                 <input 
@@ -56,7 +60,7 @@ export const Navbar = () => {
                     onBlur={ () => setIsSearchDropdownOpen(false) }
                 />
 
-                <MagnifyingGlass width={ 20 } height={ 20 } />
+                <MagnifyingGlass width={ 20 } height={ 20 } fill={ '#fff' } className={ styles.svg } />
                 {
                     (searchInput !== '') && (
                         <div className={ `${ styles.dropdownSearch } ${ isSearchDropDownOpen ? styles.active : styles.inactive }` }>
@@ -89,8 +93,9 @@ export const Navbar = () => {
                     className={ styles.userTrigger } 
                     onClick={ () => setIsUserDropdownOpen(!isUserDropdownOpen) }
                 >
-                    <UserIcon width={ 25 } height={ 25 } fill="rgb(244,233,233)" />
-                    <span className={ styles.username }>Enzo Cazenave</span>
+                    {/*<UserIcon width={ 25 } height={ 25 } fill="rgb(244,233,233)" />
+                    <span className={ styles.username }>Enzo Cazenave</span>*/}
+                    <img src={ defaultUserImage } className={ styles.userImage } alt="Unknown user" />
                 </div>
                 
                 <div 

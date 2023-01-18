@@ -1,9 +1,12 @@
 .container {
-    padding: 1rem;
-    background-color: #00b982;
+    padding: 1rem 10rem;
+    background-color: rgb(242, 242, 242);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    box-shadow: 0 0 .625rem #00000055;
+    width: calc(100% - 20rem);
 }
 
 .brand {
@@ -15,26 +18,19 @@
     text-decoration: none;
 }
 
-.brandText {
-    font-size: 1.9em;
-    color: rgb(244, 233, 233);
-    text-shadow: 0 0 1rem rgba(0, 0, 0, 0.312);
-}
-
 .searchBar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: .5rem;
     border-radius: .5rem;
-    background-color: rgb(244, 233, 233);
     flex: 6;
-    border: .125rem solid transparent;
-    transition: border .3s;
+    border: .125rem solid #00b982;
+    fill: #03b881;
 }
 
-.searchBar:focus-within {
-    border: .125rem solid rgb(104, 104, 104);
+.svg {
+    fill: #03b881
 }
 
 .searchBarInput {
@@ -43,6 +39,26 @@
     outline: none;
     font-size: 1.1em;
     flex: 1;
+}
+
+.dropdownSearch {
+    position: absolute;
+    top: 4.425rem;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.377);
+    border-radius: .625rem;
+    opacity: 0;
+}
+
+.dropdownSearch::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
+    background-color: rgb(255, 255, 255);
+    transform: rotate(45deg);
 }
 
 .dropdownSearch.active {
@@ -59,27 +75,6 @@
     transform: translateY(-20px);
 }
 
-.dropdownSearch {
-    position: absolute;
-    background-color: rgb(255, 255, 255);
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.377);
-    top: 4.425rem;
-    padding: .3rem;
-    border-radius: .625rem;
-}
-
-.dropdownSearch::before {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: 20px;
-    height: 1.25rem;
-    width: 1.25rem;
-    background-color: rgb(255, 255, 255);
-    transform: rotate(45deg);
-    z-index: 0;
-}
-
 .dropdownSearchItem {
     display: flex;
     align-self: center;
@@ -88,7 +83,7 @@
     cursor: pointer;
     border-radius: .3rem;
     text-decoration: none;
-    color: #000
+    color: #000;
 }
 
 .dropdownSearchItem:hover {
@@ -104,7 +99,7 @@
 
 .dropdownSearchItemTextName {
     font-weight: 600;
-    font-size: 1.1em
+    font-size: 1.1em;
 }
 
 .dropdownSearchItemImage {
@@ -134,26 +129,34 @@
     opacity: .8;
 }
 
+.userImage {
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    object-fit: cover;
+    box-shadow: 0 0 .625rem #00000055;
+}
+
 .dropdownMenu {
     position: absolute;
-    top: 4.125rem;
+    top: 4.5rem;
     background-color: rgb(255, 255, 255);
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.377);
     border-radius: .5rem;
     opacity: 0;
-    width: 200px;
+    width: 12.5rem;
 }
 
 .dropdownMenu::before{
     content: '';
     position: absolute;
     top: -5px;
-    right: 20px;
+    right: 10px;
     height: 1.25rem;
     width: 1.25rem;
     background-color: rgb(255, 255, 255);    
     transform: rotate(45deg);
-  }
+}
 
 .dropdownMenu.active {
     opacity: 1;
@@ -171,10 +174,9 @@
 
 .dropdownItem {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: .5rem;
-    padding: .7rem 0;
+    gap: 1rem;
+    padding: .75rem;
     width: 100%;
     background-color: transparent;
     border: none;
