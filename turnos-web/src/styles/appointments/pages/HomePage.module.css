@@ -58,6 +58,7 @@
     flex-direction: column;
     gap: .5rem;
     text-decoration: none;
+    background-attachment: fixed;
 }
 
 .dataContainer span {
@@ -68,6 +69,11 @@
 .dataContainer p {
     font-size: .9em;
     color: rgb(210,210,210)
+}
+
+.cantChangeNextShop {
+    opacity: 0 !important;
+    pointer-events: none;
 }
 
 .textContainer {

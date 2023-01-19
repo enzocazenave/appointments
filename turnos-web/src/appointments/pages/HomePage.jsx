@@ -26,16 +26,17 @@ export const HomePage = () => {
 
     const [arrayElement, setArrayElement] = useState(0);
 
+    const canChangeNext = !(arrayElement + 1 === arrayOfSomeShops.length);
+    const canChangePrevious = !(arrayElement - 1 < 0);
+
     const handleNextOrPreviousPage = (type) => {
-        if (type == 'next') {
-            if (arrayElement + 1 === arrayOfSomeShops.length) return;
-            return setArrayElement((currentValue) => currentValue + 1);
+        if (type === 'next') {
+            if (canChangeNext) return setArrayElement((currentValue) => currentValue + 1);
+            return;
         }
-
-        if (arrayElement - 1 < 0) return;
-        setArrayElement((currentValue) => currentValue - 1);
+        if (canChangePrevious) setArrayElement((currentValue) => currentValue - 1);
     }
-
+    
     return (
         <div className={ styles.container }>
             <div className={ styles.backgroundContainer }>
@@ -46,7 +47,7 @@ export const HomePage = () => {
 
                 
                 <div className={ styles.secondContainer }>
-                    <button onClick={() => handleNextOrPreviousPage('previous')}>{'<'}</button>
+                    <button className={ (canChangePrevious) ? '' : styles.cantChangeNextShop } onClick={() => handleNextOrPreviousPage('previous')}>{'<'}</button>
 
                     <SwitchTransition>
                         <CSSTransition 
@@ -68,7 +69,7 @@ export const HomePage = () => {
                         </CSSTransition>
                     </SwitchTransition>
                     
-                    <button onClick={() => handleNextOrPreviousPage('next')} >{'>'}</button>
+                    <button className={ (canChangeNext) ? '' : styles.cantChangeNextShop  } onClick={() => handleNextOrPreviousPage('next')} >{'>'}</button>
                 </div>
 
                 <span>{arrayElement + 1}/{ arrayOfSomeShops.length }</span>
