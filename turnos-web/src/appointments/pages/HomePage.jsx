@@ -1,84 +1,127 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import styles from '../../styles/appointments/pages/HomePage.module.css';
-import { ArrowDown } from '../../svgs/ArrowDown';
-import { SwitchTransition, CSSTransition } from 'react-transition-group';
+import { Link } from 'react-router-dom';
+import image from '../../../assets/phone.png';
+import { Instagram } from '../../svgs/Instagram';
+import { Linkedin } from '../../svgs/Linkedin';
+import { Mail } from '../../svgs/Mail';
 
-const arrayOfSomeShops = [
-    {
-        id: 1,
-        name: 'Sizo Gerard',
-        img: 'https://b2743180.smushcdn.com/2743180/wp-content/uploads/sites/10/2022/03/descarga-2.jpeg?lossy=1&strip=1&webp=1'
-    },
-    {
-        id: 2,
-        name: 'Lavadero Mitre',
-        img: 'https://lavaderodeautoscarwash.com/wp-content/uploads/2020/09/Carwash-mas-conocidos-de-Buenos-Aires-lavaderos-en-caba.jpg'
-    },
-    {
-        id: 3,
-        name: 'Peladitos',
-        img: 'https://media.quincemil.com/imagenes/2022/05/28012746/Peluqueria_M%C3%A1gica-8-640x360.jpg'
-    }
-]
 
 export const HomePage = () => {
-
-    const [arrayElement, setArrayElement] = useState(0);
-
-    const canChangeNext = !(arrayElement + 1 === arrayOfSomeShops.length);
-    const canChangePrevious = !(arrayElement - 1 < 0);
-
-    const handleNextOrPreviousPage = (type) => {
-        if (type === 'next') {
-            if (canChangeNext) return setArrayElement((currentValue) => currentValue + 1);
-            return;
-        }
-        if (canChangePrevious) setArrayElement((currentValue) => currentValue - 1);
-    }
-    
     return (
-        <div className={ styles.container }>
-            <div className={ styles.backgroundContainer }>
-                <h1 className={ styles.title }>Turnate</h1>
-                <h2 className={ styles.subTitle }>Reservá turnos de forma rápida y en tiempo real en tus comercios favoritos.</h2>
-                <h3 className={ styles.subSubTitle }>A continuación te mostramos algunos de los comercios adheridos a nosotros.</h3>
-                <ArrowDown width={ 50 } height={ 50 } />
+        <>
+            <div className={ styles.container }>
+                <div className={ styles.containerText }>
+                    <h1 className={ styles.title }>
+                        Es fácil reservar un
+                        <br/>
+                        turno en 
+                        &nbsp;
+                        <span className={ styles.titleColor }>
+                            Turnate
+                        </span>.
+                    </h1>
 
-                
-                <div className={ styles.secondContainer }>
-                    <button className={ (canChangePrevious) ? '' : styles.cantChangeNextShop } onClick={() => handleNextOrPreviousPage('previous')}>{'<'}</button>
-
-                    <SwitchTransition>
-                        <CSSTransition 
-                            classNames="fade" key={ arrayOfSomeShops[arrayElement].name } 
-                            addEndListener={ (node, done) => node.addEventListener('transitionend', done, false) }
-                        >
-                            <Link 
-                                to={ `/shop/${ arrayOfSomeShops[arrayElement].id }` }
-                                className={ styles.dataContainer }
-                                style={{
-                                    background: `linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)),url(${ arrayOfSomeShops[arrayElement].img })`
-                                }}
-                            >
-                                <span>
-                                    { arrayOfSomeShops[arrayElement].name }
-                                </span>
-                                <p>Haz click para más información</p>
-                            </Link>
-                        </CSSTransition>
-                    </SwitchTransition>
-                    
-                    <button className={ (canChangeNext) ? '' : styles.cantChangeNextShop  } onClick={() => handleNextOrPreviousPage('next')} >{'>'}</button>
+                    <p className={ styles.text }>
+                        ¿Cómo de fácil? Simplemente tenes que buscar comercios 
+                        que estén adheridos a <span className={ styles.textColor }>Turnate</span>, entrar a su perfil, hacer 
+                        click en el botón de "Reservá un turno" y seguir las 
+                        instrucciones.
+                    </p>
                 </div>
 
-                <span>{arrayElement + 1}/{ arrayOfSomeShops.length }</span>
+                <div className={ styles.containerSuggest }>
+                    <Link
+                        to="/shop/1"
+                        className={ styles.suggestItem }
+                        style={{
+                            background: 'linear-gradient(rgba(0,0,0,0.70), rgba(0,0,0,0.70)), url(https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png)',
+                            backgroundSize: 'cover',
+                            backgroundAttachment: 'fixed',
+                            backgroundRepeat: 'no-repeat'                        }}
+                    >
+                        <h3 className={ styles.suggestItemTitle }>
+                            Sizo Gerard
+                        </h3>
+                    </Link>
+                    <Link 
+                        to="/shop/2"
+                        className={ styles.suggestItem }
+                        style={{
+                            background: 'linear-gradient(rgba(0,0,0,0.70), rgba(0,0,0,0.70)), url(https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png)',
+                            backgroundSize: 'cover',
+                            backgroundAttachment: 'fixed',
+                            backgroundRepeat: 'no-repeat'                        }}
+                    >
+                        <h3 className={ styles.suggestItemTitle }>
+                            Lavadero Mitre
+                        </h3>
+                    </Link>
+                    <Link 
+                        to="/shop/3"
+                        className={ styles.suggestItem }
+                        style={{
+                            background: 'linear-gradient(rgba(0,0,0,0.70), rgba(0,0,0,0.70)), url(https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png)',
+                            backgroundSize: 'cover',
+                            backgroundAttachment: 'fixed',
+                            backgroundRepeat: 'no-repeat'                        }}
+                    >
+                        <h3 className={ styles.suggestItemTitle }>
+                            Peladitos
+                        </h3>
+                    </Link>
+                    <Link 
+                        to="/shop/4"
+                        className={ styles.suggestItem }
+                        style={{
+                            background: 'linear-gradient(rgba(0,0,0,0.70), rgba(0,0,0,0.70)), url(https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png)',
+                            backgroundSize: 'cover',
+                            backgroundAttachment: 'fixed',
+                            backgroundRepeat: 'no-repeat'
+                        }}
+                    >
+                        <h3 className={ styles.suggestItemTitle }>
+                            Zion
+                        </h3>
+                    </Link>
+                </div>
             </div>
+            <div className={ styles.container }>
+                <div className={ styles.secondContainer }>
+                    <img 
+                        className={ styles.containerImage }
+                        src={ image } 
+                    />
 
-            <div className={ styles.textContainer }>
-                <img className={ styles.background } src={ '../../../../assets/circle-scatter-haikei.svg' } />
-                <span className={ styles.text }>Software de gestión de turnos para comercios y clientes.</span>
+                    <div className={ styles.rightSecondContainer }>
+                        <h1 className={ styles.secondTitle }>
+                            Disponible para iOS y Android.
+                        </h1>
+
+                        <p className={ styles.secondText }>
+                            Podes descargar la aplicación en las tiendas
+                            nativas de ambos dispositivos.
+                        </p>
+
+                        <div className={ styles.buttons }>
+                            <button className={ styles.button }>App Store</button>
+                            <button className={ styles.button }>Play Store</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div className={ styles.socialContainer }>
+                    <span>
+                        REDES SOCIALES
+                    </span>
+
+                    <div className={ styles.socialContainerIcons }>
+                        <Instagram width={ 70 } height={ 70 } className={ styles.icon } />
+                        <Linkedin width={ 55 } height={ 55 } className={ styles.icon } />
+                        <Mail width={ 60 } height={ 70 } className={ styles.icon } />
+                    </div>
+                </div>
             </div>
-        </div>
+                
+        </>
     )
 }
