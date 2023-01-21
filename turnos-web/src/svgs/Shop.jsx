@@ -18,4 +18,4 @@ export const Shop = (props) => (
             stroke="#222"
         />
     </svg>
-  )
+)

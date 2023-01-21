@@ -14,11 +14,8 @@ export const HomePage = () => {
                     <h1 className={ styles.title }>
                         Es fácil reservar un
                         <br/>
-                        turno en 
-                        &nbsp;
-                        <span className={ styles.titleColor }>
-                            Turnate
-                        </span>.
+                        turno en
+                        <span className={ styles.titleColor }> Turnate</span>.
                     </h1>
 
                     <p className={ styles.text }>
@@ -116,7 +113,7 @@ export const HomePage = () => {
 
                     <div className={ styles.socialContainerIcons }>
                         <Instagram width={ 70 } height={ 70 } className={ styles.icon } />
-                        <Linkedin width={ 55 } height={ 55 } className={ styles.icon } />
+                        <Linkedin width={ 70 } height={ 45 } className={ styles.icon } />
                         <Mail width={ 60 } height={ 70 } className={ styles.icon } />
                     </div>
                 </div>
