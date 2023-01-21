@@ -39,7 +39,7 @@ export const Navbar = () => {
         <nav className={ `${styles.container} ${ active ? styles.containerActive : '' }` } id="navmain">
             <Calendar width={ 30 } height={ 30 } fill={ '#00CC8F' } /> 
 
-            <div className={ styles.right } ref={ userDropdownRef }> 
+            <div className={ styles.right }> 
                 <div className={ styles.rightSearchBar }>
                     <input className={ styles.rightInput } type="text" placeholder="Buscá un comercio" />
                     <MagnifyingGlass width={ 30 } height={ 30 } fill={ '#00CC8F' } />
@@ -54,7 +54,10 @@ export const Navbar = () => {
                     />
                 </div>
 
-                <div className={ `${styles.userDropdown} ${ isUserDropdownOpen ? (active ? styles.activeBigger : styles.active) : styles.inactive }` }>
+                <div 
+                    ref={ userDropdownRef } 
+                    className={ `${styles.userDropdown} ${ isUserDropdownOpen ? (active ? styles.activeBigger : styles.active) : styles.inactive }` }
+                >
                     <button className={ styles.userDropdownItem }>
                         <Profile width={ 15 } height={ 15 } />
                         Mi perfil
