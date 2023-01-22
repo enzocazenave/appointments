@@ -5,7 +5,7 @@ const { unknownError } = require('../helpers/unknownError');
 const User = require('../models/User');
 
 const registerUser = async(req, res = response) => {
-    const { email } = req.body;
+    const { email, password, dni } = req.body;
 
     try {
         let user = await User.findOne({ email });
@@ -15,6 +15,13 @@ const registerUser = async(req, res = response) => {
             msg: `El correo electrónico ${ email } está en uso.`
         });
 
+        user = await User.findOne({ dni });
+
+        if (user) return res.status(400).json({
+            ok: false,
+            msg: `El documento nacional de identidad ${ dni } está en uso.`
+        });
+
         user = new User(req.body);
 
         const salt = genSaltSync();
@@ -22,13 +29,13 @@ const registerUser = async(req, res = response) => {
         await user.save();
 
         delete req.body.password;
-        const tokenPayload = { ...req.body };
+        const tokenPayload = { ...req.body, created_at: user.created_at };
         const token = sign(tokenPayload, process.env.SECRET_TOKEN_KEY, { expiresIn: '2h' });
-        payload.token = token;
+        tokenPayload.token = token;
 
         res.status(201).json({
             ok: true,
-            ...payload
+            ...tokenPayload
         });
     } catch(error) {
         unknownError(res, error);
@@ -57,14 +64,15 @@ const loginUser = async(req, res = response) => {
             email,
             name: user.name,
             surname: user.surname,
-            dni: user.dni
+            dni: user.dni,
+            created_at: user.created_at
         }
         const token = sign(tokenPayload, process.env.SECRET_TOKEN_KEY, { expiresIn: '2h' });
-        payload.token = token;
+        tokenPayload.token = token;
 
         res.status(201).json({
             ok: true,
-            ...payload
+            ...tokenPayload,
         });
     } catch(error) {
         unknownError(res, error);

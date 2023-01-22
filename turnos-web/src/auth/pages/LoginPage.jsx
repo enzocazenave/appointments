@@ -3,7 +3,8 @@ import styles from '../../styles/auth/pages/LoginPage.module.css';
 import { Calendar } from '../../svgs/Calendar';
 import { motion } from 'framer-motion';
 import { ErrorBox, Loader } from '../components';
-import { useForm } from '../../hooks';
+import { useAuthContext, useForm } from '../../hooks';
+import { useEffect } from 'react';
 
 const animations = {
     initial: { opacity: 0 },
@@ -19,12 +20,15 @@ const initialForm = {
 export const LoginPage = () => {
 
     const { email, password, onInputChange } = useForm(initialForm);
+    const { status, error, authenticateUser, resetErrorMessage } = useAuthContext();
 
-    const error = ''; // al rellenar esta variable se muestra el error en pantalla
-    const isLoading = false; // al estar en true se muestra el spinner
+    useEffect(() => {
+        resetErrorMessage()
+    }, []);
 
-    const handleSubmit = () => {
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        authenticateUser({ email, password }, 'login');
     } 
 
     return (
@@ -79,7 +83,7 @@ export const LoginPage = () => {
                             : <div className={ styles.leftCenterFormErrorSimulate }></div>
                         }
 
-                        { isLoading && <Loader /> }
+                        { status === 'checking' && <Loader /> }
                     </form>
                 </div>
 

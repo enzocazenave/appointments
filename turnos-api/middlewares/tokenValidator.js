@@ -10,7 +10,10 @@ const tokenValidator = (req, res, next) => {
 
     try {
         const tokenPayload = verify(token, process.env.SECRET_TOKEN_KEY);
-        req.body = { ...tokenPayload };
+        delete tokenPayload.iat;
+        delete tokenPayload.exp;
+
+        req.body = { ...tokenPayload, token };
         next();
     } catch(error) {
         return res.status(401).json({
