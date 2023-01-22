@@ -1,6 +1,6 @@
 import { Navigate, Routes, Route } from 'react-router-dom';
 import { Navbar } from '../components';
-import { HomePage, ShopPage } from '../pages';
+import { AppointmentsPage, HomePage, ProfilePage, ShopPage } from '../pages';
 
 export const AppointmentsRoutes = () => {
     return (
@@ -9,6 +9,8 @@ export const AppointmentsRoutes = () => {
             <Routes>
                 <Route path="/" element={ <HomePage /> } />
                 <Route path="/shop/:shopId" element={ <ShopPage /> } />
+                <Route path="/profile" element={ <ProfilePage /> } />
+                <Route path="/appointments" element={ <AppointmentsPage /> } />
                 <Route path="/*" element={ <Navigate to="/" /> } />
             </Routes>
         </>

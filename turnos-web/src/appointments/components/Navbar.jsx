@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Logout } from '../../svgs/Logout';
 import { useAuthContext } from '../../hooks';
 import { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
     
@@ -49,10 +50,12 @@ export const Navbar = () => {
 
         return `${formattedDate.day}/${formattedDate.month}/${formattedDate.year}`
     }, []);
-    
+
     return (
         <nav className={ `${styles.container} ${ active ? styles.containerActive : '' }` } id="navmain">
-            <Calendar width={ 30 } height={ 30 } fill={ '#00CC8F' } /> 
+            <Link to="/">
+                <Calendar width={ 30 } height={ 30 } fill={ '#00CC8F' } /> 
+            </Link>
 
             <div className={ styles.right }> 
                 <div className={ styles.rightSearchBar }>
@@ -75,14 +78,20 @@ export const Navbar = () => {
                 >
                     <span className={ styles.userDropdownName }>{ user.name } { user.surname }</span>
                     <span className={ styles.userDropdownSince }>Desde { date }</span>
-                    <button className={ styles.userDropdownItem }>
+                    <Link 
+                        to="/profile"
+                        className={ styles.userDropdownItem }
+                    >
                         <Profile width={ 15 } height={ 15 } />
                         Mi perfil
-                    </button>
-                    <button className={ styles.userDropdownItem }>
+                    </Link>
+                    <Link 
+                        to="/appointments"
+                        className={ styles.userDropdownItem }
+                    >
                         <Calendar width={ 15 } height={ 15 } />
                         Mis reservas
-                    </button>
+                    </Link>
                     <button onClick={ () => logout() } className={ styles.userDropdownItem }>
                         <Logout width={ 15 } height={ 15 } />
                         Cerrar sesión

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { AuthRoutes } from '../auth/routes/AuthRoutes';
 import { AppointmentsRoutes } from '../appointments/routes/AppointmentsRoutes';
 import { useAuthContext } from '../hooks';
@@ -7,8 +7,9 @@ import { LoadingPage } from '../appointments/pages';
 export const AppRouter = () => {
 
     const { status } = useAuthContext();
-
-    if (status === 'checking') return <LoadingPage />;
+    const path = useLocation().pathname;
+    
+    if (status === 'checking' && path !== '/auth/login' && path !== '/auth/register') return <LoadingPage />;
 
     return (
         <Routes>
