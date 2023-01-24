@@ -6,9 +6,10 @@ const { generateAuthCode } = require('../helpers/generateAuthCode');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
 const AuthCode = require('../models/AuthCode');
+const configEmailSender = require('../helpers/configEmailSender');
 
 const registerUser = async(req, res = response) => {
-    const { email, password, dni } = req.body;
+    const { email, dni } = req.body;
 
     try {
         let user = await User.findOne({ email });
@@ -24,6 +25,54 @@ const registerUser = async(req, res = response) => {
             ok: false,
             msg: `El documento nacional de identidad ${ dni } está en uso.`
         });
+
+        const generatedAuthCode = generateAuthCode();
+        const transport = nodemailer.createTransport(configEmailSender);
+        await transport.sendMail({
+            from: process.env.GMAIL_APP_EMAIL,
+            to: email,
+            subject: 'Turnate - Código de verificación',
+            text: `Código: ${ generatedAuthCode }`
+        });
+
+        await AuthCode.deleteOne({ email });
+        const authCode = new AuthCode({ email, auth_code: generatedAuthCode });
+        authCode.save();
+
+        res.status(200).json({
+            ok: true
+        })
+    } catch(error) {
+        unknownError(res, error);
+    }
+}
+
+const registerUserConfirm = async(req, res = response) => {
+    const { email, password, dni, code } = req.body;
+
+    try {
+        let user = await User.findOne({ email });
+
+        if (user) return res.status(400).json({
+            ok: false,
+            msg: `El correo electrónico ${ email } está en uso.`
+        });
+
+        user = await User.findOne({ dni });
+
+        if (user) return res.status(400).json({
+            ok: false,
+            msg: `El documento nacional de identidad ${ dni } está en uso.`
+        });
+
+        const authCode = await AuthCode.findOneAndDelete({ auth_code: code, email });
+
+        if (!authCode) return res.status(404).json({
+            ok: false,
+            msg: 'Código de verificación incorrecto.'
+        });
+
+        delete req.body.code;
 
         user = new User(req.body);
 
@@ -94,16 +143,6 @@ const changeEmail = async(req, res = response) => {
         });
 
         const generatedAuthCode = generateAuthCode();
-
-        const configEmailSender = {
-            host: 'smtp.gmail.com',
-            port: 587,
-            auth: {
-                user: process.env.GMAIL_APP_EMAIL,
-                pass: process.env.GMAIL_APP_PASSWORD
-            }
-        }
-
         const transport = nodemailer.createTransport(configEmailSender);
         await transport.sendMail({
             from: process.env.GMAIL_APP_EMAIL,
@@ -168,6 +207,7 @@ const renewUser = async(req, res = response) => {
 
 module.exports = {
     registerUser,
+    registerUserConfirm,
     loginUser,
     changeEmail,
     changeEmailConfirm,
