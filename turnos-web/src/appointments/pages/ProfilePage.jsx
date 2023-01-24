@@ -110,10 +110,18 @@ export const ProfilePage = () => {
     const { user: { name, surname, dni, email }, changeUserEmail, isLoadingEmailChange } = useAuthContext();
     const [emailValue, setEmailValue] = useState(email);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [error, setError] = useState('');
 
     const handleSave = () => {
         changeUserEmail(emailValue).then(res => {
-            if (res) setIsModalOpen(true);
+            if (res.ok) {
+                setIsModalOpen(true);
+                setError('');
+                return
+            }
+
+            setError(res.msg);
+            setEmailValue(email);
         }).catch(error => console.log(error));
     }
 
@@ -182,6 +190,8 @@ export const ProfilePage = () => {
                 <Save fill={ '#F0F0F0' } stroke={ '#DDD' } width={ 20 } height={ 20 } />
                 Guardar
             </button>
+
+            <span className={ errorSpan }>{error}</span>
 
             { isLoadingEmailChange && <Loader /> }
 

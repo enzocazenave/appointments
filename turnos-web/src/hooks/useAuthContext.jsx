@@ -38,11 +38,10 @@ export const useAuthContext = () => {
         try {
             const { data } = await turnos.post('/auth/email', { email });
             setIsLoadingEmailChange(false);
-            return data.ok;
+            return data;
         } catch(error) {
             setIsLoadingEmailChange(false);
-            console.log(error);
-            return false;
+            return error.response.data;
         }
     }
 
