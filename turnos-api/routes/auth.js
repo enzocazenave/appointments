@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { registerUser, loginUser, renewUser } = require('../controllers/auth');
+const { registerUser, loginUser, changeEmail, changeEmailConfirm, renewUser } = require('../controllers/auth');
 const { fieldValidator } = require('../middlewares/fieldValidator');
 const { tokenValidator } = require('../middlewares/tokenValidator');
 
@@ -25,6 +25,24 @@ router.post('/login',
         fieldValidator
     ],
     loginUser
+);
+
+router.post('/email',
+    [
+        check('email', 'El correo electrónico es obligatorio.').isEmail(),
+        fieldValidator
+    ],
+    changeEmail
+);
+
+router.post('/confirmEmail', 
+    [
+        check('oldEmail', 'El correo electrónico es obligatorio.').isEmail(),
+        check('newEmail', 'El correo electrónico es obligatorio.').isEmail(),
+        check('code', 'El código de verificación es obligatorio.').not().isEmpty(),
+        fieldValidator
+    ],
+    changeEmailConfirm
 );
 
 router.get('/renew', tokenValidator, renewUser);

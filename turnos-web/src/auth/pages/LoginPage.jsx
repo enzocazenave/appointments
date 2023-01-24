@@ -69,7 +69,6 @@ export const LoginPage = () => {
                             value={ password }
                             onChange={ onInputChange }
                         />
-
                         <button
                             className={ styles.leftCenterFormSubmit }
                             type="submit"

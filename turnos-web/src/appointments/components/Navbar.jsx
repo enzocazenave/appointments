@@ -92,7 +92,7 @@ export const Navbar = () => {
                         <Calendar width={ 15 } height={ 15 } />
                         Mis reservas
                     </Link>
-                    <button onClick={ () => logout() } className={ styles.userDropdownItem }>
+                    <button onClick={ () => logout() } className={ `${styles.userDropdownItem} ${ styles.userDropdownItemButton }` }>
                         <Logout width={ 15 } height={ 15 } />
                         Cerrar sesión
                     </button>

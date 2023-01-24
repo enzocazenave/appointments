@@ -122,6 +122,10 @@
     color: #000;
 }
 
+.userDropdownItemButton {
+    width: 100%;
+}
+
 .userDropdownItem:first-child {
     border-top-left-radius: .3rem;
     border-top-right-radius: .3rem;

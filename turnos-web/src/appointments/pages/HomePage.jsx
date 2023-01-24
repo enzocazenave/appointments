@@ -5,7 +5,6 @@ import { Instagram } from '../../svgs/Instagram';
 import { Linkedin } from '../../svgs/Linkedin';
 import { Mail } from '../../svgs/Mail';
 
-
 export const HomePage = () => {
     return (
         <>
@@ -34,7 +33,8 @@ export const HomePage = () => {
                             background: 'linear-gradient(rgba(0,0,0,0.70), rgba(0,0,0,0.70)), url(https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png)',
                             backgroundSize: 'cover',
                             backgroundAttachment: 'fixed',
-                            backgroundRepeat: 'no-repeat'                        }}
+                            backgroundRepeat: 'no-repeat'                        
+                        }}
                     >
                         <h3 className={ styles.suggestItemTitle }>
                             Sizo Gerard
@@ -47,7 +47,8 @@ export const HomePage = () => {
                             background: 'linear-gradient(rgba(0,0,0,0.70), rgba(0,0,0,0.70)), url(https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png)',
                             backgroundSize: 'cover',
                             backgroundAttachment: 'fixed',
-                            backgroundRepeat: 'no-repeat'                        }}
+                            backgroundRepeat: 'no-repeat'                        
+                        }}
                     >
                         <h3 className={ styles.suggestItemTitle }>
                             Lavadero Mitre
@@ -60,7 +61,8 @@ export const HomePage = () => {
                             background: 'linear-gradient(rgba(0,0,0,0.70), rgba(0,0,0,0.70)), url(https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png)',
                             backgroundSize: 'cover',
                             backgroundAttachment: 'fixed',
-                            backgroundRepeat: 'no-repeat'                        }}
+                            backgroundRepeat: 'no-repeat'                        
+                        }}
                     >
                         <h3 className={ styles.suggestItemTitle }>
                             Peladitos

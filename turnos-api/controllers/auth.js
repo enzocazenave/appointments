@@ -2,7 +2,10 @@ const { genSaltSync, hashSync, compareSync } = require('bcryptjs');
 const { sign } = require('jsonwebtoken');
 const { response } = require('express');
 const { unknownError } = require('../helpers/unknownError');
+const { generateAuthCode } = require('../helpers/generateAuthCode');
 const User = require('../models/User');
+const nodemailer = require('nodemailer');
+const AuthCode = require('../models/AuthCode');
 
 const registerUser = async(req, res = response) => {
     const { email, password, dni } = req.body;
@@ -79,6 +82,83 @@ const loginUser = async(req, res = response) => {
     }
 }
 
+const changeEmail = async(req, res = response) => {
+    const { email } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+
+        if (user) return res.status(400).json({
+            ok: false,
+            msg: `El correo electrónico ${ email } está en uso.`
+        });
+
+        const generatedAuthCode = generateAuthCode();
+
+        const configEmailSender = {
+            host: 'smtp.gmail.com',
+            port: 587,
+            auth: {
+                user: process.env.GMAIL_APP_EMAIL,
+                pass: process.env.GMAIL_APP_PASSWORD
+            }
+        }
+
+        const transport = nodemailer.createTransport(configEmailSender);
+        await transport.sendMail({
+            from: process.env.GMAIL_APP_EMAIL,
+            to: email,
+            subject: 'Turnate - Código de verificación',
+            text: `Código: ${ generatedAuthCode }`
+        });
+
+        await AuthCode.deleteOne({ email });
+        const authCode = new AuthCode({ email, auth_code: generatedAuthCode });
+        authCode.save();
+
+        res.status(200).json({
+            ok: true,
+        });
+    } catch(error) {
+        unknownError(res, error);
+    }
+}
+
+const changeEmailConfirm = async(req, res = response) => {
+    const { code, oldEmail, newEmail } = req.body;
+
+    try {
+        const authCode = await AuthCode.findOneAndDelete({ auth_code: code, email: newEmail });
+
+        if (!authCode) return res.status(404).json({
+            ok: false,
+            msg: 'Código de verificación incorrecto.'
+        });
+
+        const user = await User.findOneAndUpdate({ email: oldEmail }, { email: newEmail });
+        await user.save();
+
+        const tokenPayload = {
+            email: newEmail,
+            name: user.name,
+            surname: user.surname,
+            dni: user.dni,
+            created_at: user.created_at
+        }
+
+        const token = sign(tokenPayload, process.env.SECRET_TOKEN_KEY, { expiresIn: '2h' });
+
+        tokenPayload.token = token;
+
+        res.status(200).json({
+            ok: true,
+            ...tokenPayload
+        });
+    } catch(error) {
+        unknownError(res, error);
+    }
+}
+
 const renewUser = async(req, res = response) => {
     res.status(200).json({
         ok: true,
@@ -89,5 +169,7 @@ const renewUser = async(req, res = response) => {
 module.exports = {
     registerUser,
     loginUser,
+    changeEmail,
+    changeEmailConfirm,
     renewUser
 }
