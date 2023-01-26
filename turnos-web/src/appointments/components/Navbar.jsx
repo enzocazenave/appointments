@@ -7,18 +7,21 @@ import { Logout } from '../../svgs/Logout';
 import { useAuthContext } from '../../hooks';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { SearchItem } from './SearchItem';
 
 export const Navbar = () => {
     
     const { logout, user } = useAuthContext();
     const [active, setActive] = useState(false);
     const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+    const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
     const userDropdownRef = useRef();
-    
+    const searchDropdownRef = useRef();
     
     useEffect(() => {
         const handleDropdown = (e) => {
             if (!userDropdownRef.current.contains(e.target)) setIsUserDropdownOpen(false);
+            if (!searchDropdownRef.current.contains(e.target)) setIsSearchDropdownOpen(false);
         }
         
         document.addEventListener('mousedown', handleDropdown);
@@ -59,7 +62,12 @@ export const Navbar = () => {
 
             <div className={ styles.right }> 
                 <div className={ styles.rightSearchBar }>
-                    <input className={ styles.rightInput } type="text" placeholder="Buscá un comercio" />
+                    <input 
+                        className={ styles.rightInput } 
+                        type="text" 
+                        placeholder="Buscá un comercio" 
+                        onFocus={ () => setIsSearchDropdownOpen(true) }
+                    />
                     <MagnifyingGlass width={ 30 } height={ 30 } fill={ '#00CC8F' } />
                 </div>
 
@@ -69,6 +77,72 @@ export const Navbar = () => {
                         height={ 30 } 
                         fill={ '#00CC8F' } 
                         className={ styles.rightUserIcon } 
+                    />
+                </div>
+
+                <div
+                    ref={ searchDropdownRef }                
+                    className={ `${ styles.searchDropdown } ${ isSearchDropdownOpen ? (active ? styles.activeBigger : styles.active ) : styles.inactive } ` }
+                >   
+                    <SearchItem 
+                        id={1}
+                        title="Sizo Gerard" 
+                        text="Berazategui, Buenos Aires." 
+                        url="https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png" 
+                    />
+                    <SearchItem 
+                        id={2}
+                        title="Sizo Gerard" 
+                        text="Berazategui, Buenos Aires." 
+                        url="https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png" 
+                    />
+                    <SearchItem 
+                        id={3}
+                        title="Sizo Gerard" 
+                        text="Berazategui, Buenos Aires." 
+                        url="https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png" 
+                    />
+                    <SearchItem 
+                        id={4}
+                        title="Sizo Gerard" 
+                        text="Berazategui, Buenos Aires." 
+                        url="https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png" 
+                    />
+                    <SearchItem 
+                        id={5}
+                        title="Sizo Gerard" 
+                        text="Berazategui, Buenos Aires." 
+                        url="https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png" 
+                    />
+                    <SearchItem 
+                        id={6}
+                        title="Sizo Gerard" 
+                        text="Berazategui, Buenos Aires." 
+                        url="https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png" 
+                    />
+                    <SearchItem 
+                        id={7}
+                        title="Sizo Gerard" 
+                        text="Berazategui, Buenos Aires." 
+                        url="https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png" 
+                    />
+                    <SearchItem 
+                        id={8}
+                        title="Sizo Gerard" 
+                        text="Berazategui, Buenos Aires." 
+                        url="https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png" 
+                    />
+                    <SearchItem 
+                        id={9}
+                        title="Sizo Gerard" 
+                        text="Berazategui, Buenos Aires." 
+                        url="https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png" 
+                    />
+                    <SearchItem
+                        id={10}
+                        title="Sizo Gerard" 
+                        text="Berazategui, Buenos Aires." 
+                        url="https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png" 
                     />
                 </div>
 

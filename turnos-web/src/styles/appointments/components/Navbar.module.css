@@ -141,3 +141,38 @@
     color: #F0F0F0;
     fill: #F0F0F0;
 }
+
+.searchDropdown {
+    position: absolute;
+    top: 4rem;
+    right: 18%;
+    max-height: 30rem;
+    width: 26rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.147);
+    border-radius: .3rem;
+    opacity: 0;
+    background-color: #F0F0F0;
+    overflow-y: auto;
+}
+
+.searchDropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transition: .3s ease;
+    transform: translateY(0);
+}
+
+.searchDropdown.inactive {
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s ease;
+    transform: translateY(-20px);
+}
+
+.searchDropdown.activeBigger {
+    opacity: 1;
+    visibility: visible;
+    transition: .3s ease;
+    transform: translateX(0px);
+    top: 4.75rem;
+}
