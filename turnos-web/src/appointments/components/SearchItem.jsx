@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from '../../styles/appointments/components/SearchItem.module.css';
 
-export const SearchItem = ({ id, url, title, text }) => {
+export const SearchItem = ({ id, url = '', title, text }) => {
     return (
         <Link 
             to={`/shop/${id}`} 
