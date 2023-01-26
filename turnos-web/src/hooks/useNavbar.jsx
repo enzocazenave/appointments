@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import turnos from "../api/turnos";
 import { useAuthContext } from "./useAuthContext";
 
-export const useNavbar = ({ searchQuery }) => {
+export const useNavbar = () => {
 
     const [active, setActive] = useState(false);
     const userDropdownRef = useRef();
@@ -12,17 +12,7 @@ export const useNavbar = ({ searchQuery }) => {
     const [searchedShops, setSearchedShops] = useState([]);
     const [filteredShops, setFilteredShops] = useState([]);
     const { user: { created_at, name, surname }, logout } = useAuthContext();
-
-    const date = useMemo(() => {
-        const splittedDate = created_at.split('-');
-        const formattedDate = {
-            year: splittedDate[0],
-            month: splittedDate[1],
-            day: splittedDate[2].split('T')[0]
-        }
-
-        return `${formattedDate.day}/${formattedDate.month}/${formattedDate.year}`
-    }, []);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const handleScroll = () => {
         setActive(scrollY > (innerHeight / 2));
@@ -78,10 +68,21 @@ export const useNavbar = ({ searchQuery }) => {
         setFilteredShops(newFilteredShops);
     }
 
+    const date = useMemo(() => {
+        const splittedDate = created_at.split('-');
+        const formattedDate = {
+            year: splittedDate[0],
+            month: splittedDate[1],
+            day: splittedDate[2].split('T')[0]
+        }
+
+        return `${formattedDate.day}/${formattedDate.month}/${formattedDate.year}`
+    }, []);
+
     return {
         active,
-        userDropdownRef,
         searchDropdownRef,
+        userDropdownRef,
         isSearchDropdownOpen,
         isUserDropdownOpen,
         setIsSearchDropdownOpen,
@@ -90,6 +91,8 @@ export const useNavbar = ({ searchQuery }) => {
         date,
         name,
         surname,
-        logout
+        logout,
+        searchQuery,
+        setSearchQuery
     }
 }

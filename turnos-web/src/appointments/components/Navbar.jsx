@@ -2,19 +2,16 @@ import styles from '../../styles/appointments/components/Navbar.module.css';
 import { Calendar } from '../../svgs/Calendar';
 import { Profile } from '../../svgs/Profile';
 import { MagnifyingGlass } from '../../svgs/MagnifyingGlass';
-import { useState } from 'react';
 import { Logout } from '../../svgs/Logout';
 import { useNavbar } from '../../hooks';
 import { Link } from 'react-router-dom';
 import { SearchItem } from './SearchItem';
 
 export const Navbar = () => {
-    const [searchQuery, setSearchQuery] = useState('');
-
     const { 
         active, 
-        userDropdownRef, 
         searchDropdownRef, 
+        userDropdownRef, 
         isSearchDropdownOpen, 
         isUserDropdownOpen, 
         setIsSearchDropdownOpen, 
@@ -23,8 +20,10 @@ export const Navbar = () => {
         date, 
         name, 
         surname,
-        logout
-    } = useNavbar({ searchQuery });
+        logout,
+        searchQuery,
+        setSearchQuery
+    } = useNavbar();
 
     return (
         <nav className={ `${styles.container} ${ active ? styles.containerActive : '' }` } id="navmain">
