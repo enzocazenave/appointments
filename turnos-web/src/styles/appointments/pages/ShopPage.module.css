@@ -107,10 +107,85 @@
 .createAppointmentModal {
     border: none;
     border-radius: .2rem;
-    width: 50%;
-    height: 70vh;
+    width: 30%;
 }
 
 .createAppointmentModal::backdrop {
     background-color: rgba(0, 0, 0, 0.6);
+}
+
+.createAppointmentModalTitle {
+    text-align: center;
+    font-size: 2em;
+}
+
+.createAppointmentModalText {
+    font-size: 1.3em;
+    text-align: center;
+    margin-top: .5rem;
+    margin-bottom: 1rem;
+}
+
+.createAppointmentModalLabel {
+    font-size: 1.1em;
+}
+
+.createAppointmentModalPicker {
+    margin-top: .5rem;
+    padding: .5rem;
+    border-radius: .5rem;
+    border: none;
+    outline: none;
+    background-color: #00bc84;
+    color: #f0f0f0;
+    font-weight: 500;
+    font-size: .9em;
+}
+
+.createAppointmentModalButtons {
+    display: flex;
+    gap: 1rem;
+}
+.createAppointmentModalConfirm {
+    padding: .5rem;
+    border-radius: .5rem;
+    background-color: #00bc84;
+    border: none;
+    outline: none;
+    color: #f0f0f0;
+    flex: 1;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.createAppointmentModalInput {
+    display: block;
+    padding: .5rem;
+    border-radius: .5rem;
+    border: none;
+    outline: none;
+    background-color: #00cc8f18;
+    color: #000;
+    font-weight: 500;
+    font-size: .9em;
+    min-height: 100px;
+    resize: none;
+}
+
+.createAppointmentModalClose {
+    padding: .5rem;
+    border-radius: .5rem;
+    background-color: #bc0000;
+    border: none;
+    outline: none;
+    color: #f0f0f0;
+    flex: 1;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.createAppointmentModalConfirm:hover,.createAppointmentModalClose:hover {
+    opacity: .9;
 }
