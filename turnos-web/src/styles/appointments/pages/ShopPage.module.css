@@ -1,3 +1,101 @@
 .container {
-    
+    padding-top: 5.25rem;
+}
+
+.info {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    box-shadow: 0 -.1rem .25rem rgba(0, 0, 0, 0.1);
+}
+
+.infoImage {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.infoText {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.infoTextTitle {
+    font-size: 1.625em;
+}
+
+.infoTextSpan {
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.infoTextParagraph {
+    font-size: 1em;
+    padding-block: 1rem;
+    max-width: 50%;
+}
+
+.calendarsHeader {
+    display: flex;
+    box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.calendarTitle {
+    background-color: transparent;
+    border: none;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    transition: background .3s, color .3s;
+    color: #000;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    border-right: 2px solid rgba(0, 0, 0, 0.083);
+}
+
+.calendarTitle:last-child {
+    border-right: none;
+}
+
+.calendarTitle:hover {
+    background-color: #00CC8F;
+    color: #f0f0f0;
+    border-right: 2px solid transparent;
+}
+
+.calendarTitle.isSelected {
+    background-color: #00CC8F;
+    color: #f0f0f0;
+    border-right: 2px solid transparent;
+}
+
+.addAppointmentButton {
+    border: none;
+    padding-block: .75rem;
+    border-radius: .5rem;
+    background-color: #00CC8F;
+    color: #f0f0f0;
+    font-size: 1.1em;
+    transition: background-color .3s;
+}
+
+.addAppointmentButton:hover {
+    background-color: #00bc84;
+    cursor: pointer;
+}
+
+.calendarTitleText {
+    font-size: 1.3em;
+}
+
+.calendarImage {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
 }

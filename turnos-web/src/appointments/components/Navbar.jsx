@@ -50,17 +50,27 @@ export const Navbar = () => {
 
                 <div
                     ref={ searchDropdownRef }                
-                    className={ `${ styles.searchDropdown } ${ isSearchDropdownOpen ? (active ? styles.activeBigger : styles.active ) : styles.inactive } ` }
+                    className={ `
+                        ${ styles.searchDropdown } 
+                        ${ isSearchDropdownOpen ? (active ? styles.activeBigger : styles.active ) : styles.inactive } 
+                        ${ filteredShops.length === 0 && styles.searchDropdownFlexCenter }    
+                    ` }
                 >   
-                    {filteredShops.map(shop => (
-                            <SearchItem 
-                                key={ shop._id }
-                                id={ shop._id }
-                                title={ shop.title }
-                                text={ shop.estimated_location }
-                                url={ shop.image }
-                            />
-                    ))}
+                    {  
+                        (filteredShops.length > 0)
+                        ? ( 
+                            filteredShops.map(shop => (
+                                   <SearchItem 
+                                       key={ shop._id }
+                                       id={ shop._id }
+                                       title={ shop.title }
+                                       text={ shop.estimated_location }
+                                       url={ shop.image }
+                                   />
+                            ))
+                        )
+                        : <span className={ styles.noResults }>No hay resultados</span>
+                    }
                 </div>
 
                 <div 

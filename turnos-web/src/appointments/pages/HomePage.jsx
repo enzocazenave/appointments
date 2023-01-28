@@ -20,7 +20,7 @@ export const HomePage = () => {
                     <p className={ styles.text }>
                         ¿Cómo de fácil? Simplemente tenes que buscar comercios 
                         que estén adheridos a <span className={ styles.textColor }>Turnate</span>, entrar a su perfil, hacer 
-                        click en el botón de "Reservá un turno" y seguir las 
+                        click en el botón de "Reservá tu turno" y seguir las 
                         instrucciones.
                     </p>
                 </div>

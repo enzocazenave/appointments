@@ -9,6 +9,7 @@ export const AppointmentsRoutes = () => {
             <Routes>
                 <Route path="/" element={ <HomePage /> } />
                 <Route path="/shop/:shopId" element={ <ShopPage /> } />
+                <Route path="/shop/:shopId/:calendarId" element={ <ShopPage /> } />
                 <Route path="/profile" element={ <ProfilePage /> } />
                 <Route path="/appointments" element={ <AppointmentsPage /> } />
                 <Route path="/*" element={ <Navigate to="/" /> } />

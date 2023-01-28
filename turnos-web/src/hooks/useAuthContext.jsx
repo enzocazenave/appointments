@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useContext } from "react"
 import turnos from "../api/turnos";
 import { AuthContext } from "../context/AuthContext"
-import { verifyCredentials } from "../helpers/verifyCredentials";
+import { verifyCredentials } from "../helpers";
 
 export const useAuthContext = () => {
     

@@ -14,10 +14,6 @@ export const useNavbar = () => {
     const { user: { created_at, name, surname }, logout } = useAuthContext();
     const [searchQuery, setSearchQuery] = useState('');
 
-    const handleScroll = () => {
-        setActive(scrollY > (innerHeight / 2));
-    }
-
     useEffect(() => {
         const handleDropdown = (e) => {
             if (!userDropdownRef.current.contains(e.target)) setIsUserDropdownOpen(false);
@@ -47,9 +43,13 @@ export const useNavbar = () => {
         filterShops(searchQuery)
     }, [searchQuery]);
 
+    const handleScroll = () => {
+        setActive(scrollY > (innerHeight / 2));
+    }
+
     const searchShops = async() => {        
         try {
-            const { data } = await turnos.get('/shops/search');
+            const { data } = await turnos.get('/shops');
             setSearchedShops([...data.shops]);
         } catch(error) {
             console.log(error);
