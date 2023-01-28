@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import turnos from "../api/turnos";
 
 export const useShopContext = () => {
     const [shop, setShop] = useState([]);
     const [shopCalendars, setShopCalendars] = useState([]);
     const [isLoading, setLoading] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const modalRef = useRef();
 
     const getCalendarsByShopId = async(id) => {
         setLoading(true);
@@ -31,15 +33,27 @@ export const useShopContext = () => {
 
         setLoading(false);
     }
+
+    useEffect(() => {
+        if (isModalOpen) {
+            modalRef.current.removeAttribute('open')
+            modalRef.current.showModal();
+        } else {
+            modalRef.current.close();       
+        }
+    }, [isModalOpen]);
     
     return {
         //* Metodos
         getCalendarsByShopId,
         getShopById,
+        setIsModalOpen,
 
         //* Propiedades
         shopCalendars,
         shop,
-        isLoading
+        isLoading,
+        modalRef,
+        isModalOpen
     }
 }

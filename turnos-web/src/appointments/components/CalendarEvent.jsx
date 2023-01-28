@@ -1,12 +1,13 @@
 export const CalendarEvent = ({ event }) => {
 
-    const { title, user } = event;
+    const { title } = event;
 
     return (
-        <>
-            <strong>{ title }</strong>
-            <span> - { user.name }</span>
+        <div
+            style={{ with: 'fit-content' }}
+        >
+            <strong>Reservado</strong>
 
-        </>
+        </div>
     )
 }

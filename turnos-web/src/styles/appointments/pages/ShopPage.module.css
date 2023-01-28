@@ -85,6 +85,10 @@
     transition: background-color .3s;
 }
 
+.addAppointmentButton.disabled {
+    opacity: .3;
+}
+
 .addAppointmentButton:hover {
     background-color: #00bc84;
     cursor: pointer;
@@ -98,4 +102,15 @@
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
+}
+
+.createAppointmentModal {
+    border: none;
+    border-radius: .2rem;
+    width: 50%;
+    height: 70vh;
+}
+
+.createAppointmentModal::backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
 }
