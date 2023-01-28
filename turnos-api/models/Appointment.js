@@ -9,11 +9,19 @@ const AppointmentSchema = Schema({
         type: String,
         required: true
     },
+    calendar_id: {
+        type: String,
+        required: true
+    },
     comment: {
         type: String,
         required: true
     },
-    appointment_date: {
+    appointment_date_start: {
+        type: Date,
+        required: true
+    },
+    appointment_date_end: {
         type: Date,
         required: true
     }

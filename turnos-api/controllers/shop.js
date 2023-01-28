@@ -57,8 +57,14 @@ const getCalendarsByShopId = async(req, res = response) => {
     }
 }
 
+const createAppointment = async(req, res = response) => {
+    const { shopId, calendarId } = req.params;
+    const { user_id, appointment_date_start, appointment_date_end } = req.body;
+}
+
 module.exports = {
     getShops,
     getShopById,
-    getCalendarsByShopId
+    getCalendarsByShopId,
+    createAppointment
 }
