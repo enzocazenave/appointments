@@ -6,7 +6,7 @@ export const CalendarEvent = ({ event }) => {
         <div
             style={{ with: 'fit-content' }}
         >
-            <strong>Reservado</strong>
+            <strong>{title}</strong>
 
         </div>
     )

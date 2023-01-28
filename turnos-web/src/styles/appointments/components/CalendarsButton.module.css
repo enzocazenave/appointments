@@ -1,0 +1,41 @@
+
+.calendarTitle {
+    background-color: transparent;
+    border: none;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    transition: background .3s, color .3s;
+    color: #000;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    border-right: 2px solid rgba(0, 0, 0, 0.083);
+}
+
+.calendarTitle:last-child {
+    border-right: none;
+}
+
+.calendarTitle:hover {
+    background-color: #00CC8F;
+    color: #f0f0f0;
+    border-right: 2px solid transparent;
+}
+
+.calendarTitle.isSelected {
+    background-color: #00CC8F;
+    color: #f0f0f0;
+    border-right: 2px solid transparent;
+}
+
+.calendarTitleText {
+    font-size: 1.3em;
+}
+
+.calendarImage {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+}

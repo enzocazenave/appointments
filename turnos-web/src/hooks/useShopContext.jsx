@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import turnos from "../api/turnos";
 
 export const useShopContext = () => {
@@ -6,7 +6,7 @@ export const useShopContext = () => {
     const [shopCalendars, setShopCalendars] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const modalRef = useRef();
+    const [selectedCalendar, setSelectedCalendar] = useState({});
 
     const getCalendarsByShopId = async(id) => {
         setLoading(true);
@@ -21,11 +21,11 @@ export const useShopContext = () => {
         setLoading(false);
     }
 
-    const getShopById = async(shopId) => {
+    const getShopById = async(id) => {
         setLoading(true);
 
         try {
-            const { data } = await turnos.get(`/shops/${ shopId }`);
+            const { data } = await turnos.get(`/shops/${ id }`);
             setShop(data.shop);
         } catch(error) {
             console.log(error);
@@ -33,27 +33,25 @@ export const useShopContext = () => {
 
         setLoading(false);
     }
-
-    useEffect(() => {
-        if (isModalOpen) {
-            modalRef.current.removeAttribute('open')
-            modalRef.current.showModal();
-        } else {
-            modalRef.current.close();       
-        }
-    }, [isModalOpen]);
+    
+    const getSelectedCalendarById = (id) => (
+        setSelectedCalendar(shopCalendars.filter(shopCalendar => (
+            shopCalendar._id === id
+        ))[0])
+    );
     
     return {
         //* Metodos
         getCalendarsByShopId,
         getShopById,
+        getSelectedCalendarById,
         setIsModalOpen,
 
         //* Propiedades
         shopCalendars,
         shop,
+        selectedCalendar,
         isLoading,
-        modalRef,
         isModalOpen
     }
 }
