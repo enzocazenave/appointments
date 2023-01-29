@@ -30,8 +30,9 @@ export const ShopPage = () => {
     }, [shopId]);
 
     useEffect(() => {
+        if (shopCalendars.length === 0) return;
         getSelectedCalendarById(calendarId);
-    }, [calendarId, shop]);
+    }, [calendarId, shopCalendars]);
 
     return (
         <>

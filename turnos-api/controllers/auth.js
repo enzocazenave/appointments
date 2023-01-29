@@ -81,7 +81,7 @@ const registerUserConfirm = async(req, res = response) => {
         await user.save();
 
         delete req.body.password;
-        const tokenPayload = { ...req.body, created_at: user.created_at };
+        const tokenPayload = { ...req.body, _id: user._id, created_at: user.created_at };
         const token = sign(tokenPayload, process.env.SECRET_TOKEN_KEY, { expiresIn: '2h' });
         tokenPayload.token = token;
 
@@ -113,6 +113,7 @@ const loginUser = async(req, res = response) => {
         });
 
         const tokenPayload = {
+            _id: user._id,
             email,
             name: user.name,
             surname: user.surname,

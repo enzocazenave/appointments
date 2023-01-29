@@ -14,8 +14,7 @@ const AppointmentSchema = Schema({
         required: true
     },
     comment: {
-        type: String,
-        required: true
+        type: String
     },
     appointment_date_start: {
         type: Date,

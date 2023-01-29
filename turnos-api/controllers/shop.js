@@ -1,6 +1,7 @@
 const { response } = require('express');
 const { default: mongoose } = require('mongoose');
 const { unknownError } = require('../helpers/unknownError');
+const Appointment = require('../models/Appointment');
 const Calendar = require('../models/Calendar');
 const Shop = require('../models/Shop');
 
@@ -59,7 +60,35 @@ const getCalendarsByShopId = async(req, res = response) => {
 
 const createAppointment = async(req, res = response) => {
     const { shopId, calendarId } = req.params;
-    const { user_id, appointment_date_start, appointment_date_end } = req.body;
+    const { comment, user_id, appointment_date_start, appointment_date_end } = req.body;
+
+    try {
+
+        let appointment = await Appointment.findOne({ appointment_date_start });
+    
+        if (appointment) return res.status(400).json({
+            ok: false,
+            msg: 'Ya hay un turno reservado en ese horario.'
+        });
+    
+        appointment = new Appointment({
+            shop_id: shopId,
+            user_id,
+            calendar_id: calendarId,
+            comment,
+            appointment_date_start,
+            appointment_date_end
+        });
+
+        appointment.save();
+    
+        res.status(200).json({
+            ok: true,
+            appointment
+        });
+    } catch(error) {
+        unknownError(res, error);
+    }
 }
 
 module.exports = {

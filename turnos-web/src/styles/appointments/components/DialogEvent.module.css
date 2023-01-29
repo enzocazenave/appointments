@@ -43,6 +43,7 @@
     color: #f0f0f0;
     font-weight: 500;
     font-size: .9em;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
 }
 
 .createAppointmentModalButtons {
@@ -60,6 +61,7 @@
     font-size: 1em;
     font-weight: 500;
     cursor: pointer;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
 }
 
 .createAppointmentModalInput {
@@ -74,6 +76,7 @@
     font-size: .9em;
     min-height: 100px;
     resize: none;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
 }
 
 .createAppointmentModalClose {
@@ -87,6 +90,7 @@
     font-size: 1em;
     font-weight: 500;
     cursor: pointer;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
 }
 
 .createAppointmentModalConfirm:hover,.createAppointmentModalClose:hover {
