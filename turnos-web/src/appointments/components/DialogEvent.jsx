@@ -32,12 +32,22 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
         }
     }, [isModalOpen]);
 
+    const handleSubmit = () => {
+        // TODO: Create the appointment and make the post call to the backend-api
+    }
+
     return (
         <dialog
             ref={ modalRef }
             className={ styles.createAppointmentModal }
-            onCancel={ () => setIsModalOpen(false) }
-            onClose={ () => setIsModalOpen(false) }
+            onCancel={ () => {
+                setFormValues({ comment: '', appointment: '' });
+                setIsModalOpen(false)
+            }}
+            onClose={ () => {
+                setFormValues({ comment: '', appointment: '' });
+                setIsModalOpen(false) 
+            }}
         >
             <h1 className={ styles.createAppointmentModalTitle }>Reservá tu turno</h1>
             <span className={ styles.createAppointmentModalSpan }>{ calendar?.name }</span>
@@ -78,7 +88,7 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
                 </textarea>
             </div>
             <div className={ styles.createAppointmentModalButtons }>
-                <button className={ styles.createAppointmentModalConfirm } onClick={ () => setIsModalOpen(false) }>Reservar</button>
+                <button className={ styles.createAppointmentModalConfirm } onClick={ () => handleSubmit }>Reservar</button>
                 <button className={ styles.createAppointmentModalClose } onClick={ () => setIsModalOpen(false) }>Salir</button>
             </div>
         </dialog>
