@@ -12,7 +12,7 @@ registerLocale('es',es);
 
 export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
 
-    const { createAppointment, isCreatingAppointment } = useAppointments();
+    const { createAppointment, isCreatingAppointment, getAllAppointmentsById } = useAppointments();
     const [appointmentCreated, setAppointmentCreated] = useState(false);
     const [error, setError] = useState('');
 
@@ -45,8 +45,12 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
         
         if (appointment instanceof Date) {
             createAppointment(formValues, calendar).then(data => {
-                setAppointmentCreated(true);
-                
+                setAppointmentCreated(data.appointment);
+
+                if (data.appointment) {
+                    setTimeout(() => {getAllAppointmentsById(calendar._id)}, 500)
+                }
+
                 setError(data.msg);
             })
         };
@@ -73,7 +77,7 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
                 </div>
                 : appointmentCreated
                     ? <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: '1rem' }}>
-                        {(error) ? <h1>{error}</h1> : <h1>Turno reservado con éxito! Te esperamos el 24/02/2023 a las 15:00hs</h1>}
+                        {(error) ? <h1>{error}</h1> : <h1>Turno reservado con éxito! Te esperamos el { '24/02/2024' } a las 15:00hs</h1>}
                         <button className={ styles.createAppointmentModalClose } onClick={ () => setIsModalOpen(false) }>Salir</button>
                     </div>
                     : (<>

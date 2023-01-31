@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getShops, getShopById, getCalendarsByShopId, createAppointment } = require('../controllers/shop');
+const { getShops, getShopById, getCalendarsByShopId, createAppointment, getAllAppointmentsById } = require('../controllers/shop');
 const { check } = require('express-validator');
 const { isDate } = require('moment');
 const { fieldValidator } = require('../middlewares/fieldValidator');
@@ -18,5 +18,7 @@ router.post('/:shopId/:calendarId', [
     check('appointment_date_end', 'Es obligatorio que el turno tenga una fecha y hora de fin').not().isEmpty(),
     fieldValidator
 ], createAppointment);
+
+router.get('/calendar/:calendarId', [], getAllAppointmentsById)
 
 module.exports = router;

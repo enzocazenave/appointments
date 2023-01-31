@@ -67,7 +67,7 @@ export const ShopPage = () => {
                     </div>
                     
                     {(calendarId) && (
-                        <CalendarTable />
+                        <CalendarTable calendarId={ calendarId } />
                     )}
                     
                     <DialogEvent 

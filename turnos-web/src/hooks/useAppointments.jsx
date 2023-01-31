@@ -1,12 +1,16 @@
 import { addMinutes } from "date-fns";
+import { useContext } from "react";
 import { useState } from "react"
 import turnos from "../api/turnos"
+import { CalendarContext } from "../context/CalendarContext";
 import { useAuthContext } from "./useAuthContext";
 
 export const useAppointments = () => {
 
     const { user } = useAuthContext();
+    const { appointments, setAppointments } = useContext(CalendarContext);
     const [isCreatingAppointment, setIsCreatingAppointment] = useState(false);
+    const [isLoadingAppointments, setIsLoadingAppointments] = useState(false);
 
     const createAppointment = async(credentials, calendar) => {
         setIsCreatingAppointment(true);
@@ -24,19 +28,37 @@ export const useAppointments = () => {
             setIsCreatingAppointment(false);
             return data;
         } catch(error) {
-            console.error(error.response.data);
             setIsCreatingAppointment(false);
             return error.response.data;
+        }        
+    }
+
+    const getAllAppointmentsById = async(id) => {
+        setIsLoadingAppointments(true);
+
+        try {   
+            const { data } = await turnos.get(`/shops/calendar/${ id }`);
+            setAppointments(data.appointments.map(appointment => {
+                appointment.start = new Date(appointment.start);
+                appointment.end = new Date(appointment.end);
+                return appointment;
+            }));
+
+        } catch(error) {
+            console.log(error);
+            setIsLoadingAppointments(false);
         }
-        
-        
+
+        setIsLoadingAppointments(false);
     }
 
     return {
         //* METODOS
         createAppointment,
+        getAllAppointmentsById,
 
         //* PROPIEDADES
-        isCreatingAppointment
+        isCreatingAppointment,
+        appointments
     }
 }

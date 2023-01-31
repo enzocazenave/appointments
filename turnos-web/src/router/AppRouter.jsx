@@ -3,6 +3,7 @@ import { AuthRoutes } from '../auth/routes/AuthRoutes';
 import { AppointmentsRoutes } from '../appointments/routes/AppointmentsRoutes';
 import { useAuthContext } from '../hooks';
 import { LoadingPage } from '../appointments/pages';
+import { CalendarProvider } from '../context/CalendarContext';
 
 export const AppRouter = () => {
 
@@ -15,7 +16,11 @@ export const AppRouter = () => {
         <Routes>
             {
                 (status === 'authenticated')
-                    ? <Route path="/*" element={ <AppointmentsRoutes /> } />
+                    ? <Route path="/*" element={ 
+                        <CalendarProvider>
+                            <AppointmentsRoutes /> 
+                        </CalendarProvider>
+                    } />
                     : <Route path="/*" element={ <AuthRoutes /> } />
             }
         </Routes>  

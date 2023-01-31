@@ -1,13 +1,18 @@
+import { useAuthContext } from "../../hooks"
+
 export const CalendarEvent = ({ event }) => {
 
-    const { title } = event;
+    const { user } = useAuthContext();
 
     return (
         <div
             style={{ with: 'fit-content' }}
         >
-            <strong>{title}</strong>
-
+            <strong>{
+                (event.user_id === user._id)
+                ? 'Tu reserva'
+                : 'Reservado'    
+            }</strong>
         </div>
     )
 }
