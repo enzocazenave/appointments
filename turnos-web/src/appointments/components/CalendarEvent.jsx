@@ -5,9 +5,7 @@ export const CalendarEvent = ({ event }) => {
     const { user } = useAuthContext();
 
     return (
-        <div
-            style={{ with: 'fit-content' }}
-        >
+        <div>
             <strong>{
                 (event.user_id === user._id)
                 ? 'Tu reserva'

@@ -7,32 +7,53 @@ import { isWeekend } from '../../helpers';
 import { useEffect, useRef, useState } from 'react';
 import { useAppointments } from '../../hooks';
 import { Loader } from '../../auth/components';
+import { setDay } from 'date-fns/esm';
 
 registerLocale('es',es);
 
 export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
 
-    const { createAppointment, isCreatingAppointment, getAllAppointmentsById } = useAppointments();
+    const { createAppointment, isCreatingAppointment, getAllAppointmentsById, appointments } = useAppointments();
     const [appointmentCreated, setAppointmentCreated] = useState(false);
     const [error, setError] = useState('');
-
     const modalRef = useRef();
-
     const [formValues, setFormValues] = useState({
         comment: '',
         appointment: ''
-    });
-
-    const onDateChanged = (event, changing) => {
-        setFormValues({
-            ...formValues,
-            [changing]: event
-        })
-    }
+    }); 
+    const [excludeTimes, setExcludeTimes] = useState([]);
 
     useEffect(() => {
         if (isModalOpen) {
-            
+            if (formValues.appointment instanceof Date) {
+                const appointmentsFilter = appointments.map((appointment) => {
+                    const { start } = appointment;
+                    const selectedDate = `${formValues.appointment.getMonth()}/${formValues.appointment.getDate()}/${formValues.appointment.getFullYear()}`;
+                    const appointmentDate = `${start.getMonth()}/${start.getDate()}/${start.getFullYear()}`;
+
+                    if (selectedDate === appointmentDate) return start;
+                });
+
+                setExcludeTimes(appointmentsFilter);
+                return;
+            }
+
+            const appointmentsFilter = appointments.map((appointment) => {
+                const { start } = appointment;
+                const currentDate = new Date();
+                const selectedDate = `${currentDate.getMonth()}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
+                const appointmentDate = `${start.getMonth()}/${start.getDate()}/${start.getFullYear()}`;
+
+                if (selectedDate === appointmentDate) return start;
+            });
+
+            setExcludeTimes(appointmentsFilter);
+        }
+        
+    }, [formValues.appointment, isModalOpen]);
+
+    useEffect(() => {
+        if (isModalOpen) {
             modalRef.current?.removeAttribute('open')
             modalRef.current?.showModal();
         } else {
@@ -40,8 +61,15 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
         }
     }, [isModalOpen]);
 
+    const onDateChanged = (event, changing) => {
+        setFormValues({
+            ...formValues,
+            [changing]: event
+        });
+    }
+
     const handleSubmit = () => {
-        const { comment, appointment } = formValues;
+        const { appointment } = formValues;
         
         if (appointment instanceof Date) {
             createAppointment(formValues, calendar).then(data => {
@@ -58,6 +86,7 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
 
     const handleClose = () => {
         setFormValues({ comment: '', appointment: '' });
+        setExcludeTimes([]);
         setIsModalOpen(false) 
         setError('');
         setAppointmentCreated(false);
@@ -75,7 +104,7 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
                 ? <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                     <Loader />
                 </div>
-                : appointmentCreated
+                : appointmentCreated || error
                     ? <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: '1rem' }}>
                         {(error) ? <h1>{error}</h1> : <h1>Turno reservado con éxito! Te esperamos el { '24/02/2024' } a las 15:00hs</h1>}
                         <button className={ styles.createAppointmentModalClose } onClick={ () => setIsModalOpen(false) }>Salir</button>
@@ -90,21 +119,25 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
                             <label className={ styles.createAppointmentModalLabel }>Selecciona la fecha y hora del turno</label>
                             <DatePicker
                                 className={ styles.createAppointmentModalPicker }
-                                minDate={ new Date()  }
-                                minTime={setHours(setMinutes(new Date(), 0), 8)}
-                                maxTime={setHours(setMinutes(new Date(), 45), 19)}
+                                minDate={ (new Date() > setHours(setMinutes(new Date(), 45), 19)) ? setDay(new Date(), 3) : new Date()}
+                                minTime={ setHours(setMinutes(new Date(), 0), 8) }
+                                maxTime={ setHours(setMinutes(new Date(), 45), 19) }
+                                excludeTimes={ excludeTimes }
                                 //*excludeTimes={[new Date("2023-01-31T11:15:00.000Z")]} ESTO CANCELA LA HORA 8.15 (GMT-3)
                                 //*excludeDates={ [new Date("2023-01-31T13:00:00.000Z")]} ESTO CANCELA EL DIA 31-01-2023
                                 timeIntervals={15}
                                 selected={ formValues.appointment } 
                                 onChange={ (event) => onDateChanged(event, 'appointment') }
                                 dateFormat="Pp"
-                                showTimeSelect        
+                                showTimeSelect
                                 locale='es'
                                 timeCaption='Hora'
                                 fixedHeight
                                 filterDate={ isWeekend }
                                 placeholderText="Haz click aqui"
+                                onKeyDown={ (e) => {
+                                    e.preventDefault()
+                                }}
                             />
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '.5rem', marginBottom: '3rem' }}>

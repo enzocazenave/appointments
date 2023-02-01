@@ -2,5 +2,5 @@ import { getDay } from "date-fns";
 
 export const isWeekend = (date) => {
     const day = getDay(date);
-    return day !== 0 && day !== 6;
+    return day !== 0;
 }

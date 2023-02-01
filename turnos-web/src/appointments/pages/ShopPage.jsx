@@ -67,7 +67,9 @@ export const ShopPage = () => {
                     </div>
                     
                     {(calendarId) && (
+                    <div className={ styles.calendarContainer }>
                         <CalendarTable calendarId={ calendarId } />
+                    </div>
                     )}
                     
                     <DialogEvent 

@@ -1,5 +1,8 @@
 .container {
     padding-top: 5.25rem;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 5.25rem);
 }
 
 .info {
@@ -61,4 +64,11 @@
 .addAppointmentButton:hover {
     background-color: #00bc84;
     cursor: pointer;
+}
+
+.calendarContainer {
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
