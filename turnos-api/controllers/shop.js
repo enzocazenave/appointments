@@ -70,20 +70,6 @@ const createAppointment = async(req, res = response) => {
             ok: false,
             msg: 'Ya hay un turno reservado en ese horario.'
         });
-        
-        const appointment_date_start_minute = new Date(appointment_date_start).getMinutes();
-        const appointment_date_start_hour = new Date(appointment_date_start).getHours();
-
-        if (appointment_date_start_minute !== 0 &&
-            appointment_date_start_minute !== 15 &&
-            appointment_date_start_minute !== 30 &&
-            appointment_date_start_minute !== 45 ||
-            appointment_date_start_hour === 0
-        ) return res.status(400).json({
-            ok: false,
-            msg: 'Horario invalido.'
-        })
-        
 
         appointment = new Appointment({
             shop_id: shopId,

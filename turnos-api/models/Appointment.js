@@ -17,11 +17,11 @@ const AppointmentSchema = Schema({
         type: String
     },
     appointment_date_start: {
-        type: Date,
+        type: Object,
         required: true
     },
     appointment_date_end: {
-        type: Date,
+        type: Object,
         required: true
     }
 });
