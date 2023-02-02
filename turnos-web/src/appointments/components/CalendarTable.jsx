@@ -4,8 +4,7 @@ import { getMessagesES, localizer } from "../../helpers";
 import { useAppointments, useAuthContext } from "../../hooks";
 import { CalendarEvent } from "./";
 
-export const CalendarTable = ({ calendarId }) => {
-
+export const CalendarTable = ({ calendarId, frequency }) => {
     const { getAllAppointmentsById, appointments} = useAppointments();
     const { user } = useAuthContext();
     const [lastView] = useState(localStorage.getItem('@appointments:lastView') || 'week');
@@ -45,7 +44,7 @@ export const CalendarTable = ({ calendarId }) => {
             localizer={ localizer }
             events={ appointments }
             timeslots={ 1 }
-            step={ 15 }
+            step={ frequency }
             defaultView={ lastView }
             startAccessor="start"
             endAccessor="end"

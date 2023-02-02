@@ -1,6 +1,6 @@
 import { getDay } from "date-fns";
 
-export const isWeekend = (date) => {
+export const isWeekend = (date, days) => {
     const day = getDay(date);
-    return day !== 0;
+    return days.includes(day);
 }

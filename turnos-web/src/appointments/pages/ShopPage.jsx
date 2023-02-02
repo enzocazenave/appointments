@@ -68,7 +68,10 @@ export const ShopPage = () => {
                     
                     {(calendarId) && (
                     <div className={ styles.calendarContainer }>
-                        <CalendarTable calendarId={ calendarId } />
+                        <CalendarTable 
+                            calendarId={ calendarId } 
+                            frequency={ selectedCalendar.appointments_frequency }
+                        />
                     </div>
                     )}
                     

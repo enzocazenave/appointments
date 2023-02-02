@@ -119,13 +119,13 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
                             <label className={ styles.createAppointmentModalLabel }>Selecciona la fecha y hora del turno</label>
                             <DatePicker
                                 className={ styles.createAppointmentModalPicker }
-                                minDate={ (new Date() > setHours(setMinutes(new Date(), 45), 19)) ? setDay(new Date(), 3) : new Date()}
-                                minTime={ setHours(setMinutes(new Date(), 0), 8) }
-                                maxTime={ setHours(setMinutes(new Date(), 45), 19) }
+                                minDate={ (new Date() > setHours(setMinutes(new Date(), 45), 19)) ? setDay(new Date(), 4) : new Date()}
+                                minTime={ setHours(setMinutes(new Date(), calendar?.min_time?.minute), calendar?.min_time?.hour) }
+                                maxTime={ setHours(setMinutes(new Date(), calendar?.max_time?.minute), calendar?.max_time?.hour) }
                                 excludeTimes={ excludeTimes }
                                 //*excludeTimes={[new Date("2023-01-31T11:15:00.000Z")]} ESTO CANCELA LA HORA 8.15 (GMT-3)
                                 //*excludeDates={ [new Date("2023-01-31T13:00:00.000Z")]} ESTO CANCELA EL DIA 31-01-2023
-                                timeIntervals={15}
+                                timeIntervals={ calendar?.appointments_frequency }
                                 selected={ formValues.appointment } 
                                 onChange={ (event) => onDateChanged(event, 'appointment') }
                                 dateFormat="Pp"
@@ -133,7 +133,7 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
                                 locale='es'
                                 timeCaption='Hora'
                                 fixedHeight
-                                filterDate={ isWeekend }
+                                filterDate={ (date) => isWeekend(date, calendar.appointments_days) }
                                 placeholderText="Haz click aqui"
                                 onKeyDown={ (e) => {
                                     e.preventDefault()

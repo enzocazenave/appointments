@@ -16,13 +16,24 @@ export const useAppointments = () => {
         setIsCreatingAppointment(true);
 
         const { appointment, comment } = credentials;
+
+        const appointment_date_start = {
+            day: appointment.getDate(),
+            month: appointment.getMonth(),
+            year: appointment.getFullYear(),
+            hour: appointment.getHours(),
+            minute: appointment.getMinutes()
+        }
+
+        const appointment_date_end = structuredClone(appointment_date_start);
+        appointment_date_end.minute += 15;
         
         try {
             const { data } = await turnos.post(`/shops/${ calendar.shop_id }/${ calendar._id }`, {
                 comment,
                 user_id: user._id,
-                appointment_date_start: appointment,
-                appointment_date_end: addMinutes(new Date(appointment), 15)
+                appointment_date_start,
+                appointment_date_end
             });
 
             setIsCreatingAppointment(false);
@@ -39,11 +50,13 @@ export const useAppointments = () => {
         try {   
             const { data } = await turnos.get(`/shops/calendar/${ id }`);
             setAppointments(data.appointments.map(appointment => {
-                appointment.start = new Date(appointment.start);
-                appointment.end = new Date(appointment.end);
+                const { day: startDay, month: startMonth, year: startYear, hour: startHour, minute: startMinute } = appointment.start;
+                const { day: endDay, month: endMonth, year: endYear, hour: endHour, minute: endMinute } = appointment.end;
+
+                appointment.start = new Date(startYear, startMonth, startDay, startHour, startMinute, 0);
+                appointment.end = new Date(endYear, endMonth, endDay, endHour, endMinute, 0);
                 return appointment;
             }));
-
         } catch(error) {
             console.log(error);
             setIsLoadingAppointments(false);

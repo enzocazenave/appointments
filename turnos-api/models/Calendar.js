@@ -5,6 +5,22 @@ const CalendarSchema = Schema({
         type: String,
         required: true
     },
+    appointments_frequency: {
+        type: Number,
+        required: true
+    },
+    min_time: {
+        type: Object,
+        required: true
+    },
+    max_time: {
+        type: Object,
+        required: true
+    },
+    appointments_days: {
+        type: Array,
+        required: true
+    },
     name: {
         type: String,
         required: true
