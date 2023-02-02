@@ -93,6 +93,10 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
         setAppointmentCreated(false);
     }
 
+    const handleTimeColor = (time) => {
+        return styles.textSuccess;
+    }
+    
     return (
         <dialog
             ref={ modalRef }
@@ -154,6 +158,7 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
                                     e.preventDefault()
                                 }}
                                 disabled={ !(formValues.appointment_date instanceof Date) }
+                                timeClassName={ handleTimeColor }
                             />
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '.5rem', marginBottom: '3rem' }}>

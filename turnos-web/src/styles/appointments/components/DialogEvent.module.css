@@ -96,3 +96,8 @@
 .createAppointmentModalConfirm:hover,.createAppointmentModalClose:hover {
     opacity: .9;
 }
+
+.textSuccess {
+    color: rgba(0, 100, 0, 0.5);
+    font-weight: 700;
+}
