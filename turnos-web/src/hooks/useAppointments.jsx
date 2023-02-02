@@ -15,14 +15,14 @@ export const useAppointments = () => {
     const createAppointment = async(credentials, calendar) => {
         setIsCreatingAppointment(true);
 
-        const { appointment, comment } = credentials;
+        const { appointment_date, appointment_hour, comment } = credentials;
 
         const appointment_date_start = {
-            day: appointment.getDate(),
-            month: appointment.getMonth(),
-            year: appointment.getFullYear(),
-            hour: appointment.getHours(),
-            minute: appointment.getMinutes()
+            day: appointment_date.getDate(),
+            month: appointment_date.getMonth(),
+            year: appointment_date.getFullYear(),
+            hour: appointment_hour.getHours(),
+            minute: appointment_hour.getMinutes()
         }
 
         const appointment_date_end = structuredClone(appointment_date_start);

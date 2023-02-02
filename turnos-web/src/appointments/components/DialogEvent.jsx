@@ -19,16 +19,17 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
     const modalRef = useRef();
     const [formValues, setFormValues] = useState({
         comment: '',
-        appointment: ''
+        appointment_date: '',
+        appointment_hour: ''
     }); 
     const [excludeTimes, setExcludeTimes] = useState([]);
 
     useEffect(() => {
         if (isModalOpen) {
-            if (formValues.appointment instanceof Date) {
+            if (formValues.appointment_date instanceof Date) {
                 const appointmentsFilter = appointments.map((appointment) => {
                     const { start } = appointment;
-                    const selectedDate = `${formValues.appointment.getMonth()}/${formValues.appointment.getDate()}/${formValues.appointment.getFullYear()}`;
+                    const selectedDate = `${formValues.appointment_date.getMonth()}/${formValues.appointment_date.getDate()}/${formValues.appointment_date.getFullYear()}`;
                     const appointmentDate = `${start.getMonth()}/${start.getDate()}/${start.getFullYear()}`;
 
                     if (selectedDate === appointmentDate) return start;
@@ -50,7 +51,7 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
             setExcludeTimes(appointmentsFilter);
         }
         
-    }, [formValues.appointment, isModalOpen]);
+    }, [formValues.appointment_date, isModalOpen]);
 
     useEffect(() => {
         if (isModalOpen) {
@@ -69,9 +70,9 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
     }
 
     const handleSubmit = () => {
-        const { appointment } = formValues;
+        const { appointment_date, appointment_hour } = formValues;
         
-        if (appointment instanceof Date) {
+        if (appointment_date instanceof Date && appointment_hour instanceof Date) {
             createAppointment(formValues, calendar).then(data => {
                 setAppointmentCreated(data.appointment);
 
@@ -116,28 +117,43 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
                             { calendar?.text }
                         </p>
                         <div style={{ marginBottom: '3rem' }}>
-                            <label className={ styles.createAppointmentModalLabel }>Selecciona la fecha y hora del turno</label>
+                            <label className={ styles.createAppointmentModalLabel }>Selecciona la fecha del turno</label>
                             <DatePicker
                                 className={ styles.createAppointmentModalPicker }
-                                minDate={ (new Date() > setHours(setMinutes(new Date(), 45), 19)) ? setDay(new Date(), 4) : new Date()}
-                                minTime={ setHours(setMinutes(new Date(), calendar?.min_time?.minute), calendar?.min_time?.hour) }
-                                maxTime={ setHours(setMinutes(new Date(), calendar?.max_time?.minute), calendar?.max_time?.hour) }
-                                excludeTimes={ excludeTimes }
-                                //*excludeTimes={[new Date("2023-01-31T11:15:00.000Z")]} ESTO CANCELA LA HORA 8.15 (GMT-3)
-                                //*excludeDates={ [new Date("2023-01-31T13:00:00.000Z")]} ESTO CANCELA EL DIA 31-01-2023
-                                timeIntervals={ calendar?.appointments_frequency }
-                                selected={ formValues.appointment } 
-                                onChange={ (event) => onDateChanged(event, 'appointment') }
-                                dateFormat="Pp"
-                                showTimeSelect
+                                minDate={ new Date() }
+                                selected={ formValues.appointment_date } 
+                                onChange={ (event) => onDateChanged(event, 'appointment_date') }
+                                dateFormat="dd/MM/yyyy"
                                 locale='es'
-                                timeCaption='Hora'
                                 fixedHeight
                                 filterDate={ (date) => isWeekend(date, calendar.appointments_days) }
                                 placeholderText="Haz click aqui"
                                 onKeyDown={ (e) => {
                                     e.preventDefault()
                                 }}
+                            />
+                        </div>
+                        <div style={{ marginBottom: '3rem' }}>
+                            <label className={ styles.createAppointmentModalLabel }>Selecciona la hora del turno</label>
+                            <DatePicker
+                                className={ styles.createAppointmentModalPicker }
+                                minTime={ setHours(setMinutes(new Date(), calendar?.min_time?.minute), calendar?.min_time?.hour) }
+                                maxTime={ setHours(setMinutes(new Date(), calendar?.max_time?.minute), calendar?.max_time?.hour) }
+                                excludeTimes={ excludeTimes }
+                                timeIntervals={ calendar?.appointments_frequency }
+                                selected={ formValues.appointment_hour } 
+                                onChange={ (event) => onDateChanged(event, 'appointment_hour') }
+                                dateFormat="hh:mm"
+                                timeCaption="Hora"
+                                locale='es'
+                                showTimeSelect
+                                showTimeSelectOnly
+                                fixedHeight
+                                placeholderText="Haz click aqui"
+                                onKeyDown={ (e) => {
+                                    e.preventDefault()
+                                }}
+                                disabled={ !(formValues.appointment_date instanceof Date) }
                             />
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '.5rem', marginBottom: '3rem' }}>
