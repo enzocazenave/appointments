@@ -104,8 +104,6 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
     const handleTimeColor = (time) => {
         return styles.textSuccess;
     }
-
-    console.log(appointmentCreated)
     
     return (
         <dialog
