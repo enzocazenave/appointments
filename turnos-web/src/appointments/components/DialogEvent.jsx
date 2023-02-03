@@ -7,7 +7,7 @@ import { isWeekend } from '../../helpers';
 import { useEffect, useRef, useState } from 'react';
 import { useAppointments } from '../../hooks';
 import { Loader } from '../../auth/components';
-import { setDay } from 'date-fns/esm';
+import { addDays } from 'date-fns/esm';
 
 registerLocale('es',es);
 
@@ -17,12 +17,13 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
     const [appointmentCreated, setAppointmentCreated] = useState(false);
     const [error, setError] = useState('');
     const modalRef = useRef();
+    const [excludeTimes, setExcludeTimes] = useState([]);
+    const currentTime = new Date();
     const [formValues, setFormValues] = useState({
         comment: '',
         appointment_date: '',
         appointment_hour: ''
     }); 
-    const [excludeTimes, setExcludeTimes] = useState([]);
 
     useEffect(() => {
         if (isModalOpen) {
@@ -67,6 +68,13 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
             ...formValues,
             [changing]: event
         });
+
+        if (changing == 'appointment_date' && formValues.appointment_hour instanceof Date) {
+            setFormValues({
+                ...formValues,
+                appointment_hour: ''
+            });
+        }
     }
 
     const handleSubmit = () => {
@@ -96,6 +104,8 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
     const handleTimeColor = (time) => {
         return styles.textSuccess;
     }
+
+    console.log(appointmentCreated)
     
     return (
         <dialog
@@ -111,7 +121,7 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
                 </div>
                 : appointmentCreated || error
                     ? <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: '1rem' }}>
-                        {(error) ? <h1>{error}</h1> : <h1>Turno reservado con éxito! Te esperamos el { '24/02/2024' } a las 15:00hs</h1>}
+                        {(error) ? <h1>{error}</h1> : <h1>Turno reservado con éxito! Te esperamos el { `${ appointmentCreated.appointment_date_start.day }/${appointmentCreated.appointment_date_start.month + 1}/${appointmentCreated.appointment_date_start.year}` } a las {`${appointmentCreated.appointment_date_start.hour}:${appointmentCreated.appointment_date_start.minute}`}hs</h1>}
                         <button className={ styles.createAppointmentModalClose } onClick={ () => setIsModalOpen(false) }>Salir</button>
                     </div>
                     : (<>
@@ -124,7 +134,7 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
                             <label className={ styles.createAppointmentModalLabel }>Selecciona la fecha del turno</label>
                             <DatePicker
                                 className={ styles.createAppointmentModalPicker }
-                                minDate={ new Date() }
+                                minDate={ currentTime.getHours() > calendar?.max_time?.hour ? addDays(currentTime, 1) : currentTime }
                                 selected={ formValues.appointment_date } 
                                 onChange={ (event) => onDateChanged(event, 'appointment_date') }
                                 dateFormat="dd/MM/yyyy"

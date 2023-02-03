@@ -55,6 +55,7 @@ export const ShopPage = () => {
                             </button>
                         </div> 
                     </div>
+                    
                     <div className={ styles.calendarsHeader }>
                         {shopCalendars.map(calendar => (
                             <CalendarsButton

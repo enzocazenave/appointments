@@ -54,6 +54,9 @@ export const CalendarTable = ({ calendarId, frequency }) => {
             components={{
                 event: CalendarEvent
             }}
+            style={{
+                marginLeft: '1rem'
+            }}
             onView={ onViewChanged }
         />
     ) 
