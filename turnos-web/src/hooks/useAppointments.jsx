@@ -27,6 +27,11 @@ export const useAppointments = () => {
 
         const appointment_date_end = structuredClone(appointment_date_start);
         appointment_date_end.minute += 15;
+
+        if (appointment_date_end.minute === 60) {
+            appointment_date_end.minute = 0;
+            appointment_date_end.hour += 1;
+        }
         
         try {
             const { data } = await turnos.post(`/shops/${ calendar.shop_id }/${ calendar._id }`, {

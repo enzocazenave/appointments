@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const { getShops, getShopById, getCalendarsByShopId, createAppointment, getAllAppointmentsById } = require('../controllers/shop');
 const { check } = require('express-validator');
-const { isDate } = require('moment');
 const { fieldValidator } = require('../middlewares/fieldValidator');
 
 const router = Router();
@@ -19,6 +18,6 @@ router.post('/:shopId/:calendarId', [
     fieldValidator
 ], createAppointment);
 
-router.get('/calendar/:calendarId', [], getAllAppointmentsById)
+router.get('/calendar/:calendarId', [], getAllAppointmentsById);
 
 module.exports = router;

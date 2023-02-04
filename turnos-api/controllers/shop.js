@@ -1,5 +1,4 @@
 const { response } = require('express');
-const moment = require('moment');
 const { unknownError } = require('../helpers/unknownError');
 const Appointment = require('../models/Appointment');
 const Calendar = require('../models/Calendar');

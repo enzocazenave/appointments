@@ -101,7 +101,7 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
         setAppointmentCreated(false);
     }
 
-    const handleTimeColor = (time) => {
+    const handleTimeColor = () => {
         return styles.textSuccess;
     }
     
