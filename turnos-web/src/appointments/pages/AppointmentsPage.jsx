@@ -22,9 +22,7 @@ export const AppointmentsPage = () => {
                
             });
     }, []);
-    if (appointmentSelected?.shop?.image) {
-        console.log(new Date(`${2}/${6}/${2023}`))
-    }
+    
     return (
         <>
             {(appointmentsLoaded)
@@ -63,7 +61,9 @@ export const AppointmentsPage = () => {
                             : <h2 style={{
                                 opacity: .35,
                                 fontWeight: 400
-                            }}>Selecciona un turno para ver más información</h2>
+                            }}>
+                                Selecciona un turno para ver más información
+                            </h2>
                         }
                     </div>
                 </div>
