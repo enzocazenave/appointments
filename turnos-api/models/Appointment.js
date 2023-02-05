@@ -23,6 +23,10 @@ const AppointmentSchema = Schema({
     appointment_date_end: {
         type: Object,
         required: true
+    },
+    cancelled: {
+        type: Boolean,
+        default: false
     }
 });
 

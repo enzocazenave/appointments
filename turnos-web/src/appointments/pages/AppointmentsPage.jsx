@@ -8,7 +8,6 @@ import { LoadingPage } from './LoadingPage';
 const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
 export const AppointmentsPage = () => {
-
     const [appointments, setAppointments] = useState({
         current: [],
         notCurrent: [],
@@ -23,9 +22,9 @@ export const AppointmentsPage = () => {
     useEffect(() => {
         turnos.get(`/users/appointments/${ user._id }`)
             .then(({ data }) => setAppointments({ 
-                current: data.appointments,
-                notCurrent: [],
-                cancelled: []
+                current: data.currentAppointments,
+                notCurrent: data.notCurrentAppointments,
+                cancelled: data.cancelledAppointments
             }))
             .finally(() => {
                 setAppointmentsLoaded(true);
