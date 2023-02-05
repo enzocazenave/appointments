@@ -19,7 +19,8 @@ export const CalendarTable = ({ calendarId, frequency }) => {
         let backgroundColorToShow = '';
 
         if (isMyEvent) backgroundColorToShow = isSelected ? '#009669' : '#00CC8F';
-        if (!isMyEvent) backgroundColorToShow = isSelected ? '#a30000' : '#bc0000';
+        if (!isMyEvent) backgroundColorToShow = isSelected ? '#FF5050' : '#EA3F3F';
+        if (event.cancelled) backgroundColorToShow = isSelected ? '#a30000' : '#bc0000' 
         if (currentDate > end) backgroundColorToShow = isSelected ? '#616161' : '#969696';
         if (currentDate > start && currentDate < end) backgroundColorToShow = '';
     

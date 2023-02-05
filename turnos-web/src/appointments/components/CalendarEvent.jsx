@@ -13,8 +13,12 @@ export const CalendarEvent = ({ event }) => {
         <div className={ `${styles.container} ${ (view === 'month') && styles.padding }` }>
             <strong>{
                 (event.user_id === user._id)
-                ? 'Tu reserva'
-                : 'Reservado'    
+                ? (event.cancelled) 
+                    ? 'Cancelado' 
+                    : 'Tu turno'
+                : (event.cancelled)
+                    ? 'Cancelado'
+                    : 'Reservado'
             }</strong>
             {(view === 'month') && <span>{ startHour } - { endHour } </span>}
         </div>

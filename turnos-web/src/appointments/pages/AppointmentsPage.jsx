@@ -74,7 +74,8 @@ export const AppointmentsPage = () => {
                                 Cancelados
                             </button>
                         </div>
-                        { appointmentsToShow.map(appointment => (
+                        { (appointmentsToShow.length > 0)
+                        ? appointmentsToShow.map(appointment => (
                             <div
                                 key={ appointment._id }
                                 onClick={ () => setAppointmentSelected(appointment) }
@@ -84,7 +85,16 @@ export const AppointmentsPage = () => {
                                 <span>{ appointment.shop.title }</span>
                                 <span>{ formatDate(appointment.appointment_date_start)[0] }</span>
                             </div>
-                        ))}
+                        ))
+                        : <h2 style={{
+                            opacity: .35,
+                            fontWeight: 400,
+                            textAlign: 'center',
+                            marginTop: 30
+                        }}>
+                            No se encontraron turnos
+                        </h2>
+                        }
                     </div>
                     <div className={ styles.appointmentsInfo }>
                         {
