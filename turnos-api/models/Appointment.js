@@ -27,6 +27,10 @@ const AppointmentSchema = Schema({
     cancelled: {
         type: Boolean,
         default: false
+    },
+    cancelledMessage: {
+        type: String,
+        default: ''
     }
 });
 

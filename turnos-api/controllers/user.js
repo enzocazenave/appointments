@@ -23,7 +23,7 @@ const getAllAppointmentsByUserId = async(req, res = response) => {
             cancelledAppointments
         });
 
-        appointmentsResult = await Promise.all(appointments.map(async({ _doc: { _id, shop_id, calendar_id, appointment_date_start, appointment_date_end, cancelled }}) => {
+        appointmentsResult = await Promise.all(appointments.map(async({ _doc: { _id, shop_id, calendar_id, appointment_date_start, appointment_date_end, cancelled, cancelledMessage }}) => {
             const { title, image } = await Shop.findById(shop_id);
             const { name } = await Calendar.findById(calendar_id);
             return {
@@ -35,7 +35,8 @@ const getAllAppointmentsByUserId = async(req, res = response) => {
                 calendar_name: name,
                 appointment_date_start,
                 appointment_date_end,
-                cancelled
+                cancelled,
+                cancelledMessage
             }
         }));
         

@@ -100,7 +100,21 @@ export const AppointmentsPage = () => {
                                     -
                                     &nbsp;<span className={ styles.dateSpan }>{ formatDate(appointmentSelected.appointment_date_end)[1] }</span>
                                 </div>
-                                <span className={ styles.span }><div className={ ` ${styles.circleColor} ${ styles.vigente } `}></div>Vigente</span>
+                                <span className={ styles.span }>
+                                    <div 
+                                        className={ ` 
+                                            ${styles.circleColor} 
+                                            ${ (appointmentsType === 'current') && styles.vigente } 
+                                            ${ (appointmentsType === 'notCurrent') && styles.noVigente }
+                                            ${ (appointmentsType === 'cancelled') && styles.cancelado }
+                                        `}
+                                    >
+                                    </div>
+                                    { appointmentsType === 'current' && 'Vigente' }
+                                    { appointmentsType === 'notCurrent' && 'No vigente' }
+                                    { appointmentsType === 'cancelled' && 'Cancelado' }
+                                </span>
+                                <span>{ appointmentSelected.cancelledMessage }</span>
                             </div>
                             : <h2 style={{
                                 opacity: .35,
