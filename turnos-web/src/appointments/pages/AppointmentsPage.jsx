@@ -5,23 +5,36 @@ import { formatDate } from '../../helpers';
 import { useAuthContext } from '../../hooks';
 import styles from '../../styles/appointments/pages/AppointmentsPage.module.css';
 import { LoadingPage } from './LoadingPage';
-const days = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
+const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 
 export const AppointmentsPage = () => {
 
-    const [appointments, setAppointments] = useState([]);
+    const [appointments, setAppointments] = useState({
+        current: [],
+        notCurrent: [],
+        cancelled: []
+    });
+    const [appointmentsToShow, setAppointmentsToShow] = useState(appointments.current);
     const [appointmentSelected, setAppointmentSelected] = useState({});
     const [appointmentsLoaded, setAppointmentsLoaded] = useState(false);
+    const [appointmentsType, setAppointmentsType] = useState('current'); // current - notCurrent - cancelled
     const { user } = useAuthContext();
 
     useEffect(() => {
         turnos.get(`/users/appointments/${ user._id }`)
-            .then(({ data }) => setAppointments(data.appointments))
+            .then(({ data }) => setAppointments({ 
+                current: data.appointments,
+                notCurrent: [],
+                cancelled: []
+            }))
             .finally(() => {
                 setAppointmentsLoaded(true);
-               
             });
     }, []);
+
+    useEffect(() => {
+        setAppointmentsToShow(appointments.current);
+    }, [appointments]);
     
     return (
         <>
@@ -29,8 +42,40 @@ export const AppointmentsPage = () => {
             ? (
                 <div className={ styles.container }>
                     <div className={ styles.appointments }>
-                        <h1 className={ styles.title }>Tus turnos</h1>
-                        { appointments.map(appointment => (
+                        <h1 className={ styles.title }>Turnos</h1>
+                        <div className={ styles.appointmentsTypes }>
+                            <button 
+                                className={ `${styles.appointmentsType} ${(appointmentsType === 'current') && styles.selected}`}
+                                onClick={ () => {
+                                    setAppointmentsType('current');
+                                    setAppointmentsToShow(appointments.current);
+                                    setAppointmentSelected({});
+                                }}    
+                            >
+                                Vigentes
+                            </button>
+                            <button 
+                                className={ `${styles.appointmentsType} ${(appointmentsType === 'notCurrent') && styles.selected}`}
+                                onClick={ () => {
+                                    setAppointmentsType('notCurrent');
+                                    setAppointmentsToShow(appointments.notCurrent);
+                                    setAppointmentSelected({});
+                                }}
+                            >
+                                No vigentes
+                            </button>
+                            <button 
+                                className={ `${styles.appointmentsType} ${(appointmentsType === 'cancelled') && styles.selected}`}
+                                onClick={ () => {
+                                    setAppointmentsType('cancelled');
+                                    setAppointmentsToShow(appointments.cancelled);
+                                    setAppointmentSelected({});
+                                }}
+                            >
+                                Cancelados
+                            </button>
+                        </div>
+                        { appointmentsToShow.map(appointment => (
                             <div
                                 key={ appointment._id }
                                 onClick={ () => setAppointmentSelected(appointment) }
@@ -40,9 +85,8 @@ export const AppointmentsPage = () => {
                                 <span>{ appointment.shop.title }</span>
                                 <span>{ formatDate(appointment.appointment_date_start)[0] }</span>
                             </div>
-                        )) }
+                        ))}
                     </div>
-
                     <div className={ styles.appointmentsInfo }>
                         {
                             (appointmentSelected?.shop?.image)
@@ -57,6 +101,7 @@ export const AppointmentsPage = () => {
                                     -
                                     &nbsp;<span className={ styles.dateSpan }>{ formatDate(appointmentSelected.appointment_date_end)[1] }</span>
                                 </div>
+                                <span className={ styles.span }><div className={ ` ${styles.circleColor} ${ styles.vigente } `}></div>Vigente</span>
                             </div>
                             : <h2 style={{
                                 opacity: .35,

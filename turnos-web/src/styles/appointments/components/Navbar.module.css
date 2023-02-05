@@ -6,6 +6,7 @@
     align-items: center;
     padding: 1rem;
     transition: background .2s, box-shadow .2s;
+    top: 0;
 }
 
 .containerActive {
