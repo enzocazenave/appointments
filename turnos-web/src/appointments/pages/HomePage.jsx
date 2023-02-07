@@ -7,6 +7,7 @@ import { Mail } from '../../svgs/Mail';
 import { ShopSuggest } from '../components';
 import { useEffect, useState } from 'react';
 import turnos from '../../api/turnos';
+import { Loader } from '../../auth/components';
 
 export const HomePage = () => {
 
@@ -37,16 +38,19 @@ export const HomePage = () => {
                 </div>
 
                 <div className={ styles.containerSuggest }>
-                    {(suggestedShops.length > 0) && (
-                        suggestedShops.map(suggestedShop => (
-                            <ShopSuggest 
-                                key={ suggestedShop._id }
-                                id={ suggestedShop._id } 
-                                title={ suggestedShop.title }
-                                image={ suggestedShop.image }
-                            />
-                        ))
-                    )}
+                    {(suggestedShops.length > 0) 
+                        ? (
+                            suggestedShops.map(suggestedShop => (
+                                <ShopSuggest 
+                                    key={ suggestedShop._id }
+                                    id={ suggestedShop._id } 
+                                    title={ suggestedShop.title }
+                                    image={ suggestedShop.image }
+                                />
+                            ))
+                        )
+                        : <Loader />
+                    }
                 </div>
             </div>
             <div className={ styles.container }>
