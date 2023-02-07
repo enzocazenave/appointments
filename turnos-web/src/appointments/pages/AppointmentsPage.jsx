@@ -44,7 +44,7 @@ export const AppointmentsPage = () => {
                         <h1 className={ styles.title }>Turnos</h1>
                         <div className={ styles.appointmentsTypes }>
                             <button 
-                                className={ `${styles.appointmentsType} ${(appointmentsType === 'current') && styles.selected}`}
+                                className={ `${styles.appointmentsType} ${(appointmentsType === 'current') && styles.selectedCurrent}`}
                                 onClick={ () => {
                                     setAppointmentsType('current');
                                     setAppointmentsToShow(appointments.current);
@@ -54,7 +54,7 @@ export const AppointmentsPage = () => {
                                 Vigentes
                             </button>
                             <button 
-                                className={ `${styles.appointmentsType} ${(appointmentsType === 'notCurrent') && styles.selected}`}
+                                className={ `${styles.appointmentsType} ${(appointmentsType === 'notCurrent') && styles.selectedNotCurrent}`}
                                 onClick={ () => {
                                     setAppointmentsType('notCurrent');
                                     setAppointmentsToShow(appointments.notCurrent);
@@ -64,7 +64,7 @@ export const AppointmentsPage = () => {
                                 No vigentes
                             </button>
                             <button 
-                                className={ `${styles.appointmentsType} ${(appointmentsType === 'cancelled') && styles.selected}`}
+                                className={ `${styles.appointmentsType} ${(appointmentsType === 'cancelled') && styles.selectedCancelled}`}
                                 onClick={ () => {
                                     setAppointmentsType('cancelled');
                                     setAppointmentsToShow(appointments.cancelled);

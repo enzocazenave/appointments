@@ -103,13 +103,23 @@
 }
 
 .appointmentsType:hover {
-    background-color: #00CC8F;
-    color: #f0f0f0;
+    background-color: #c3c3c3;
+    color: #000;
     cursor: pointer;
 }
 
-.appointmentsType.selected {
+.appointmentsType.selectedCurrent {
     background-color: #00CC8F;
+    color: #f0f0f0;
+}
+
+.appointmentsType.selectedNotCurrent {
+    background-color: #c3c3c3;
+    color: #000;
+}
+
+.appointmentsType.selectedCancelled {
+    background-color: #cc0000;
     color: #f0f0f0;
 }
 
