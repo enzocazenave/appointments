@@ -4,8 +4,19 @@ import image from '../../../assets/phone.png';
 import { Instagram } from '../../svgs/Instagram';
 import { Linkedin } from '../../svgs/Linkedin';
 import { Mail } from '../../svgs/Mail';
+import { ShopSuggest } from '../components';
+import { useEffect, useState } from 'react';
+import turnos from '../../api/turnos';
 
 export const HomePage = () => {
+
+    const [suggestedShops, setSuggestedShops] = useState([]);
+    const [suggestedShopsLoaded, setSuggestedShopsLoaded] = useState(false);
+
+    useEffect(() => {
+        turnos.get(`/shops?random=true`).then(({ data }) => setSuggestedShops(data.shops));
+    }, []);
+
     return (
         <>
             <div className={ styles.container }>
@@ -26,62 +37,16 @@ export const HomePage = () => {
                 </div>
 
                 <div className={ styles.containerSuggest }>
-                    <Link
-                        to="/shop/1"
-                        className={ styles.suggestItem }
-                        style={{
-                            background: 'linear-gradient(rgba(0,0,0,0.70), rgba(0,0,0,0.70)), url(https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png)',
-                            backgroundSize: 'cover',
-                            backgroundAttachment: 'fixed',
-                            backgroundRepeat: 'no-repeat'                        
-                        }}
-                    >
-                        <h3 className={ styles.suggestItemTitle }>
-                            Sizo Gerard
-                        </h3>
-                    </Link>
-                    <Link 
-                        to="/shop/2"
-                        className={ styles.suggestItem }
-                        style={{
-                            background: 'linear-gradient(rgba(0,0,0,0.70), rgba(0,0,0,0.70)), url(https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png)',
-                            backgroundSize: 'cover',
-                            backgroundAttachment: 'fixed',
-                            backgroundRepeat: 'no-repeat'                        
-                        }}
-                    >
-                        <h3 className={ styles.suggestItemTitle }>
-                            Lavadero Mitre
-                        </h3>
-                    </Link>
-                    <Link 
-                        to="/shop/3"
-                        className={ styles.suggestItem }
-                        style={{
-                            background: 'linear-gradient(rgba(0,0,0,0.70), rgba(0,0,0,0.70)), url(https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png)',
-                            backgroundSize: 'cover',
-                            backgroundAttachment: 'fixed',
-                            backgroundRepeat: 'no-repeat'                        
-                        }}
-                    >
-                        <h3 className={ styles.suggestItemTitle }>
-                            Peladitos
-                        </h3>
-                    </Link>
-                    <Link 
-                        to="/shop/4"
-                        className={ styles.suggestItem }
-                        style={{
-                            background: 'linear-gradient(rgba(0,0,0,0.70), rgba(0,0,0,0.70)), url(https://insidemdp.com.ar/wp-content/uploads/2022/12/peluquerias-mar-del-plata.png)',
-                            backgroundSize: 'cover',
-                            backgroundAttachment: 'fixed',
-                            backgroundRepeat: 'no-repeat'
-                        }}
-                    >
-                        <h3 className={ styles.suggestItemTitle }>
-                            Zion
-                        </h3>
-                    </Link>
+                    {(suggestedShops.length > 0) && (
+                        suggestedShops.map(suggestedShop => (
+                            <ShopSuggest 
+                                key={ suggestedShop._id }
+                                id={ suggestedShop._id } 
+                                title={ suggestedShop.title }
+                                image={ suggestedShop.image }
+                            />
+                        ))
+                    )}
                 </div>
             </div>
             <div className={ styles.container }>

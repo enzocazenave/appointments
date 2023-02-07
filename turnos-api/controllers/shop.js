@@ -1,13 +1,21 @@
 const { response } = require('express');
+const { getMultipleRandom } = require('../helpers/getMultipleRandom');
 const { unknownError } = require('../helpers/unknownError');
 const Appointment = require('../models/Appointment');
 const Calendar = require('../models/Calendar');
 const Shop = require('../models/Shop');
 
 const getShops = async(req, res = response) => {
+
+    const { random = false } = req.query;
+
     try {
         const shops = await Shop.find({});
-        const shopsToSearchBar = shops.map(({ _doc: { text, created_at, ...keepProperties } }) => keepProperties);
+        let shopsToSearchBar = shops.map(({ _doc: { text, created_at, ...keepProperties } }) => keepProperties);
+
+        if (random) {
+            shopsToSearchBar = getMultipleRandom(shopsToSearchBar, 4);
+        }
 
         res.status(200).json({
             ok: true,

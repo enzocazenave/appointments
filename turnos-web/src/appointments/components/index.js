@@ -5,3 +5,4 @@ export * from './CalendarEvent';
 export * from './DialogEvent';
 export * from './CalendarTable';
 export * from './CalendarsButton';
+export * from './ShopSuggest';
