@@ -1,0 +1,21 @@
+.navItem {
+    display: flex;
+    padding: .75rem;
+    text-decoration: none;
+    color: #F0F0F0;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1em;   
+    transition: background-color .3s;
+}
+
+.navItemType {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: 1.1em;   
+}
+
+.navItem:hover {
+    background-color: #00976a;
+}

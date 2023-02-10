@@ -6,7 +6,7 @@ import { PanelRoutes } from '../panel/routes/PanelRoutes';
 export const AppRouter = () => {
 
     const path = useLocation().pathname;
-    const status = 'not-authenticated';
+    const status = 'authenticated';
 
     if (status === 'checking' && path !== '/auth/login') return <h1>Cargando</h1>;
 

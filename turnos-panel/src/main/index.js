@@ -6,7 +6,7 @@ import icon from '../../resources/icon.png?asset'
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 1000,
+    width: 1200,
     height: 700,
     show: false,
     autoHideMenuBar: true,
@@ -15,7 +15,7 @@ function createWindow() {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false
     },
-    resizable: false
+    //resizable: false
   })
 
   mainWindow.on('ready-to-show', () => {
