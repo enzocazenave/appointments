@@ -1,1 +1,3 @@
-export * from './Home';
+export * from './Management';
+export * from './Calendars';
+export * from './Appointments';
