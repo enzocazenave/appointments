@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from '../../styles/panel/pages/Management.module.css';
 import { CalendarEvent } from '../../svgs';
-import { CommerceStatus, HeaderPage, Loader } from '../components';
+import { Avatar, CommerceStatus, HeaderPage, Loader } from '../components';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Label, ResponsiveContainer } from 'recharts';
 const data = [
     { month: 1, appointments: 15  },
@@ -109,45 +109,31 @@ export const Management = () => {
                             <div className={ styles.calendarsScrollable }>
                                 <div className={ styles.calendar }>
                                     <div className={ styles.calendarLeft }>
-                                        <img className={ styles.calendarImg } src="https://avatars.githubusercontent.com/u/102680110?v=4" />
+                                        <Avatar width='30px' height='30px'/>
                                         <span>Ariel</span>
                                     </div>
                                     <span>120</span>
                                 </div>
                                 <div className={ styles.calendar }>
                                     <div className={ styles.calendarLeft }>
-                                        <img className={ styles.calendarImg } src="https://avatars.githubusercontent.com/u/102680110?v=4" />
+                                        <Avatar width='30px' height='30px'/>
                                         <span>Ariel</span>
                                     </div>
-                                    <span>53</span>
+                                    <span>120</span>
                                 </div>
                                 <div className={ styles.calendar }>
                                     <div className={ styles.calendarLeft }>
-                                        <img className={ styles.calendarImg } src="https://avatars.githubusercontent.com/u/102680110?v=4" />
+                                        <Avatar width='30px' height='30px'/>
                                         <span>Ariel</span>
                                     </div>
-                                    <span>12</span>
+                                    <span>120</span>
                                 </div>
                                 <div className={ styles.calendar }>
                                     <div className={ styles.calendarLeft }>
-                                        <img className={ styles.calendarImg } src="https://avatars.githubusercontent.com/u/102680110?v=4" />
+                                        <Avatar width='30px' height='30px'/>
                                         <span>Ariel</span>
                                     </div>
-                                    <span>34</span>
-                                </div>
-                                <div className={ styles.calendar }>
-                                    <div className={ styles.calendarLeft }>
-                                        <img className={ styles.calendarImg } src="https://avatars.githubusercontent.com/u/102680110?v=4" />
-                                        <span>Ariel</span>
-                                    </div>
-                                    <span>65</span>
-                                </div>
-                                <div className={ styles.calendar }>
-                                    <div className={ styles.calendarLeft }>
-                                        <img className={ styles.calendarImg } src="https://avatars.githubusercontent.com/u/102680110?v=4" />
-                                        <span>Ariel</span>
-                                    </div>
-                                    <span>32</span>
+                                    <span>120</span>
                                 </div>
                             </div>
                         </div>
