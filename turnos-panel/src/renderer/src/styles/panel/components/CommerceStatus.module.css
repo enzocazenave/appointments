@@ -1,0 +1,39 @@
+.status {
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: .5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 0 5px #0000003d;
+    flex: 1;
+}
+
+.rightZone {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.statusContainer {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.statusTitle {
+    font-size: .95em;
+    font-weight: 600;
+}
+
+.statusText {
+    font-size: .8em;
+    font-weight: 400;
+    color: #525252;
+}
+
+.statusTextError {
+    font-size: .8em;
+    font-weight: 400;
+    color: #ff2825;
+}

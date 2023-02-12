@@ -1,7 +1,7 @@
-export const CalendarEvent = (props) => (
+export const Cash = (props) => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="icon icon-tabler icon-tabler-speakerphone"
+        className="icon icon-tabler icon-tabler-cash"
         width={28}
         height={28}
         viewBox="0 0 24 24"
@@ -13,7 +13,8 @@ export const CalendarEvent = (props) => (
         {...props}
     >
         <path d="M0 0h24v24H0z" stroke="none" />
-        <path d="M18 8a3 3 0 0 1 0 6M10 8v11a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-5" />
-        <path d="M12 8h0l4.524-3.77A.9.9 0 0 1 18 4.922v12.156a.9.9 0 0 1-1.476.692L12 14H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h8" />
+        <rect x={7} y={9} width={14} height={10} rx={2} />
+        <circle cx={14} cy={14} r={2} />
+        <path d="M17 9V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2" />
     </svg>
 )
