@@ -6,7 +6,7 @@ export const Cog = (props) => (
         height={28}
         viewBox="0 0 24 24"
         strokeWidth={1.5}
-        stroke="#F0F0F0"
+        stroke="#00cc8f"
         fill="none"
         strokeLinecap="round"
         strokeLinejoin="round"

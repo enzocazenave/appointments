@@ -7,13 +7,8 @@ export const Sidebar = () => {
         <nav className={ styles.container }>
             <div>
                 <div className={ styles.brand }>
-                    <Calendar fill={ '#F0F0F0' } width={ 35 } height={ 35 } />
+                    <Calendar fill={ '#282A36' } width={ 25 } height={ 25 } />
                     <span className={ styles.brandText }>Turnate</span>
-                </div>
-
-                <div className={ styles.shop }>
-                    <h2 className={ styles.title }>Sizó Gerard</h2>
-                    <span className={ styles.text }>Te adheriste a nosotros el 24/02/2021</span>
                 </div>
 
                 <SidebarItem
@@ -31,11 +26,16 @@ export const Sidebar = () => {
                     icon={ <CalendarEvent /> }
                     text="Turnos"
                 />
+                <SidebarItem
+                    to="/settings"
+                    icon={ <Cog /> }
+                    text="Configuración"
+                />
             </div>
 
             <div className={ styles.bottom }>
-                <Cog />
-                <span className={ styles.bottomText }>Configuración</span>
+                <h2 className={ styles.title }>Sizó Gerard</h2>
+                <span className={ styles.text }>Te adheriste a nosotros el 24/02/2021</span>
             </div>
         </nav>
     )

@@ -1,12 +1,12 @@
-import styles from '../../styles/panel/pages/Appointments.module.css';
+import styles from '../../styles/panel/pages/Settings.module.css';
 
-export const Appointments = () => {
+export const Settings = () => {
     return (
         <div className={ styles.container }>
             <header className={ styles.header }>
                 <div className={ styles.headerLeft }>
-                    <h1 className={ styles.headerTitle }>Turnos</h1>
-                    <span className={ styles.headerUrl }>Sizo Gerard {'>'} Turnos</span>
+                    <h1 className={ styles.headerTitle }>Configuración</h1>
+                    <span className={ styles.headerUrl }>Sizo Gerard {'>'} Configuración</span>
                 </div>
 
                 <button className={ styles.headerButton }>Crear reporte</button>

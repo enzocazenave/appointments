@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import styles from '../../styles/panel/components/SidebarItem.module.css';
 
 const active = {
-    backgroundColor: '#00976a'
+    backgroundColor: '#e7e7e7'
 }
 
 export const SidebarItem = ({ to, icon, text }) => {
@@ -12,11 +12,8 @@ export const SidebarItem = ({ to, icon, text }) => {
             style={ ({ isActive }) => isActive ? active : {} }
             to={ to }
         >   
-            {'>'}
-            <div className={ styles.navItemType }>
                 { icon }
                 { text }
-            </div>
         </NavLink>
     )
 }

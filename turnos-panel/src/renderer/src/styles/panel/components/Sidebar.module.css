@@ -1,6 +1,6 @@
 .container {
     flex: 1;
-    background-color: #00ab78;
+    background-color: #F0F0F0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -9,56 +9,30 @@
 .brand {
     display: flex;
     align-items: center;
-    justify-content: center;
     padding: 1rem;
     gap: .5rem;
-    background-color: #007552;
 }
 
 .brandText {
     font-size: 1.5em;
-    color: #F0F0F0;
-}
-
-.shop {
-    padding: .5rem;
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-    align-items: center;
-    background-color: #008d63;
-    border-bottom: 1px solid #F0F0F0;
-}
-
-.title {
-    color: #F0F0F0;
-    text-align: center;
-    font-size: .9em;
-}
-
-.text {
-    color: #F0F0F0;
-    text-align: center;
-    font-size: .8em;
+    color: #282A36;
 }
 
 .bottom {
-    border-top: 1px solid #F0F0F0;
     padding: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: .5rem;
-    background-color: #007552;
-    transition: background-color .3s;
+    flex-direction: column;
+    gap: .25rem;
 }
 
-.bottom:hover {
-    background-color: rgb(0, 94, 66);
-    cursor: pointer;
+.title {
+    text-align: center;
+    font-size: .8em;
 }
 
-.bottomText {
-    color: #F0F0F0;
-    font-size: 1.2em;
+.text {
+    text-align: center;
+    font-size: .75em;
 }

@@ -1,0 +1,17 @@
+.container {
+    position: absolute;
+    top: 0;
+    width: calc(100% - 2rem);
+    height: calc(3.5625rem - 2rem);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.image {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}

@@ -6,4 +6,6 @@
 
 .routesContainer {
     flex: 4;
+    position: relative;
+    padding-top: 3.5625rem;
 }
