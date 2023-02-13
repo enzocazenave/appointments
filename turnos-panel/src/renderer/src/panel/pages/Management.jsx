@@ -57,9 +57,7 @@ export const Management = () => {
         >
             {
                 (loading)
-                ? (
-                    <Loader />
-                )
+                ? <Loader />
                 : (<>
                     <HeaderPage title="Gestión" showButton />
 
@@ -85,7 +83,7 @@ export const Management = () => {
                                 <h3 className={ styles.statusTitle }>Turnos de febrero</h3>
                                     
                                 <div className={ styles.statusContainer }>
-                                    <span className={ styles.statusText }>138 turnos</span>
+                                    <span className={ styles.statusText }>192 turnos</span>
                                 </div>
                             </div>
                         </div>
@@ -93,7 +91,7 @@ export const Management = () => {
                     <div className={ styles.secondLine }>
                         <ResponsiveContainer width={ '50%' } height={ 240 } >
                             <LineChart data={data}>
-                                <Line type="monotone" dataKey="appointments" stroke="#00cc8f" />
+                                <Line type="monotone" dataKey="appointments" strokeWidth='2px' stroke="#00cc8f" />
                                 <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
                                 <XAxis dataKey="month" />
                                 <YAxis />
@@ -102,8 +100,8 @@ export const Management = () => {
                         </ResponsiveContainer>
 
                         <div className={ styles.calendars }>
-                            <div className={ styles.calendarTitle }>
-                                <h3>Turnos vigentes por calendario</h3>
+                            <div className={ styles.calendarHeader }>
+                                <h3 className={ styles.calendarTitle }>Turnos vigentes por calendario</h3>
                             </div>
 
                             <div className={ styles.calendarsScrollable }>
@@ -112,33 +110,32 @@ export const Management = () => {
                                         <Avatar width='30px' height='30px'/>
                                         <span>Ariel</span>
                                     </div>
-                                    <span>120</span>
+                                    <span>83</span>
                                 </div>
                                 <div className={ styles.calendar }>
                                     <div className={ styles.calendarLeft }>
                                         <Avatar width='30px' height='30px'/>
-                                        <span>Ariel</span>
+                                        <span>Guillermo</span>
                                     </div>
-                                    <span>120</span>
+                                    <span>23</span>
                                 </div>
                                 <div className={ styles.calendar }>
                                     <div className={ styles.calendarLeft }>
                                         <Avatar width='30px' height='30px'/>
-                                        <span>Ariel</span>
+                                        <span>Matías</span>
                                     </div>
-                                    <span>120</span>
+                                    <span>34</span>
                                 </div>
                                 <div className={ styles.calendar }>
                                     <div className={ styles.calendarLeft }>
                                         <Avatar width='30px' height='30px'/>
-                                        <span>Ariel</span>
+                                        <span>Gustavo</span>
                                     </div>
-                                    <span>120</span>
+                                    <span>63</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
                 </>)
             }
         </div>

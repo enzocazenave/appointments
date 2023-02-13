@@ -4,6 +4,7 @@ export * from './Manage';
 export * from './OtherCalendar';
 export * from './CalendarEvent';
 export * from './Bell';
+export * from './BellRinging';
 export * from './CircleCheck';
 export * from './Cash';
 export * from './CircleCross';
