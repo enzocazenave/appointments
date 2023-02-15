@@ -179,6 +179,7 @@ const changeEmailConfirm = async(req, res = response) => {
         await user.save();
 
         const tokenPayload = {
+            _id: user._id,
             email: newEmail,
             name: user.name,
             surname: user.surname,
