@@ -3,7 +3,7 @@ import styles from '../../styles/appointments/components/DialogEvent.module.css'
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import es from 'date-fns/locale/es';
-import { isWeekend } from '../../helpers';
+import { calculateMinTime, isWeekend } from '../../helpers';
 import { useEffect, useRef, useState } from 'react';
 import { useAppointments } from '../../hooks';
 import { Loader } from '../../auth/components';
@@ -24,6 +24,8 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
         appointment_date: '',
         appointment_hour: ''
     }); 
+    //calendar?.min_time?.minute
+    const minTimeDatePicker = calculateMinTime(currentTime, formValues, calendar?.min_time,  calendar?.max_time);
 
     useEffect(() => {
         if (isModalOpen) {
@@ -85,7 +87,7 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
                 setAppointmentCreated(data.appointment);
 
                 if (data.appointment) {
-                    setTimeout(() => {getAllAppointmentsById(calendar._id)}, 500)
+                    setTimeout(() => { getAllAppointmentsById(calendar._id) }, 500);
                 }
 
                 setError(data.msg);
@@ -132,7 +134,7 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
                             <label className={ styles.createAppointmentModalLabel }>Selecciona la fecha del turno</label>
                             <DatePicker
                                 className={ styles.createAppointmentModalPicker }
-                                minDate={ currentTime.getHours() > calendar?.max_time?.hour ? addDays(currentTime, 1) : currentTime }
+                                minDate={ (currentTime.getHours() >= calendar?.max_time?.hour && currentTime.getMinutes() > calendar?.max_time?.minute) ? addDays(currentTime, 1) : currentTime }
                                 selected={ formValues.appointment_date } 
                                 onChange={ (event) => onDateChanged(event, 'appointment_date') }
                                 dateFormat="dd/MM/yyyy"
@@ -149,7 +151,7 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
                             <label className={ styles.createAppointmentModalLabel }>Selecciona la hora del turno</label>
                             <DatePicker
                                 className={ styles.createAppointmentModalPicker }
-                                minTime={ setHours(setMinutes(new Date(), calendar?.min_time?.minute), calendar?.min_time?.hour) }
+                                minTime={ setHours(setMinutes(new Date(), minTimeDatePicker.minute), minTimeDatePicker.hour) }
                                 maxTime={ setHours(setMinutes(new Date(), calendar?.max_time?.minute), calendar?.max_time?.hour) }
                                 excludeTimes={ excludeTimes }
                                 timeIntervals={ calendar?.appointments_frequency }
