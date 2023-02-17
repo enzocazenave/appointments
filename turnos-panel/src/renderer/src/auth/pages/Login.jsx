@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { UiContext } from '../../contexts/UiContext';
 import { useForm } from '../../hooks';
-import { useAuthContext } from '../../hooks/useAuthContext';
+import { useAuthContext } from '../../hooks';
 import styles from '../../styles/auth/pages/Login.module.css';
 import { Calendar } from '../../svgs';
 

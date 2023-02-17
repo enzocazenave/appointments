@@ -5,7 +5,6 @@ const { unknownError } = require('../helpers/unknownError');
 const Shop = require('../models/Shop');
 const User = require('../models/User');
 
-
 const loginShop = async(req, res = response) => {
     const { username, password } = req.body;
 

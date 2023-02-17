@@ -1,8 +1,23 @@
 import styles from '../../styles/panel/components/Sidebar.module.css';
 import { Calendar, CalendarEvent, Cog, Manage, OtherCalendar } from '../../svgs';
 import { SidebarItem } from './SidebarItem';
+import { useAuthContext } from '../../hooks';
+import { useMemo } from 'react';
 
 export const Sidebar = () => {
+
+    const { user } = useAuthContext();
+    const date = useMemo(() => {
+        const splittedDate = user.created_at.split('-');
+        const formattedDate = {
+            year: splittedDate[0],
+            month: splittedDate[1],
+            day: splittedDate[2].split('T')[0]
+        }
+
+        return `${formattedDate.day}/${formattedDate.month}/${formattedDate.year}`
+    }, [user.created_at]);
+
     return (
         <nav className={ styles.container }>
             <div>
@@ -34,8 +49,8 @@ export const Sidebar = () => {
             </div>
 
             <div className={ styles.bottom }>
-                <h2 className={ styles.title }>Sizó Gerard</h2>
-                <span className={ styles.text }>Te adheriste a nosotros el 24/02/2021</span>
+                <h2 className={ styles.title }>{ user.title }</h2>
+                <span className={ styles.text }>Te adheriste a nosotros el { date }</span>
             </div>
         </nav>
     )
