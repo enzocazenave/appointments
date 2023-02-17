@@ -1,0 +1,14 @@
+.container {
+    position: fixed;
+    top: 1%;
+    right: 1%;
+    z-index: 999;
+}
+
+.container.isVisible {
+    visibility: visible;
+}
+
+.container.notVisible {
+    visibility: hidden;
+}

@@ -5,3 +5,4 @@ export * from './HeaderPage';
 export * from './CommerceStatus';
 export * from './Loader';
 export * from './Avatar';
+export * from './FixedNotification';

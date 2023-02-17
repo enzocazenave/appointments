@@ -1,4 +1,5 @@
 import { useContext } from "react"
+import turnos from "../api/turnos";
 import { AuthContext } from "../contexts/AuthContext"
 import { verifyCredentials } from "../helpers";
 
@@ -14,13 +15,13 @@ export const useAuthContext = () => {
         setIsChecking();
 
         try {
-            const { data } = await turnos.post(`/shop/${ action }`, credentials);
+            const { data } = await turnos.post(`/shops/${ action }`, credentials);
             delete data.ok;
             
             localStorage.setItem('@appointments_panel:token', data.token);
             login(data);
         } catch(error) {
-            logout(error.response.data.msg);
+            logout(error.response?.data?.msg);
         }
     }
 

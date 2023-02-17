@@ -12,7 +12,6 @@ const ShopSchema = Schema({
     },
     text: {
         type: String,
-        required: true,
     },
     image: {
         type: String,
@@ -20,7 +19,6 @@ const ShopSchema = Schema({
     },
     estimated_location: {
         type: String,
-        required: true
     },
     username: {
         type: String,

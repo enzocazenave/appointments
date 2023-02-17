@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { registerUser, loginUser, changeEmail, changeEmailConfirm, renewUser, registerUserConfirm } = require('../controllers/auth');
+const { registerUser, loginUser, changeEmail, changeEmailConfirm, renewUser, registerUserConfirm, loginAdmin } = require('../controllers/auth');
 const { fieldValidator } = require('../middlewares/fieldValidator');
 const { tokenValidator } = require('../middlewares/tokenValidator');
 
@@ -36,6 +36,15 @@ router.post('/login',
     ],
     loginUser
 );
+
+router.post('/loginAdmin',
+    [
+        check('email', 'El correo electrónico es obligatorio.').isEmail(),
+        check('password', 'La contraseña debe tener 6 o más obligatorio.').isLength({ min: 6 }),
+        fieldValidator
+    ],
+    loginAdmin
+)
 
 router.post('/email',
     [

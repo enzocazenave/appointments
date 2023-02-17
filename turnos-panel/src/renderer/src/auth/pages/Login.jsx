@@ -1,4 +1,7 @@
+import { useContext, useEffect } from 'react';
+import { UiContext } from '../../contexts/UiContext';
 import { useForm } from '../../hooks';
+import { useAuthContext } from '../../hooks/useAuthContext';
 import styles from '../../styles/auth/pages/Login.module.css';
 import { Calendar } from '../../svgs';
 
@@ -10,11 +13,19 @@ const loginForm = {
 export const Login = () => {
 
     const { username, password, onInputChange } = useForm(loginForm);
+    const { error, authenticateUser, resetErrorMessage } = useAuthContext();
+    const { createNotification } = useContext(UiContext); 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // TODO: Login
+        authenticateUser({ username, password }, 'login');
     }
+
+    useEffect(() => {
+        if (error === undefined) return;
+        createNotification(error, 'error', 3000, 'right');
+        resetErrorMessage();
+    }, [error]);
 
     return (
         <div className={ styles.container }>
@@ -23,7 +34,10 @@ export const Login = () => {
                 <span className={ styles.navbarText }>Turnate</span>    
             </div>
 
-            <form className={ styles.form }>
+            <form 
+                className={ styles.form }
+                onSubmit={ handleSubmit }
+            >
                 <div className={ styles.formText }>
                     <h1 className={ styles.title }>Iniciá sesión en tu cuenta</h1>
                     <p className={ styles.subTitle }>Gestioná todos los turnos reservados en tu comercio.</p>
@@ -48,7 +62,6 @@ export const Login = () => {
                 <button
                     type="submit"
                     className={ styles.button }
-                    onClick={ handleSubmit }
                 >
                     Iniciar sesión
                 </button>

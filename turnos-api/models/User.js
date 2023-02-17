@@ -26,6 +26,10 @@ const UserSchema = Schema({
         type: String,
         required: true,
     },
+    isAdmin: {
+        type: Boolean,
+        default: false
+    }
 });
 
 module.exports = model('User', UserSchema);

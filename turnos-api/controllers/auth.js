@@ -164,6 +164,41 @@ const changeEmail = async(req, res = response) => {
     }
 }
 
+const loginAdmin = async(req, res = response) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user) return res.status(400).json({
+            ok: false,
+            msg: 'Sus credenciales son incorrectas.'
+        });
+
+        const isPasswordValid = compareSync(password, user.password);
+
+        if (!isPasswordValid) return res.status(400).json({
+            ok: false,
+            msg: 'Sus credenciales son incorrectas.'
+        });
+
+        const isAdmin = user.isAdmin;
+
+        if (!isAdmin) return res.status(400).json({
+            ok: false,
+            msg: 'El usuario no es administrador.'
+        });
+
+        res.status(200).json({
+            ok: true,
+            _id: user._id,
+            email
+        })
+    } catch(error) {
+        unknownError(res, error);
+    }
+}
+
 const changeEmailConfirm = async(req, res = response) => {
     const { code, oldEmail, newEmail } = req.body;
 
@@ -213,5 +248,6 @@ module.exports = {
     loginUser,
     changeEmail,
     changeEmailConfirm,
-    renewUser
+    renewUser,
+    loginAdmin
 }

@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { getShops, getShopById, getCalendarsByShopId, createAppointment, getAllAppointmentsById } = require('../controllers/shop');
 const { check } = require('express-validator');
 const { fieldValidator } = require('../middlewares/fieldValidator');
-const { loginShop, renewShop } = require('../controllers/shopAuth');
+const { loginShop, renewShop, createShop } = require('../controllers/shopAuth');
 const { tokenValidator } = require('../middlewares/tokenValidator');
 
 const router = Router();
@@ -27,6 +27,13 @@ router.post('/login', [
     check('password', 'La contraseña debe tener 6 o más caractéres').isLength({ min: 6 }),
     fieldValidator
 ], loginShop);
+
+router.post('/create', [
+    check('title', 'El nombre del comercio es obligatorio.').not().isEmpty(),
+    check('username', 'El nombre de usuario del comercio es obligatorio.').not().isEmpty(),
+    check('password', 'La contraseña del comercio es obligatorio.').isLength({ min: 6 }),
+    fieldValidator,
+], createShop)
 
 router.get('/renew', tokenValidator, renewShop);
 
