@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import styles from '../../styles/panel/pages/Management.module.css';
 import { CalendarEvent } from '../../svgs';
-import { Avatar, CommerceStatus, HeaderPage, Loader } from '../components';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Label, ResponsiveContainer } from 'recharts';
+import { Avatar, CommerceStatus, HeaderPage, Loader, ManagementCalendar } from '../components';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { useAuthContext, useManagement } from '../../hooks';
 const data = [
     { month: 1, appointments: 15  },
     { month: 2, appointments: 50  },
@@ -34,7 +35,9 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 export const Management = () => {
 
+    const { user } = useAuthContext();
     const [loading, setLoading] = useState(true);
+    const { appointmentsTotalCount, calendars } = useManagement({ shopId: user._id });
 
     useEffect(() => {
         setTimeout(() => {
@@ -71,7 +74,7 @@ export const Management = () => {
                                 <h3 className={ styles.statusTitle }>Total de turnos</h3>
                                     
                                 <div className={ styles.statusContainer }>
-                                    <span className={ styles.statusText }>1238 turnos</span>
+                                    <span className={ styles.statusText }>{ appointmentsTotalCount } { appointmentsTotalCount == 1 ? 'turno' : 'turnos' }</span>
                                 </div>
                             </div>
                         </div>
@@ -105,34 +108,9 @@ export const Management = () => {
                             </div>
 
                             <div className={ styles.calendarsScrollable }>
-                                <div className={ styles.calendar }>
-                                    <div className={ styles.calendarLeft }>
-                                        <Avatar width='30px' height='30px'/>
-                                        <span>Ariel</span>
-                                    </div>
-                                    <span>83</span>
-                                </div>
-                                <div className={ styles.calendar }>
-                                    <div className={ styles.calendarLeft }>
-                                        <Avatar width='30px' height='30px'/>
-                                        <span>Guillermo</span>
-                                    </div>
-                                    <span>23</span>
-                                </div>
-                                <div className={ styles.calendar }>
-                                    <div className={ styles.calendarLeft }>
-                                        <Avatar width='30px' height='30px'/>
-                                        <span>Matías</span>
-                                    </div>
-                                    <span>34</span>
-                                </div>
-                                <div className={ styles.calendar }>
-                                    <div className={ styles.calendarLeft }>
-                                        <Avatar width='30px' height='30px'/>
-                                        <span>Gustavo</span>
-                                    </div>
-                                    <span>63</span>
-                                </div>
+                                {calendars.map(calendar => (
+                                    <ManagementCalendar image={ calendar.image } name={ calendar.name } appointmentsCount={ calendar.appointments }  />
+                                ))}
                             </div>
                         </div>
                     </div>

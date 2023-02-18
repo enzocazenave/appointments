@@ -71,7 +71,7 @@ const createAppointment = async(req, res = response) => {
 
     try {
 
-        let appointment = await Appointment.findOne({ appointment_date_start });
+        let appointment = await Appointment.findOne({ appointment_date_start, shop_id: shopId });
     
         if (appointment) return res.status(400).json({
             ok: false,
@@ -126,10 +126,52 @@ const getAllAppointmentsById = async(req, res = response) => {
     }
 }
 
+const getAppointmentsByShopId = async(req, res = response) => {
+    const { shopId } = req.params;
+
+    try {
+        const appointments = await Appointment.find({ shop_id: shopId }).count();
+        res.status(200).json({
+            ok: true,
+            appointments
+        })
+    } catch(error) {
+        unknownError(res, error);
+    }
+}
+
+const getCalendarsWithAppointments = async(req, res = response) => {
+    const { shopId } = req.params;
+
+    try {
+        const calendars = await Calendar.find({ shop_id: shopId });
+
+        const calendarsInfo = await Promise.all(calendars.map(async(calendar) => {
+
+            const { name, image, _id } = calendar;
+
+            return {
+                name,
+                image,
+                appointments: await Appointment.find({ calendar_id: _id }).count()
+            }
+        }));
+
+        res.status(200).json({
+            ok: true,
+            calendars: calendarsInfo
+        })
+    } catch(error) {
+        unknownError(res, error);
+    }
+}
+
 module.exports = {
     getShops,
     getShopById,
     getCalendarsByShopId,
     createAppointment,
-    getAllAppointmentsById
+    getAllAppointmentsById,
+    getAppointmentsByShopId,
+    getCalendarsWithAppointments
 }

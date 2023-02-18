@@ -1,0 +1,21 @@
+.calendar {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+    justify-content: space-between;
+    border-bottom: 1px solid #c9c8c8;
+    cursor: pointer;
+    transition: .3s background-color, .3s color;
+}
+
+.calendar:hover {
+    background-color: #00cc8f;
+    color: #F0F0F0;
+}
+
+.calendarLeft {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}

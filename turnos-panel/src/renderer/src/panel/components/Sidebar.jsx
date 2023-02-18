@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 export const Sidebar = () => {
 
     const { user } = useAuthContext();
+    
     const date = useMemo(() => {
         const splittedDate = user.created_at.split('-');
         const formattedDate = {

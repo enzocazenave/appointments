@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 export const Avatar = ({ src, type, width = '25px', height = '25px', circle = true }) => {
     return (
         <img 
