@@ -36,14 +36,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 export const Management = () => {
 
     const { user } = useAuthContext();
-    const [loading, setLoading] = useState(true);
-    const { appointmentsTotalCount, calendars } = useManagement({ shopId: user._id });
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 1000)
-    }, []);
+    const { appointments, calendars, loading } = useManagement({ shopId: user._id });
 
     return (
         <div 
@@ -74,7 +67,7 @@ export const Management = () => {
                                 <h3 className={ styles.statusTitle }>Total de turnos</h3>
                                     
                                 <div className={ styles.statusContainer }>
-                                    <span className={ styles.statusText }>{ appointmentsTotalCount } { appointmentsTotalCount == 1 ? 'turno' : 'turnos' }</span>
+                                    <span className={ styles.statusText }>{ appointments.count } { appointments.count == 1 ? 'turno' : 'turnos' }</span>
                                 </div>
                             </div>
                         </div>
@@ -86,7 +79,7 @@ export const Management = () => {
                                 <h3 className={ styles.statusTitle }>Turnos de febrero</h3>
                                     
                                 <div className={ styles.statusContainer }>
-                                    <span className={ styles.statusText }>192 turnos</span>
+                                    <span className={ styles.statusText }>{ appointments.monthCount } turnos</span>
                                 </div>
                             </div>
                         </div>
@@ -104,12 +97,17 @@ export const Management = () => {
 
                         <div className={ styles.calendars }>
                             <div className={ styles.calendarHeader }>
-                                <h3 className={ styles.calendarTitle }>Turnos vigentes por calendario</h3>
+                                <h3 className={ styles.calendarTitle }>Turnos por calendario</h3>
                             </div>
 
                             <div className={ styles.calendarsScrollable }>
                                 {calendars.map(calendar => (
-                                    <ManagementCalendar image={ calendar.image } name={ calendar.name } appointmentsCount={ calendar.appointments }  />
+                                    <ManagementCalendar 
+                                        key={ calendar._id }
+                                        image={ calendar.image } 
+                                        name={ calendar.name } 
+                                        appointmentsCount={ calendar.appointments }  
+                                    />
                                 ))}
                             </div>
                         </div>

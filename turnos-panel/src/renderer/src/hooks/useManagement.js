@@ -3,19 +3,29 @@ import turnos from "../api/turnos";
 
 export const useManagement = ({ shopId }) => {
    
-    const [appointmentsTotalCount, setAppointmentsTotalCount] = useState(0);
+    const [appointments, setAppointments] = useState(0);
     const [calendars, setCalendars] = useState([]);
+    const [loading, setLoading] = useState({
+        appointments: false,
+        calendars: false
+    });
 
     useEffect(() => {
         getAppointmentsTotalCount(shopId)
-            .then(setAppointmentsTotalCount);
+            .then(data => {
+                setAppointments(data);
+                setLoading((prevState) => ({...prevState, appointments: true }));
+            });
     }, [shopId]);
 
     useEffect(() => {
         getCalendarsWithAppointments(shopId)
-            .then(setCalendars);
+            .then(data => {
+                setCalendars(data);
+                setLoading((prevState) => ({...prevState, calendars: true }));
+            });
     }, [shopId]);
-   
+
     const getAppointmentsTotalCount = async(shopId) => {
         try {
             const { data } = await turnos.get(`/shops/${ shopId }/appointments`);
@@ -37,7 +47,8 @@ export const useManagement = ({ shopId }) => {
     }
 
     return {
-        appointmentsTotalCount,
-        calendars
+        appointments,
+        calendars,
+        loading: !Object.values(loading).every(item => item === true)
     }
 }

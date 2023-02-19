@@ -130,11 +130,17 @@ const getAppointmentsByShopId = async(req, res = response) => {
     const { shopId } = req.params;
 
     try {
-        const appointments = await Appointment.find({ shop_id: shopId }).count();
+        const currentMonth = new Date().getMonth();
+        const appointments = await Appointment.find({ shop_id: shopId });     
+        const monthCount = appointments.filter(appointment => currentMonth === appointment.appointment_date_start.month);
+    
         res.status(200).json({
             ok: true,
-            appointments
-        })
+            appointments: {
+                count: appointments.length,
+                monthCount: monthCount.length
+            }
+        });
     } catch(error) {
         unknownError(res, error);
     }
@@ -145,12 +151,12 @@ const getCalendarsWithAppointments = async(req, res = response) => {
 
     try {
         const calendars = await Calendar.find({ shop_id: shopId });
-
         const calendarsInfo = await Promise.all(calendars.map(async(calendar) => {
 
             const { name, image, _id } = calendar;
 
             return {
+                _id,
                 name,
                 image,
                 appointments: await Appointment.find({ calendar_id: _id }).count()
