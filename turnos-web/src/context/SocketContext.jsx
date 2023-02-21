@@ -1,11 +1,21 @@
-import { createContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { useSocket } from "../hooks/useSocket";
+import { AuthContext } from "./AuthContext";
 
 export const SocketContext = createContext({});
 
 export const SocketProvider = ({ children }) => {
 
-    const { socket, online } = useSocket('http://localhost:3000');
+    const { socket, online, connectSocket, disconnectSocket } = useSocket('http://localhost:3100');
+    const { status } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (status === 'authenticated') { connectSocket() }
+    }, [status]);
+
+    useEffect(() => {
+        if (status === 'not-authenticated') { disconnectSocket() }
+    }, [status]);
 
     return (
         <SocketContext.Provider

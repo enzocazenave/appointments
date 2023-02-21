@@ -4,6 +4,7 @@ import { AppointmentsRoutes } from '../appointments/routes/AppointmentsRoutes';
 import { useAuthContext } from '../hooks';
 import { LoadingPage } from '../appointments/pages';
 import { CalendarProvider } from '../context/CalendarContext';
+import { SocketProvider } from '../context/SocketContext';
 
 export const AppRouter = () => {
 
@@ -17,9 +18,11 @@ export const AppRouter = () => {
             {
                 (status === 'authenticated')
                     ? <Route path="/*" element={ 
-                        <CalendarProvider>
-                            <AppointmentsRoutes /> 
-                        </CalendarProvider>
+                        <SocketProvider>
+                            <CalendarProvider>
+                                <AppointmentsRoutes /> 
+                            </CalendarProvider>
+                        </SocketProvider>
                     } />
                     : <Route path="/*" element={ <AuthRoutes /> } />
             }
