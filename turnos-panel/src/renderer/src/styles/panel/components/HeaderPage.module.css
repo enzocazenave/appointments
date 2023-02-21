@@ -32,3 +32,19 @@
 .headerButton:hover {
     background-color: #e0e0e0;
 }
+
+.headerRight {
+    display: flex;
+    gap: 1rem;
+}
+
+.refreshButton {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.refreshButton:hover {
+    opacity: .9;
+    cursor: pointer;
+}

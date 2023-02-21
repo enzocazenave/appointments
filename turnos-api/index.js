@@ -18,6 +18,7 @@ app.use(logger('dev'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/shops', require('./routes/shop'));
 app.use('/api/users', require('./routes/user'));
+app.use('/api/notifications', require('./routes/notification'));
 
 app.listen(PORT, () => {
     console.log(`\nSTARTING BACKEND\n✔  http://localhost:${ PORT }`);

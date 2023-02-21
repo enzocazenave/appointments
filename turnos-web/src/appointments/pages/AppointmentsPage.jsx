@@ -13,12 +13,14 @@ export const AppointmentsPage = () => {
         notCurrent: [],
         cancelled: []
     });
+
     const [appointmentsToShow, setAppointmentsToShow] = useState(appointments.current);
     const [appointmentSelected, setAppointmentSelected] = useState({});
     const [appointmentsLoaded, setAppointmentsLoaded] = useState(false);
     const [appointmentsType, setAppointmentsType] = useState('current'); // current - notCurrent - cancelled
     const { user } = useAuthContext();
-
+    
+    console.log(appointmentSelected)
     useEffect(() => {
         turnos.get(`/users/appointments/${ user._id }`)
             .then(({ data }) => setAppointments({ 
@@ -98,7 +100,7 @@ export const AppointmentsPage = () => {
                     </div>
                     <div className={ styles.appointmentsInfo }>
                         {
-                            (appointmentSelected?.shop?.image)
+                            (appointmentSelected?.shop?.title)
                             ? <div className={ styles.containerInfo }>
                                 <img className={ styles.infoImage } src={ appointmentSelected.shop.image } />
                                 <h2 className={ styles.infoTitle }>{ appointmentSelected.shop.title }</h2>

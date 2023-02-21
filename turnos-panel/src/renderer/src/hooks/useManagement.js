@@ -26,6 +26,25 @@ export const useManagement = ({ shopId }) => {
             });
     }, [shopId]);
 
+    const refreshData = () => {
+        setLoading({
+            appointments: false,
+            calendars: false
+        });
+
+        getAppointmentsTotalCount(shopId)
+            .then(data => {
+                setAppointments(data);
+                setLoading((prevState) => ({...prevState, appointments: true }));
+            });
+
+        getCalendarsWithAppointments(shopId)
+            .then(data => {
+                setCalendars(data);
+                setLoading((prevState) => ({...prevState, calendars: true }));
+            });
+    }
+
     const getAppointmentsTotalCount = async(shopId) => {
         try {
             const { data } = await turnos.get(`/shops/${ shopId }/appointments`);
@@ -49,6 +68,7 @@ export const useManagement = ({ shopId }) => {
     return {
         appointments,
         calendars,
-        loading: !Object.values(loading).every(item => item === true)
+        loading: !Object.values(loading).every(item => item === true),
+        refreshData
     }
 }

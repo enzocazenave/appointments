@@ -8,3 +8,5 @@ export * from './BellRinging';
 export * from './CircleCheck';
 export * from './Cash';
 export * from './CircleCross';
+export * from './Refresh';
+export * from './Trash';

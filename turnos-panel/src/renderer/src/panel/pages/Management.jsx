@@ -36,7 +36,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 export const Management = () => {
 
     const { user } = useAuthContext();
-    const { appointments, calendars, loading } = useManagement({ shopId: user._id });
+    const { appointments, calendars, loading, refreshData } = useManagement({ shopId: user._id });
 
     return (
         <div 
@@ -55,7 +55,7 @@ export const Management = () => {
                 (loading)
                 ? <Loader />
                 : (<>
-                    <HeaderPage title="Gestión" showButton />
+                    <HeaderPage title="Gestión" showButton refreshFunction={ refreshData } />
 
                     <div className={ styles.firstLine }>
                         <CommerceStatus payed />
