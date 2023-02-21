@@ -9,7 +9,7 @@ const socketConnection = async(socket, io) => {
 
     socket.on('disconnect', async() => {
         console.log(`${ _id } | ❌`)
-    })
+    });
 }
 
 module.exports = socketConnection;
