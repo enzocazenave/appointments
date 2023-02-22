@@ -2,10 +2,10 @@ const jwt = require('jsonwebtoken');
 
 const verifyJWT = (token = '') => {
     try {
-        const { _id } = jwt.verify(token, process.env.SECRET_TOKEN_KEY);
-        return [true, _id];
+        const { _id, title = null } = jwt.verify(token, process.env.SECRET_TOKEN_KEY);
+        return [true, _id, title];
     } catch(error) {
-        return [false, null];
+        return [false, null, null];
     }
 }
 

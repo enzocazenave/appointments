@@ -6,6 +6,10 @@ const ShopSchema = Schema({
         required: true, 
         default: Date.now 
     },
+    socket_id: {
+        type: String,
+        default: ''
+    },
     title: {
         type: String,
         required: true

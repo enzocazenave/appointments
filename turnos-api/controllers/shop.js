@@ -71,7 +71,7 @@ const createAppointment = async(req, res = response) => {
 
     try {
 
-        let appointment = await Appointment.findOne({ appointment_date_start, shop_id: shopId });
+        let appointment = await Appointment.findOne({ appointment_date_start, shop_id: shopId, calendar_id: calendarId });
     
         if (appointment) return res.status(400).json({
             ok: false,

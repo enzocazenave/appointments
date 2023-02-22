@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { useState } from "react"
 import turnos from "../api/turnos"
 import { CalendarContext } from "../context/CalendarContext";
+import { SocketContext } from "../context/SocketContext";
 import { useAuthContext } from "./useAuthContext";
 
 export const useAppointments = () => {
@@ -11,6 +12,7 @@ export const useAppointments = () => {
     const { appointments, setAppointments } = useContext(CalendarContext);
     const [isCreatingAppointment, setIsCreatingAppointment] = useState(false);
     const [isLoadingAppointments, setIsLoadingAppointments] = useState(false);
+    const { socket } = useContext(SocketContext);
 
     const createAppointment = async(credentials, calendar) => {
         setIsCreatingAppointment(true);
@@ -42,6 +44,11 @@ export const useAppointments = () => {
             });
 
             setIsCreatingAppointment(false);
+            socket.emit('create-appointment-notification', {
+                user_id: user._id,
+                shop_id: calendar.shop_id,
+                text: `Nuevo turno reservado en ${ calendar.name }`,
+            })
             return data;
         } catch(error) {
             setIsCreatingAppointment(false);

@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import turnos from "../api/turnos";
+import { SocketContext } from "../contexts/SocketContext";
+import { UiContext } from "../contexts/UiContext";
 import { useAuthContext } from "./useAuthContext";
 
 export const useNotification = () => {
@@ -11,6 +13,8 @@ export const useNotification = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const { user } = useAuthContext();
     const dropdownRef = useRef();
+    const { socket } = useContext(SocketContext);
+    const { createNotification } = useContext(UiContext);
 
     useEffect(() => {
         const handleDropdown = (e) => {
@@ -31,6 +35,15 @@ export const useNotification = () => {
                 setNotificationsLoaded(true);
             });
     }, []);
+
+    useEffect(() => {
+        socket?.on('create-appointment-notification', (payload) => {
+            setNewNotifications(true);
+            console.log(payload);
+            createNotification(payload.text, 'success', 4000, 'right');
+            setNotifications((prevNotifications) => [payload, ...prevNotifications]);
+        });
+    }, [socket]); 
 
     const getNotifications = async(notificationsLimit) => {
         try {

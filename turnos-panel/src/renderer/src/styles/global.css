@@ -11,3 +11,16 @@ body {
 .recharts-tooltip-wrapper {
     outline: none;
 }
+
+::-webkit-scrollbar {
+    width: .3rem;
+}
+ 
+::-webkit-scrollbar-track {
+    background-color: #9c9c9c;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background-color: #00cc8f;
+  border-radius: 100px;
+}

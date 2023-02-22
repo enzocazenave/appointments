@@ -13,6 +13,7 @@
     padding: 0.8rem;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 1rem;
 }
 
@@ -45,6 +46,8 @@
     opacity: 0;
     visibility: hidden;
     transition: 0.25s;
+    max-height: 30rem;
+    overflow: auto;
 }
 
 .menu::before {

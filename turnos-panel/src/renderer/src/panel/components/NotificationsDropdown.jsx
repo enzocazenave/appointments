@@ -37,7 +37,7 @@ export const NotificationsDropdown = () => {
                         </li> 
                     )
                     : notifications?.map(notification => (
-                        <li className={ styles.menuItem }>
+                        <li className={ styles.menuItem } key={ notification._id }>
                             <span>{ notification.text }</span>
                             <button className={ styles.menuItemDelete }>
                                 <Trash />
@@ -45,6 +45,11 @@ export const NotificationsDropdown = () => {
                         </li>
                     ))
                 }
+                { (notifications?.length === 10) && (
+                    <li className={ styles.menuItem }>
+                        <span>Ver más</span>
+                    </li>
+                ) }
             </ul>
         </div>
     )

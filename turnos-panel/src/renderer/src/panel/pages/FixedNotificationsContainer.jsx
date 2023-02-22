@@ -26,7 +26,7 @@ const FixedNotification = ({ id, type, text, removeNotification, location, durat
                 </span>
             </div>
             <div 
-                className={ styles.notificationProgressBar }
+                className={ (type === 'error') ? styles.notificationProgressBar : styles.notificationProgressBarGreen }
                 style={{
                     animationDuration: `${ duration / 1000 }s`
                 }}
