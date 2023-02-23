@@ -34,7 +34,7 @@ export const useNotification = () => {
                 setNotifications(data);
                 setNotificationsLoaded(true);
             });
-    }, []);
+    }, [notificationsLimit]);
 
     useEffect(() => {
         socket?.on('create-appointment-notification', (payload) => {
@@ -60,12 +60,17 @@ export const useNotification = () => {
         setNewNotifications(false);
     }
 
+    const incrementLimit = () => {
+        setNotificationsLimit((currentLimit) => currentLimit + 10);
+    }
+
     return {
         dropdownRef,
         dropdownOpen,
         handleDropdownOpen,
         newNotifications,
         notifications,
-        notificationsLoaded
+        notificationsLoaded,
+        incrementLimit
     }
 }

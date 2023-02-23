@@ -9,7 +9,8 @@ export const NotificationsDropdown = () => {
         newNotifications, 
         dropdownRef,
         dropdownOpen,
-        handleDropdownOpen
+        handleDropdownOpen,
+        incrementLimit
     } = useNotification();
 
     return (
@@ -45,11 +46,10 @@ export const NotificationsDropdown = () => {
                         </li>
                     ))
                 }
-                { (notifications?.length === 10) && (
-                    <li className={ styles.menuItem }>
-                        <span>Ver más</span>
-                    </li>
-                ) }
+                
+                <li className={ styles.menuItemShowMore } onClick={ incrementLimit }>
+                    <span>Ver más</span>
+                </li>
             </ul>
         </div>
     )

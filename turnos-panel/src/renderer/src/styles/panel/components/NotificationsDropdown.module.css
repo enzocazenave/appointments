@@ -17,6 +17,20 @@
     gap: 1rem;
 }
 
+.menuItemShowMore {
+    padding: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: #6d6d6d
+}
+
+.menuItemShowMore:hover {
+    background-color: #00cc8f;
+    color: #f0f0f0
+}
+
 .menuItemDelete {
     background-color: transparent;
     border: none;
