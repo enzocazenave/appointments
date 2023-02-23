@@ -6,7 +6,7 @@ export const SocketContext = createContext({});
 
 export const SocketProvider = ({ children }) => {
 
-    const { socket, online, connectSocket, disconnectSocket } = useSocket('http://localhost:3100');
+    const { socket, online, connectSocket, disconnectSocket } = useSocket('http://127.0.0.1:3100');
     const { status } = useContext(AuthContext);
 
     useEffect(() => {
