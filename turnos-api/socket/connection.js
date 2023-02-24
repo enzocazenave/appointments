@@ -8,10 +8,13 @@ const socketConnection = async(socket, io) => {
 
     if (!valid) return socket.disconnect();
 
-    if (title) await panelConnected(_id, socket);
+    if (title) {
+        await panelConnected(_id, socket);
+        console.log(`PANEL COMMERCE ${ _id } | ✅`);
+    } else {
+        console.log(`${ _id } | ✅`);
+    }
     
-    console.log(`${ _id } | ✅`);
-
     socket.on('create-appointment-notification', (payload) => createAppointmentNotification(payload, io));
 
     socket.on('disconnect', async() => {

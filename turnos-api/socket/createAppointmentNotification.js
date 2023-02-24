@@ -17,6 +17,7 @@ const createAppointmentNotification = async(payload, io) => {
 
     await notification.save();
 
+    delete notification._doc.__v;
     io.to(shop.socket_id).emit('create-appointment-notification', notification);
 }
 

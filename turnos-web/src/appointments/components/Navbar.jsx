@@ -37,7 +37,7 @@ export const Navbar = () => {
                         className={ styles.rightInput } 
                         type="text" 
                         placeholder="Buscá un comercio" 
-                        onFocus={ () => setIsSearchDropdownOpen(true) }
+                        onClick={ () => setIsSearchDropdownOpen(true) }
                         value={ searchQuery }
                         onChange={ ({ target }) => setSearchQuery(target.value) }
                     />

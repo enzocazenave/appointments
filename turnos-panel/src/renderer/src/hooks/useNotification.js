@@ -39,7 +39,6 @@ export const useNotification = () => {
     useEffect(() => {
         socket?.on('create-appointment-notification', (payload) => {
             setNewNotifications(true);
-            console.log(payload);
             createNotification(payload.text, 'success', 4000, 'right');
             setNotifications((prevNotifications) => [payload, ...prevNotifications]);
         });

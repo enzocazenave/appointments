@@ -24,7 +24,6 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
         appointment_date: '',
         appointment_hour: ''
     }); 
-    //calendar?.min_time?.minute
     const minTimeDatePicker = calculateMinTime(currentTime, formValues, calendar?.min_time,  calendar?.max_time);
 
     useEffect(() => {
@@ -121,7 +120,7 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
                 </div>
                 : appointmentCreated || error
                     ? <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: '1rem' }}>
-                        {(error) ? <h1 style={{ textAlign: 'center' }}>{error}</h1> : <h1 style={{ textAlign: 'center' }}>Turno reservado con éxito! Te esperamos el { `${ appointmentCreated.appointment_date_start.day }/${appointmentCreated.appointment_date_start.month + 1}/${appointmentCreated.appointment_date_start.year}` } a las {`${appointmentCreated.appointment_date_start.hour}:${appointmentCreated.appointment_date_start.minute}`}hs</h1>}
+                        {(error) ? <h1 style={{ textAlign: 'center' }}>{error}</h1> : <h1 style={{ textAlign: 'center' }}>Turno reservado con éxito! Te esperamos el { `${ appointmentCreated.appointment_date_start.day }/${appointmentCreated.appointment_date_start.month + 1}/${appointmentCreated.appointment_date_start.year}` } a las {`${appointmentCreated.appointment_date_start.hour}:${(appointmentCreated.appointment_date_start.minute == 0) ? `${appointmentCreated.appointment_date_start.minute}0` : appointmentCreated.appointment_date_start.minute }`}hs</h1>}
                         <button className={ styles.createAppointmentModalClose } onClick={ () => setIsModalOpen(false) }>Salir</button>
                     </div>
                     : (<>
@@ -157,7 +156,7 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
                                 timeIntervals={ calendar?.appointments_frequency }
                                 selected={ formValues.appointment_hour } 
                                 onChange={ (event) => onDateChanged(event, 'appointment_hour') }
-                                dateFormat="hh:mm"
+                                dateFormat="HH:mm"
                                 timeCaption="Hora"
                                 locale='es'
                                 showTimeSelect

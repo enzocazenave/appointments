@@ -85,7 +85,7 @@ export const Management = () => {
                         </div>
                     </div>
                     <div className={ styles.secondLine }>
-                        <ResponsiveContainer width={ '50%' } height={ 240 } >
+                        <ResponsiveContainer width={ '50%' } height={ 251 } >
                             <LineChart data={data}>
                                 <Line type="monotone" dataKey="appointments" strokeWidth='2px' stroke="#00cc8f" />
                                 <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />

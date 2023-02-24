@@ -62,6 +62,7 @@
     transition: 0.25s;
     max-height: 30rem;
     overflow: auto;
+    z-index: 1;
 }
 
 .menu::before {
