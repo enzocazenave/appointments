@@ -24,3 +24,17 @@ body {
   background-color: #00cc8f;
   border-radius: 100px;
 }
+
+.menuItemAnimation {
+    pointer-events: none;
+    animation: .3s opacityChange ease-in;
+}
+
+@keyframes opacityChange {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

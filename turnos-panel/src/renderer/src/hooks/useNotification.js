@@ -63,6 +63,25 @@ export const useNotification = () => {
         setNotificationsLimit((currentLimit) => currentLimit + 10);
     }
 
+    const deleteNotification = async(id) => {
+        try {
+            const { data } = await turnos.delete(`/notifications/${ id }/delete`);
+
+            if (data.ok) {
+                const notification = document.querySelector('[data-notification]');
+                notification.classList.add('menuItemAnimation');
+
+                setTimeout(() => {
+                    setNotifications((prevState) => {
+                        return prevState.filter(notification => notification._id !== id);
+                    })
+                }, 300)
+            }
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
     return {
         dropdownRef,
         dropdownOpen,
@@ -70,6 +89,7 @@ export const useNotification = () => {
         newNotifications,
         notifications,
         notificationsLoaded,
-        incrementLimit
+        incrementLimit,
+        deleteNotification
     }
 }

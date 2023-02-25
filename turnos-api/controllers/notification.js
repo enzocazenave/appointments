@@ -23,6 +23,11 @@ const deleteNotification = async(req, res = response) => {
 
     try {
         await Notification.findByIdAndDelete(notificationId);
+
+        res.status(200).json({
+            ok: true,
+            msg: `Notification ${ notificationId } deleted`
+        })
     } catch(error) {
         unknownError(res, error);
     }

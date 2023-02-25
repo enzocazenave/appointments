@@ -10,7 +10,8 @@ export const NotificationsDropdown = () => {
         dropdownRef,
         dropdownOpen,
         handleDropdownOpen,
-        incrementLimit
+        incrementLimit,
+        deleteNotification
     } = useNotification();
 
     return (
@@ -38,9 +39,16 @@ export const NotificationsDropdown = () => {
                         </li> 
                     )
                     : notifications?.map(notification => (
-                        <li className={ styles.menuItem } key={ notification._id }>
+                        <li 
+                            className={ styles.menuItem } 
+                            data-notification={ notification._id } 
+                            key={ notification._id }
+                        >
                             <span>{ notification.text }</span>
-                            <button className={ styles.menuItemDelete }>
+                            <button 
+                                className={ styles.menuItemDelete }
+                                onClick={ () =>  deleteNotification(notification._id)}
+                            >
                                 <Trash />
                             </button>
                         </li>
