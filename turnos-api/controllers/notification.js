@@ -7,11 +7,13 @@ const getNotifications = async(req, res = response) => {
     const { limit = 10 } = req.query;
 
     try {
-        const notifications = await Notification.find({ shop_id: shopId }).limit(limit);
-
+        const notifications = await Notification.find({ shop_id: shopId }).limit(limit).skip(limit - 10);
+        const notificationsCount = await Notification.find({ shop_id: shopId }).count() - limit;
+        
         res.status(200).json({
             ok: true,
-            notifications
+            notifications,
+            notificationsCount
         });
     } catch(error) {
         unknownError(res, error);

@@ -10,6 +10,7 @@ export const useNotification = () => {
     const [notificationsLoaded, setNotificationsLoaded] = useState(false);
     const [newNotifications, setNewNotifications] = useState(false);
     const [notificationsLimit, setNotificationsLimit] = useState(10);
+    const [notificationsCount, setNotificationsCount] = useState(0);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const { user } = useAuthContext();
     const dropdownRef = useRef();
@@ -31,7 +32,8 @@ export const useNotification = () => {
     useEffect(() => {
         getNotifications(notificationsLimit)
             .then(data => {
-                setNotifications(data);
+                setNotifications((prevState) => [...prevState, ...data.notifications]);
+                setNotificationsCount(data.notificationsCount);
                 setNotificationsLoaded(true);
             });
     }, [notificationsLimit]);
@@ -48,7 +50,7 @@ export const useNotification = () => {
         try {
             const { data } = await turnos.get(`/notifications/${user._id}?limit=${notificationsLimit}`);
 
-            return data.notifications;
+            return data;
         } catch(error) {
             console.log(error);
         }
@@ -90,6 +92,7 @@ export const useNotification = () => {
         notifications,
         notificationsLoaded,
         incrementLimit,
-        deleteNotification
+        deleteNotification,
+        notificationsCount
     }
 }

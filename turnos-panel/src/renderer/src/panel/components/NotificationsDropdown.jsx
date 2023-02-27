@@ -11,7 +11,8 @@ export const NotificationsDropdown = () => {
         dropdownOpen,
         handleDropdownOpen,
         incrementLimit,
-        deleteNotification
+        deleteNotification,
+        notificationsCount
     } = useNotification();
 
     return (
@@ -54,10 +55,11 @@ export const NotificationsDropdown = () => {
                         </li>
                     ))
                 }
-                
-                <li className={ styles.menuItemShowMore } onClick={ incrementLimit }>
-                    <span>Ver más</span>
-                </li>
+                { (notificationsCount > 0) && (
+                    <li className={ styles.menuItemShowMore } onClick={ incrementLimit }>
+                        <span>Ver más</span>
+                    </li>
+                )}
             </ul>
         </div>
     )
