@@ -4,6 +4,7 @@ import turnos from "../api/turnos";
 export const useManagement = ({ shopId }) => {
    
     const [appointments, setAppointments] = useState(0);
+    const [appointmentsForChart, setAppointmentsForChart] = useState(0);
     const [calendars, setCalendars] = useState([]);
     const [loading, setLoading] = useState({
         appointments: false,
@@ -67,6 +68,7 @@ export const useManagement = ({ shopId }) => {
 
     return {
         appointments,
+        appointmentsForChart,
         calendars,
         loading: !Object.values(loading).every(item => item === true),
         refreshData

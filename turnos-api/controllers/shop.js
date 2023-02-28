@@ -130,15 +130,20 @@ const getAppointmentsByShopId = async(req, res = response) => {
     const { shopId } = req.params;
 
     try {
-        const currentMonth = new Date().getMonth();
+        const monthCount = [{ month: 1, appointments: 0 },{ month: 2, appointments: 0 },{ month: 3, appointments: 0 },{ month: 4, appointments: 0 },{ month: 5, appointments: 0 },{ month: 6, appointments: 0 },{ month: 7, appointments: 0 },{ month: 8, appointments: 0 },{ month: 9, appointments: 0 },{ month: 10, appointments: 0 },{ month: 11, appointments: 0 },{ month: 12, appointments: 0 }];
         const appointments = await Appointment.find({ shop_id: shopId });     
-        const monthCount = appointments.filter(appointment => currentMonth === appointment.appointment_date_start.month);
-    
+
+        appointments.forEach(appointment => {
+            if (appointment.appointment_date_start.year !== new Date().getFullYear()) return;
+            
+            monthCount[appointment.appointment_date_start.month].appointments += 1
+        });
+
         res.status(200).json({
             ok: true,
             appointments: {
                 count: appointments.length,
-                monthCount: monthCount.length
+                monthCount,
             }
         });
     } catch(error) {
