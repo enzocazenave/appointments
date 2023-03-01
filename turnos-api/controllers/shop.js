@@ -135,8 +135,7 @@ const getAppointmentsByShopId = async(req, res = response) => {
 
         appointments.forEach(appointment => {
             if (appointment.appointment_date_start.year !== new Date().getFullYear()) return;
-            
-            monthCount[appointment.appointment_date_start.month].appointments += 1
+            monthCount[appointment.appointment_date_start.month].appointments += 1;
         });
 
         res.status(200).json({
