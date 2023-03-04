@@ -22,7 +22,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 export const Management = () => {
 
     const { user } = useAuthContext();
-    const { appointments, calendars, loading, refreshData, appointmentsForChart } = useManagement({ shopId: user._id });
+    const { appointments, calendars, loading, refreshData } = useManagement({ shopId: user._id });
 
     return (
         <div 

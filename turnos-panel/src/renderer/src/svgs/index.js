@@ -10,3 +10,4 @@ export * from './Cash';
 export * from './CircleCross';
 export * from './Refresh';
 export * from './Trash';
+export * from './Plus';
