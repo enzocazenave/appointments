@@ -2,10 +2,15 @@ import { useCalendars } from '../../hooks';
 import styles from '../../styles/panel/pages/Calendars.module.css';
 import { Plus } from '../../svgs';
 import { Avatar, HeaderPage } from '../components';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import es from 'date-fns/locale/es';
+import 'react-datepicker/dist/react-datepicker.css';
+
+registerLocale('es',es);
 
 export const Calendars = () => {
 
-    const { selectedCalendar, setSelectedcalendar } = useCalendars();
+    const { selectedCalendar, setSelectedcalendar, addAppointmentDay } = useCalendars();
 
     return (
         <div className={ styles.container }>
@@ -97,6 +102,7 @@ export const Calendars = () => {
                                 <input
                                     className={ styles.input }
                                     type="checkbox"
+                                    onChange={ () => addAppointmentDay(1) }
                                 />
                                 <span>Lunes</span>
                             </div>
@@ -104,6 +110,7 @@ export const Calendars = () => {
                                 <input
                                     className={ styles.input }
                                     type="checkbox"
+                                    onChange={ () => addAppointmentDay(2) }
                                 />
                                 <span>Martes</span>
                             </div>
@@ -111,6 +118,7 @@ export const Calendars = () => {
                                 <input
                                     className={ styles.input }
                                     type="checkbox"
+                                    onChange={ () => addAppointmentDay(3) }
                                 />
                                 <span>Miercoles</span>
                             </div>
@@ -118,6 +126,7 @@ export const Calendars = () => {
                                 <input
                                     className={ styles.input }
                                     type="checkbox"
+                                    onChange={ () => addAppointmentDay(4) }
                                 />
                                 <span>Jueves</span>
                             </div>
@@ -125,6 +134,7 @@ export const Calendars = () => {
                                 <input
                                     className={ styles.input }
                                     type="checkbox"
+                                    onChange={ () => addAppointmentDay(5) }
                                 />
                                 <span>Viernes</span>
                             </div>
@@ -132,6 +142,7 @@ export const Calendars = () => {
                                 <input
                                     className={ styles.input }
                                     type="checkbox"
+                                    onChange={ () => addAppointmentDay(6) }
                                 />
                                 <span>Sábado</span>
                             </div>
@@ -139,6 +150,7 @@ export const Calendars = () => {
                                 <input
                                     className={ styles.input }
                                     type="checkbox"
+                                    onChange={ () => addAppointmentDay(0) }
                                 />
                                 <span>Domingo</span>
                             </div>
@@ -151,6 +163,44 @@ export const Calendars = () => {
                                     className={ styles.input }
                                     type="text"
                                     placeholder="30"
+                                />
+                            </div>
+                            <div className={ styles.inputContainer }>
+                                <label>Primer horario de turnos</label>
+                                <DatePicker
+                                    className={ styles.input }
+                                    //timeIntervals={ calendar?.appointments_frequency }
+                                    //selected={ formValues.appointment_hour } 
+                                    //onChange={ (event) => onDateChanged(event, 'appointment_hour') }
+                                    dateFormat="HH:mm"
+                                    timeCaption="Hora"
+                                    locale='es'
+                                    showTimeSelect
+                                    showTimeSelectOnly
+                                    fixedHeight
+                                    placeholderText="Haz click aqui"
+                                    onKeyDown={ (e) => {
+                                        e.preventDefault()
+                                    }}
+                                />
+                            </div>
+                            <div className={ styles.inputContainer }>
+                                <label>Último horario de turnos</label>
+                                <DatePicker
+                                    className={ styles.input }
+                                    //timeIntervals={ calendar?.appointments_frequency }
+                                    //selected={ formValues.appointment_hour } 
+                                    //onChange={ (event) => onDateChanged(event, 'appointment_hour') }
+                                    dateFormat="HH:mm"
+                                    timeCaption="Hora"
+                                    locale='es'
+                                    showTimeSelect
+                                    showTimeSelectOnly
+                                    fixedHeight
+                                    placeholderText="Haz click aqui"
+                                    onKeyDown={ (e) => {
+                                        e.preventDefault()
+                                    }}
                                 />
                             </div>
                         </div>
