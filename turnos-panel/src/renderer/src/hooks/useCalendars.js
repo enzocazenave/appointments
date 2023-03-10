@@ -7,11 +7,13 @@ export const useCalendars = () => {
     const [appointmentsDays, setAppointmentsDays] = useState([]);
     const [calendars, setCalendars] = useState([]);
     const [selectedCalendar, setSelectedCalendar] = useState({});
+    const [loadingCalendars, setLoadingCalendars] = useState(true);
     const { user: { _id: shopId } } = useContext(AuthContext);
 
     useEffect(() => {
         turnos.get(`/shops/${shopId}/calendars`)
-            .then(({ data }) => setCalendars(data.calendars));
+            .then(({ data }) => setCalendars(data.calendars))
+            .finally(() => setLoadingCalendars(false))
     }, []);
 
     const changeAppointmentDay = (day) => {
@@ -29,6 +31,7 @@ export const useCalendars = () => {
         setSelectedCalendar,
         changeAppointmentDay,
         setAppointmentsDays,
-        appointmentsDays
+        appointmentsDays,
+        loadingCalendars
     }
 }
