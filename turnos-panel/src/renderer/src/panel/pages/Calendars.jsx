@@ -287,6 +287,7 @@ export const Calendars = () => {
                         >
                             { creatingCalendar ? 'Crear calendario' : 'Guardar cambios' }
                         </button>
+
                         {(creatingCalendar) && (
                             <button 
                                 className={`
@@ -298,8 +299,7 @@ export const Calendars = () => {
                             >
                                 Cancelar
                             </button>
-                        )}
-                        
+                        )}  
                     </div>
                 )}
             </div>
