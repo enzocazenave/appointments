@@ -23,6 +23,7 @@
     align-items: center;
     flex-direction: column;
     gap: 2rem;
+    overflow-y: auto;
 }
 
 .calendar {
@@ -37,6 +38,10 @@
     outline: none;
     border: none;
     cursor: pointer;
+}
+
+.calendarSelected {
+    background-color: #e7e7e7;
 }
 
 .calendar:hover {
@@ -98,4 +103,21 @@
     font-weight: 500;
     font-size: .9em;
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
+}
+
+.saveEditButton {
+    width: 100%;
+    background-color: #00cc8f;
+    padding: .5rem;
+    border: none;
+    border-radius: .5rem;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background .3s;
+}
+
+.saveEditButton:hover {
+    background-color: #00bc84;
 }

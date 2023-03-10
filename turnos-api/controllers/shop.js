@@ -50,7 +50,8 @@ const getCalendarsByShopId = async(req, res = response) => {
     const { id } = req.params;
 
     try {
-        const calendars = await Calendar.find({ shop_id: id })
+        const calendars = await Calendar.find({ shop_id: id });
+        
         if (!calendars) return res.status(400).json({
             ok: false,
             msg: 'El comercio no tiene calendarios de turnos'
