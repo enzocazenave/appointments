@@ -121,3 +121,24 @@
 .saveEditButton:hover {
     background-color: #00bc84;
 }
+
+.saveEditButtonDisabled {
+    background-color: #7ebba9;
+}
+
+.cancelEditButton {
+    width: 100%;
+    background-color: #cc0000;
+    padding: .5rem;
+    border: none;
+    border-radius: .5rem;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background .3s;
+}
+
+.cancelEditButton:hover {
+    background-color: #ce2323;
+}

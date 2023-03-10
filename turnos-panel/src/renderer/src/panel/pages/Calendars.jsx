@@ -10,9 +10,32 @@ import { setHours, setMinutes } from 'date-fns';
 
 registerLocale('es',es);
 
+const checkIfSomeChange = (selectedCalendar, inputValues, appointmentsDays) => {
+    if (selectedCalendar.name !== inputValues.name) return false;
+    if (selectedCalendar.text !== inputValues.description) return false;
+    if (selectedCalendar.appointments_frequency !== parseInt(inputValues.appointments_frequency)) return false;
+    if (selectedCalendar.appointments_days !== appointmentsDays) return false;
+    if (selectedCalendar.min_time.hour !== inputValues.first_time.getHours()) return false;
+    if (selectedCalendar.min_time.minute !== inputValues.first_time.getMinutes()) return false;
+    if (selectedCalendar.max_time.hour !== inputValues.second_time.getHours()) return false;
+    if (selectedCalendar.max_time.minute !== inputValues.second_time.getMinutes()) return false;
+
+    return true;
+}
+
 export const Calendars = () => {
 
-    const { calendars, selectedCalendar, setSelectedCalendar, appointmentsDays, changeAppointmentDay, setAppointmentsDays } = useCalendars();
+    const { 
+        calendars, 
+        selectedCalendar, 
+        setSelectedCalendar, 
+        appointmentsDays, 
+        changeAppointmentDay, 
+        setAppointmentsDays 
+    } = useCalendars();
+
+    const [creatingCalendar, setCreatingCalendar] = useState(false);
+
     const [inputValues, setInputValues] = useState({
         name: '',
         description: '',
@@ -23,6 +46,7 @@ export const Calendars = () => {
 
     useEffect(() => {
         if (!selectedCalendar._id) return;
+
         const { name, text, appointments_frequency, min_time, max_time, appointments_days } = selectedCalendar;
 
         setInputValues({
@@ -32,11 +56,41 @@ export const Calendars = () => {
             first_time: setHours(setMinutes(new Date(), min_time.minute), min_time.hour),
             second_time: setHours(setMinutes(new Date(), max_time.minute), max_time.hour)
         });
+
         setAppointmentsDays(appointments_days)
     }, [selectedCalendar])
 
     const onChangeInput = (key, value) => {
         setInputValues({ ...inputValues, [key]: value });
+    }
+
+    const saveChanges = () => {
+        console.log('hola')
+    }
+
+    const cancelCreate = () => {
+        setCreatingCalendar(false);
+        setInputValues({
+            name: '',
+            description: '',
+            appointments_frequency: '',
+            first_time: '',
+            second_time: ''
+        });
+        setAppointmentsDays([]);
+    }
+
+    const startCreatingCalendar = () => {
+        setSelectedCalendar({});
+        setCreatingCalendar(true);
+        setInputValues({
+            name: '',
+            description: '',
+            appointments_frequency: '',
+            first_time: '',
+            second_time: ''
+        });
+        setAppointmentsDays([]);
     }
 
     return (
@@ -45,7 +99,14 @@ export const Calendars = () => {
 
             <div className={ styles.menuContainer }>
                 <div className={ styles.menuCalendars }>
-                    <button style={{ fontWeight: 600 }} className={ styles.calendar }>
+                    <button 
+                        style={{ fontWeight: 600 }} 
+                        className={`
+                            ${styles.calendar}
+                            ${ (creatingCalendar) && styles.calendarSelected }
+                        `}
+                        onClick={ startCreatingCalendar }
+                    >
                         <Plus />
                         Crear calendario
                     </button>
@@ -57,7 +118,10 @@ export const Calendars = () => {
                                 ${ (calendar._id === selectedCalendar?._id) && styles.calendarSelected }
                             `}
                             key={ calendar._id }
-                            onClick={ () => setSelectedCalendar(calendar) }
+                            onClick={ () => {
+                                if (creatingCalendar) setCreatingCalendar(false);
+                                setSelectedCalendar(calendar) 
+                            }}
                         >
                             <Avatar src={ calendar.image } width={ 28 } height={ 28 } />
                             { calendar.name }
@@ -65,10 +129,10 @@ export const Calendars = () => {
                     ))}
                 </div>
                 
-                {(selectedCalendar?._id) && (
+                {(selectedCalendar?._id || creatingCalendar) && (
                     <div className={ styles.menuCalendarsSelected }>
                         <div className={ styles.menuFirstLine }>
-                            <Avatar width={ 200 } height={ 200 } />
+                            <Avatar src={ selectedCalendar.image } width={ 200 } height={ 200 } />
                             <div className={ styles.menuFirstLineRight }>
                                 <div className={ styles.inputContainer }>
                                     <label>Nombre</label>
@@ -213,7 +277,29 @@ export const Calendars = () => {
                             </div>
                         </div>   
 
-                        <button className={ styles.saveEditButton }>Guardar</button>
+                        <button 
+                            className={`
+                                ${styles.saveEditButton}
+                                ${checkIfSomeChange(selectedCalendar, inputValues, appointmentsDays) && styles.saveEditButtonDisabled}
+                            `}
+                            disabled={ checkIfSomeChange(selectedCalendar, inputValues, appointmentsDays) }
+                            onClick={ saveChanges }
+                        >
+                            { creatingCalendar ? 'Crear calendario' : 'Guardar cambios' }
+                        </button>
+                        {(creatingCalendar) && (
+                            <button 
+                                className={`
+                                    ${styles.cancelEditButton}
+                                    ${checkIfSomeChange(selectedCalendar, inputValues, appointmentsDays) && styles.saveEditButtonDisabled}
+                                `}
+                                disabled={ checkIfSomeChange(selectedCalendar, inputValues, appointmentsDays) }
+                                onClick={ cancelCreate }
+                            >
+                                Cancelar
+                            </button>
+                        )}
+                        
                     </div>
                 )}
             </div>
