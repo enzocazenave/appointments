@@ -90,6 +90,7 @@
     display: flex;
     gap: .5rem;
     align-items: center;
+    accent-color: #00cc8f;
 }
 
 .createAppointmentModalPicker {

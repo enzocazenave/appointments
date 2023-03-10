@@ -88,12 +88,33 @@ const createAppointment = async(req, res = response) => {
             appointment_date_end
         });
 
-        appointment.save();
+        await appointment.save();
     
         res.status(200).json({
             ok: true,
             appointment
         });
+    } catch(error) {
+        unknownError(res, error);
+    }
+}
+
+const createCalendar = async(req, res = response) => {
+    const { id } = req.params;
+    //const { appointments_frequency, min_time, max_time, appointments_days, name, text, image } = req.body;
+
+    try {
+        const calendar = new Calendar({
+            shop_id: id,
+            ...req.body
+        })
+
+        await calendar.save();
+
+        res.status(200).json({
+            ok: true,
+            calendar
+        })
     } catch(error) {
         unknownError(res, error);
     }
@@ -182,6 +203,7 @@ module.exports = {
     getShopById,
     getCalendarsByShopId,
     createAppointment,
+    createCalendar,
     getAllAppointmentsById,
     getAppointmentsByShopId,
     getCalendarsWithAppointments

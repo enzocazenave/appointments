@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getShops, getShopById, getCalendarsByShopId, createAppointment, getAllAppointmentsById, getAppointmentsByShopId, getCalendarsWithAppointments } = require('../controllers/shop');
+const { getShops, getShopById, getCalendarsByShopId, createAppointment, getAllAppointmentsById, getAppointmentsByShopId, getCalendarsWithAppointments, createCalendar } = require('../controllers/shop');
 const { check } = require('express-validator');
 const { fieldValidator } = require('../middlewares/fieldValidator');
 const { loginShop, renewShop, createShop } = require('../controllers/shopAuth');
@@ -33,6 +33,15 @@ router.get('/:id', [], getShopById);
 
 // OBTENER CALENDARIOS DE TIENDA POR SU UID
 router.get('/:id/calendars', [], getCalendarsByShopId);
+
+router.post('/:id/calendars', [
+    check('appointments_frequency', 'La frecuencia de turnos en minutos es obligatoria.').isNumeric(),
+    check('min_time', 'El horario de primer turno es obligatorio').isObject(),
+    check('max_time', 'El horario de primer turno es obligatorio').isObject(),
+    check('appointments_days', 'El horario del ultimo turno es obligatorio').isArray(),
+    check('name', 'El nombre del calendario es obligatorio').not().isEmpty(),
+    fieldValidator
+], createCalendar);
 
 // CREAR TURNO A TRAVES DE UID DE COMERCIO Y UID DE CALENDARIO
 router.post('/:shopId/:calendarId', [

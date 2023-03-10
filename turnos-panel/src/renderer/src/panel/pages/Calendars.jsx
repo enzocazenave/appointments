@@ -66,7 +66,7 @@ export const Calendars = () => {
     }
 
     const saveChanges = () => {
-        console.log('hola')
+        
     }
 
     const cancelCreate = () => {
