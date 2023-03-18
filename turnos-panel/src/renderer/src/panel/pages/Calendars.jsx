@@ -32,10 +32,11 @@ export const Calendars = () => {
         appointmentsDays, 
         changeAppointmentDay, 
         setAppointmentsDays,
-        loadingCalendars
+        loadingCalendars,
+        createCalendarAppointment,
+        creatingCalendar,
+        setCreatingCalendar
     } = useCalendars();
-
-    const [creatingCalendar, setCreatingCalendar] = useState(false);
 
     const [inputValues, setInputValues] = useState({
         name: '',
@@ -92,6 +93,19 @@ export const Calendars = () => {
             second_time: ''
         });
         setAppointmentsDays([]);
+    }
+
+    const createCalendar = () => {
+        const inputValuesFull = Object
+            .values(inputValues)
+            .every(value => (
+                value.length > 0 || 
+                value != ''
+            )
+        );
+        if (!inputValuesFull) return;
+
+        createCalendarAppointment(inputValues, appointmentsDays);
     }
 
     return (
@@ -298,7 +312,7 @@ export const Calendars = () => {
                                         ${checkIfSomeChange(selectedCalendar, inputValues, appointmentsDays) && styles.saveEditButtonDisabled}
                                     `}
                                     disabled={ checkIfSomeChange(selectedCalendar, inputValues, appointmentsDays) }
-                                    onClick={ saveChanges }
+                                    onClick={ creatingCalendar ? createCalendar : saveChanges }
                                 >
                                     { creatingCalendar ? 'Crear calendario' : 'Guardar cambios' }
                                 </button>

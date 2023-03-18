@@ -19,9 +19,9 @@ while True:
     email = input('\nCorreo electrónico: ')
     password = getpass('Contraseña: ')
 
-    login_user = requests.post(url + '/auth/loginAdmin', json={ 
-        "email": email, 
-        "password": password 
+    login_user = requests.post(url + '/auth/loginAdmin', json={
+        "email": email,
+        "password": password
     })
 
     if login_user.status_code == 200:
@@ -33,7 +33,8 @@ def show_menu():
     print()
     print("################### MENU ###################")
     print("1. Crear nueva tienda")
-    print("2. Salir")
+    print("2. Eliminar tienda")
+    print("3. Salir")
 
 def create_shop():
     while True:
@@ -41,7 +42,7 @@ def create_shop():
         title = input('Ingrese nombre de comercio: ')
         username = input('Ingrese nombre de usuario para el comercio: ')
         password = input('Ingrese contraseña para el comercio: ')
-      
+
         create_shop = requests.post(url + '/shops/create', json={
             "title": title,
             "username": username,
@@ -59,9 +60,12 @@ def create_shop():
         if create_shop.status_code == 403:
             print('\n' + data['msg'])
             continue
-        
+
         print("Ocurrió un error vuelve a completar los campos.")
-    
+
+def delete_shop():
+
+
 while True:
     show_menu()
     option = int(input('\nElige el numero de opcion: '))
@@ -69,4 +73,6 @@ while True:
     if option == 1:
         create_shop()
     elif option == 2:
+        delete_shop()
+    else:
         break

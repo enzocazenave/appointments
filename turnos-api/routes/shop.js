@@ -34,6 +34,7 @@ router.get('/:id', [], getShopById);
 // OBTENER CALENDARIOS DE TIENDA POR SU UID
 router.get('/:id/calendars', [], getCalendarsByShopId);
 
+// CREAR CALENDARIOS DE TIENDA
 router.post('/:id/calendars', [
     check('appointments_frequency', 'La frecuencia de turnos en minutos es obligatoria.').isNumeric(),
     check('min_time', 'El horario de primer turno es obligatorio').isObject(),
