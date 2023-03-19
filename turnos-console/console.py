@@ -50,6 +50,8 @@ def create_shop():
             "id": data['_id']
         })
 
+        create_shop_parsed = create_shop.json()
+
         if create_shop.status_code == 200:
             print("\n###############################################")
             print(f"# { title } fue creado exitosamente.")
@@ -61,10 +63,11 @@ def create_shop():
             print('\n' + data['msg'])
             continue
 
+        if create_shop.status_code == 400:
+            print(create_shop_parsed['msg'])
+            continue
+
         print("Ocurrió un error vuelve a completar los campos.")
-
-def delete_shop():
-
 
 while True:
     show_menu()
@@ -72,7 +75,5 @@ while True:
 
     if option == 1:
         create_shop()
-    elif option == 2:
-        delete_shop()
     else:
         break

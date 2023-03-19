@@ -85,6 +85,7 @@ const createShop = async(req, res = response) => {
             ok: true,
         });
     } catch(error) {
+        console.log(error);
         unknownError(res, error);
     }
 }
