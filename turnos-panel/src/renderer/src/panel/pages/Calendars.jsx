@@ -35,7 +35,8 @@ export const Calendars = () => {
         loadingCalendars,
         createCalendarAppointment,
         creatingCalendar,
-        setCreatingCalendar
+        setCreatingCalendar,
+        saveChangesCalendarAppointment
     } = useCalendars();
 
     const [inputValues, setInputValues] = useState({
@@ -64,10 +65,6 @@ export const Calendars = () => {
 
     const onChangeInput = (key, value) => {
         setInputValues({ ...inputValues, [key]: value });
-    }
-
-    const saveChanges = () => {
-        
     }
 
     const cancelCreate = () => {
@@ -106,6 +103,11 @@ export const Calendars = () => {
         if (!inputValuesFull) return;
 
         createCalendarAppointment(inputValues, appointmentsDays);
+    }
+
+    const saveChanges = () => {
+        if (checkIfSomeChange(selectedCalendar, inputValues, appointmentsDays)) return;
+        saveChangesCalendarAppointment(inputValues, appointmentsDays);
     }
 
     return (

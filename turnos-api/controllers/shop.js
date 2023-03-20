@@ -198,6 +198,21 @@ const getCalendarsWithAppointments = async(req, res = response) => {
     }
 }
 
+const updateAppointment = async(req, res = response) => {
+    const { calendarId } = req.params;
+    
+    try {
+        const calendar = await Calendar.findByIdAndUpdate(calendarId, req.body, { returnOriginal: false });
+
+        res.status(200).json({
+            ok: true,
+            calendar
+        });
+    } catch(error) {
+        unknownError(res, error);
+    }
+}
+
 module.exports = {
     getShops,
     getShopById,
@@ -206,5 +221,6 @@ module.exports = {
     createCalendar,
     getAllAppointmentsById,
     getAppointmentsByShopId,
-    getCalendarsWithAppointments
+    getCalendarsWithAppointments,
+    updateAppointment
 }

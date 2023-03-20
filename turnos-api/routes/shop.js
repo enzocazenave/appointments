@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getShops, getShopById, getCalendarsByShopId, createAppointment, getAllAppointmentsById, getAppointmentsByShopId, getCalendarsWithAppointments, createCalendar } = require('../controllers/shop');
+const { getShops, getShopById, getCalendarsByShopId, createAppointment, getAllAppointmentsById, getAppointmentsByShopId, getCalendarsWithAppointments, createCalendar, updateAppointment } = require('../controllers/shop');
 const { check } = require('express-validator');
 const { fieldValidator } = require('../middlewares/fieldValidator');
 const { loginShop, renewShop, createShop } = require('../controllers/shopAuth');
@@ -43,6 +43,8 @@ router.post('/:id/calendars', [
     check('name', 'El nombre del calendario es obligatorio').not().isEmpty(),
     fieldValidator
 ], createCalendar);
+
+router.patch('/:shopId/:calendarId', [], updateAppointment);
 
 // CREAR TURNO A TRAVES DE UID DE COMERCIO Y UID DE CALENDARIO
 router.post('/:shopId/:calendarId', [

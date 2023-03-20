@@ -125,6 +125,7 @@
 
 .saveEditButtonDisabled {
     background-color: #7ebba9;
+    pointer-events: none;
 }
 
 .cancelEditButton {
