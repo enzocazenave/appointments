@@ -28,7 +28,7 @@ export const useAppointments = () => {
         }
 
         const appointment_date_end = structuredClone(appointment_date_start);
-        appointment_date_end.minute += 15;
+        appointment_date_end.minute += calendar.appointments_frequency;
 
         if (appointment_date_end.minute === 60) {
             appointment_date_end.minute = 0;

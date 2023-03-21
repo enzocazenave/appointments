@@ -24,6 +24,7 @@ export const DialogEvent = ({ isModalOpen, setIsModalOpen, calendar }) => {
         appointment_date: '',
         appointment_hour: ''
     }); 
+    
     const minTimeDatePicker = calculateMinTime(currentTime, formValues, calendar?.min_time,  calendar?.max_time);
 
     useEffect(() => {
